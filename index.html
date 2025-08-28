@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>필라테스 호두 강사 교육 포털 - 프로그램 가이드</title>
+    <meta name="description" content="필라테스 호두 강사 및 직원을 위한 전문 프로그램 교육 가이드">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --deep-navy: #001F3F;
+            --golden-brown: #996515;
+            --warm-beige: #F5F1E8;
+            --soft-cream: #FEFCF8;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--soft-cream);
+            color: var(--deep-navy);
+        }
+        
+        .program-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 31, 63, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(153, 101, 21, 0.1);
+        }
+        
+        .program-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 31, 63, 0.15);
+        }
+        
+        .program-header {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--golden-brown) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .program-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .program-content {
+            padding: 2.5rem;
+            background: var(--soft-cream);
+        }
+        
+        .highlight-section {
+            background: var(--warm-beige);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 5px solid var(--golden-brown);
+            box-shadow: 0 4px 15px rgba(153, 101, 21, 0.1);
+        }
+        
+        .content-section {
+            margin: 2rem 0;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(153, 101, 21, 0.1);
+        }
+        
+        .content-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            color: var(--deep-navy);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--golden-brown);
+            border-radius: 2px;
+        }
+        
+        .faq-container {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(153, 101, 21, 0.1);
+        }
+        
+        .faq-item {
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: var(--warm-beige);
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--golden-brown);
+        }
+        
+        .faq-question {
+            color: var(--deep-navy);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .faq-answer {
+            color: var(--deep-navy);
+            line-height: 1.8;
+        }
+        
+        .reference-section {
+            background: var(--deep-navy);
+            color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .reference-title {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--soft-cream);
+        }
+        
+        .reference-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .reference-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--warm-beige);
+        }
+        
+        .reference-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .ai-guide-card {
+            background: linear-gradient(135deg, var(--golden-brown) 0%, var(--deep-navy) 100%);
+            color: white;
+            border-radius: 1rem;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ai-guide-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .ai-guide-link {
+            display: inline-block;
+            background: var(--soft-cream);
+            color: var(--deep-navy);
+            padding: 1rem 2.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .ai-guide-link:hover {
+            background: var(--warm-beige);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-header {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 31, 63, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-link {
+            color: var(--deep-navy);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--golden-brown);
+            background: var(--warm-beige);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--golden-brown) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .eye-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .eye {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            background: var(--soft-cream);
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--golden-brown);
+        }
+        
+        .pupil {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--deep-navy);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease-out;
+        }
+        
+        .eye-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--soft-cream);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+        
+        .program-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 31, 63, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(153, 101, 21, 0.1);
+            min-height: 800px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .program-content {
+            padding: 2.5rem;
+            background: var(--soft-cream);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .program-content {
+                padding: 1.5rem;
+            }
+            
+            .program-header {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        strong {
+            color: var(--deep-navy);
+            font-weight: 700;
+        }
+        
+        em {
+            color: var(--golden-brown);
+            font-style: italic;
+            font-weight: 500;
+        }
+        
+        /* Eye movement animation */
+        .pupil {
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="smooth-scroll">
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl" style="color: var(--deep-navy);">
+                    <span style="font-family: 'Manrope', sans-serif; font-weight: 700;">PILATES</span>
+                    <span style="font-family: 'Manrope', sans-serif; color: var(--golden-brown); margin-left: 0.25rem; font-weight: 700;">HODU</span>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#pain-rehab" class="nav-link">통증재활</a>
+                    <a href="#mannequin-tone" class="nav-link">마네킹톤</a>
+                    <a href="#flat-scol" class="nav-link">플랫스콜</a>
+                    <a href="#golf" class="nav-link">골프</a>
+                    <a href="#kids" class="nav-link">키즈</a>
+                    <a href="#prenatal" class="nav-link">프리내털</a>
+                    <a href="#senior" class="nav-link">시니어</a>
+                    <a href="#ai-guide" class="nav-link">AI 가이드</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container mx-auto px-6 relative z-10">
+            <h1 class="eye-title">
+                필라테스 호두 프로그램 가이드
+            </h1>
+            <div class="eye-container">
+                <div class="eye" id="left-eye">
+                    <div class="pupil" id="left-pupil"></div>
+                </div>
+                <div class="eye" id="right-eye">
+                    <div class="pupil" id="right-pupil"></div>
+                </div>
+            </div>
+            <p class="text-xl md:text-2xl opacity-90 max-w-4xl mx-auto mb-4">
+                강사 및 직원을 위한 전문적인 프로그램 교육 자료
+            </p>
+            <p class="text-lg opacity-80 max-w-3xl mx-auto">
+                7가지 맞춤형 케어 프로그램의 핵심 원리와 운영 가이드
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="container mx-auto px-6 py-12">
+        <div class="grid-container">
+            <!-- 통증재활 필라테스 Card -->
+            <div id="pain-rehab" class="program-card">
+                <div class="program-header">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">통증재활 필라테스</h2>
+                    <p class="text-lg opacity-90">Pain Rehabilitation Pilates</p>
+                    <p class="text-base opacity-80 mt-2">만성 통증 완화를 위한 의학적 필라테스 재활 프로그램</p>
+                </div>
+                
+                <div class="program-content">
+                    <div class="highlight-section">
+                        <h3 class="section-title">프로그램 개요</h3>
+                        <p class="leading-relaxed">
+                            <em>통증재활 필라테스</em>는 만성 통증으로 고통받는 환자들을 위한 <strong>의학적 필라테스 재활 프로그램</strong>입니다. 
+                            척추 질환, 관절염, 근육통 등 다양한 통증 원인에 대해 <em>개별 맞춤형 운동 처방</em>을 제공하며, 
+                            통증의 근본 원인을 해결하여 <strong>지속적인 통증 완화</strong>를 목표로 합니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">운동 목표 및 기대 효과</h3>
+                        <p class="leading-relaxed mb-4">
+                            통증재활 필라테스의 주요 목표는 <strong>통증 감소</strong>와 <strong>기능 회복</strong>입니다. 
+                            첫째, <em>근육 이완 및 스트레칭</em>을 통해 긴장된 근육을 풀어주고 통증을 완화합니다.
+                        </p>
+                        <p class="leading-relaxed">
+                            둘째, <strong>근력 강화</strong>를 통해 약화된 근육을 강화하여 통증의 재발을 방지하며, 
+                            <em>자세 교정</em>과 <strong>기능적 동작 개선</strong>을 통해 일상생활에서의 통증을 줄입니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">대상 고객 및 적응증</h3>
+                        <p class="leading-relaxed">
+                            <em>만성 요통</em>, <em>목 디스크</em>, <em>허리 디스크</em> 등 척추 질환으로 고통받는 환자, 
+                            <em>관절염</em>, <em>근막통증증후군</em> 등 근골격계 질환 환자, 
+                            <em>수술 후 재활</em>이 필요한 환자에게 적합합니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-container">
+                        <h3 class="section-title">자주 묻는 질문</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 통증이 있을 때도 운동해도 되나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: <em>급성 통증</em>이 심할 때는 운동을 중단하고 전문의와 상담합니다. 
+                                <strong>만성 통증</strong>의 경우 <em>통증을 악화시키지 않는 범위</em>에서 
+                                가벼운 운동부터 시작하여 점진적으로 강도를 높입니다.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 얼마나 걸리면 통증이 줄어드나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 개인차가 있지만 일반적으로 <em>4-6주</em> 정도 꾸준히 운동하면 
+                                <strong>통증 감소</strong>를 느낄 수 있습니다. 
+                                <em>근력 강화</em>와 <em>자세 교정</em> 효과는 <strong>8-12주</strong> 후에 더욱 명확하게 나타납니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reference-section">
+                        <h4 class="reference-title">참고 문헌 및 자료</h4>
+                        <ul class="reference-list">
+                            <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (통증재활 프로그램 설명)</li>
+                            <li>PART1_통증재활 프로그램의 기초 (2019) – 만성 통증의 정의 및 원인</li>
+                            <li>의학적 필라테스의 원리와 적용</li>
+                            <li>프로그램 구성 및 자문: 가정의학과/안테에이징 전문의 이용승</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 마네킹톤 필라테스 Card -->
+            <div id="mannequin-tone" class="program-card">
+                <div class="program-header">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">마네킹톤 필라테스</h2>
+                    <p class="text-lg opacity-90">Mannequin Tone Program</p>
+                    <p class="text-base opacity-80 mt-2">체형 교정과 근력 강화를 위한 맞춤형 다이어트 프로그램</p>
+                </div>
+                
+                <div class="program-content">
+                    <div class="highlight-section">
+                        <h3 class="section-title">프로그램 개요</h3>
+                        <p class="leading-relaxed">
+                            <em>마네킹톤</em>은 <strong>체형 교정과 근력 강화</strong>를 동시에 달성하는 맞춤형 다이어트 프로그램입니다. 
+                            단순한 체중 감량이 아닌 <em>근육량 증가와 체지방 감소</em>를 통해 <strong>건강한 체형 변화</strong>를 목표로 하며, 
+                            요요 현상 없이 <em>지속 가능한 다이어트</em>를 제공합니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">운동 목표 및 기대 효과</h3>
+                        <p class="leading-relaxed mb-4">
+                            마네킹톤 프로그램의 주요 목표는 <strong>체형 교정</strong>과 <strong>대사율 향상</strong>입니다. 
+                            <em>근력 강화 운동</em>을 통해 <strong>기초 대사율</strong>을 높여 체지방 연소를 촉진합니다.
+                        </p>
+                        <p class="leading-relaxed">
+                            <em>유연성 향상</em>을 통해 <strong>자세 교정</strong>과 <em>균형감각</em>을 개선하며, 
+                            <strong>코어 강화</strong>를 통해 <em>허리 라인</em>을 개선하고 <strong>스트레스 해소</strong>를 제공합니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">대상 고객 및 적응증</h3>
+                        <p class="leading-relaxed">
+                            <em>체중 감량</em>을 원하는 성인 남녀, <em>체형 교정</em>이 필요한 분, 
+                            <em>근력 강화</em>를 통해 건강한 몸을 만들고 싶은 분에게 적합합니다. 
+                            특히 <strong>요요 현상</strong>을 경험한 분이나 <em>다이어트 실패</em> 경험이 있는 분에게 권장합니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-container">
+                        <h3 class="section-title">자주 묻는 질문</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 얼마나 걸리면 효과를 볼 수 있나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: <em>4-6주</em> 정도 꾸준히 운동하면 <strong>체형 변화</strong>를 느낄 수 있습니다. 
+                                <em>근력 향상</em>과 <em>유연성 개선</em>은 <strong>2-3주</strong> 후에 나타나기 시작하며, 
+                                <strong>체지방 감소</strong>와 <em>근육량 증가</em>는 <strong>6-8주</strong> 후에 더욱 명확하게 보입니다.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 요요 현상을 방지할 수 있나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 네, 가능합니다. <em>근력 강화</em>를 통해 <strong>기초 대사율</strong>을 높이고, 
+                                <em>지속 가능한 운동 습관</em>을 만들어 <strong>요요 현상</strong>을 방지합니다. 
+                                또한 <em>영양 관리</em>와 <strong>생활 습관 개선</strong>을 함께 진행하여 
+                                <em>장기적인 체중 유지</em>를 도모합니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reference-section">
+                        <h4 class="reference-title">참고 문헌 및 자료</h4>
+                        <ul class="reference-list">
+                            <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (마네킹톤 프로그램 설명)</li>
+                            <li>PART2_마네킹톤 프로그램의 기초 (2019) – 체형 교정의 원리와 방법</li>
+                            <li>건강한 다이어트를 위한 필라테스 운동</li>
+                            <li>프로그램 구성 및 자문: 가정의학과/안테에이징 전문의 이용승</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 플랫스콜 프로그램 Card -->
+            <div id="flat-scol" class="program-card">
+                <div class="program-header">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">플랫스콜 프로그램</h2>
+                    <p class="text-lg opacity-90">Flat-Scol Program</p>
+                    <p class="text-base opacity-80 mt-2">척추측만증 특화 필라테스 교정 프로그램</p>
+                </div>
+                
+                <div class="program-content">
+                    <div class="highlight-section">
+                        <h3 class="section-title">프로그램 개요</h3>
+                        <p class="leading-relaxed">
+                            <em>플랫스콜</em>은 <strong>척추측만증</strong> 특화 필라테스 교정 프로그램입니다. 
+                            독일 <em>슈로스 메소드(Schroth Method)</em>의 3차원 교정 원리를 필라테스에 접목하여, 
+                            정적 교정의 한계를 보완한 <strong>동적인 척추 교정 운동</strong>을 제공합니다. 
+                            특히 성장기 청소년과 성인의 척추측만증에 맞춤 맞춤 동작을 통해 Cobb 각도 진행을 억제하고, 
+                            통증 완화와 자세 개선을 도모합니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">운동 목표 및 기대 효과</h3>
+                        <p class="leading-relaxed mb-4">
+                            <strong>척추 정렬 교정:</strong> 측만의 만곡을 3차원적으로 교정하여 척추의 정중정렬을 회복합니다. 
+                            <em>슈로스 5대 원칙</em> (디렉션, 회전교정 호흡 등)을 활용한 운동으로 만곡 각도 감소 및 자세 대칭성 향상.
+                        </p>
+                        <p class="leading-relaxed">
+                            <strong>근육 균형 강화:</strong> 측만으로 약화된 <em>척추주변근, 심부근육</em>을 강화하고 과긴장된 근육은 이완시켜 
+                            근육 불균형을 완화합니다. 특히 척추 만곡의 볼록쪽(convex) 근육 스트레칭, 오목쪽(concave) 근육 강화에 중점.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">대상 고객 및 적응증</h3>
+                        <p class="leading-relaxed">
+                            <em>특발성 척추측만증</em> 진단을 받은 청소년 및 성인. Cobb 각도 10도 이상의 경증부터 교정 운동이 필요한 
+                            중등도 측만증까지 해당됩니다. 성장기 청소년의 경우 조기 교정을 통해 만곡 진행을 억제하려는 분, 
+                            성인의 경우 자세 개선과 통증 관리를 원하는 분에게 권장합니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-container">
+                        <h3 class="section-title">자주 묻는 질문</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 이 프로그램만으로 측만증이 완치되나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: <em>완치</em>의 개념보다는 <strong>관리와 개선</strong>으로 접근합니다. 성장기 청소년의 경우 꾸준한 운동으로 
+                                만곡 진행을 억제하거나 경미한 개선을 기대할 수 있습니다. 성인의 경우 각도 자체의 큰 변화는 어려울 수 있으나, 
+                                <strong>자세 향상과 통증 감소</strong> 등의 임상적 개선이 관찰됩니다.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 교정용 보조기(코르셋)를 착용 중인데 운동해도 되나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 네, 가능합니다. 보조기는 지정된 착용 시간 외에 운동할 때는 벗고 진행합니다. 운동을 통해 
+                                <strong>근육으로 척추를 지지</strong>하는 능력을 길러주면 보조기 착용 기간 단축에도 도움이 됩니다. 
+                                단, 보조기 착용으로 피부 압박 부위가 예민할 수 있으니 해당 부위 자극이 없도록 자세를 조정합니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reference-section">
+                        <h4 class="reference-title">참고 문헌 및 자료</h4>
+                        <ul class="reference-list">
+                            <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (플랫스콜 프로그램 설명)</li>
+                            <li>PART3_플랫스콜 프로그램의 기초 (2019) – 척추측만증 정의 및 합병증</li>
+                            <li>슈로스 메소드 원리와 필라테스 적용</li>
+                            <li>강사 자격 – instructors.html (박정은 원장 자격: 슈로스 메소드 등)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 골프 필라테스 Card -->
+            <div id="golf" class="program-card">
+                <div class="program-header">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">골프 필라테스</h2>
+                    <p class="text-lg opacity-90">Golf Pilates</p>
+                    <p class="text-base opacity-80 mt-2">골프 성능 향상을 위한 특화 필라테스 프로그램</p>
+                </div>
+                
+                <div class="program-content">
+                    <div class="highlight-section">
+                        <h3 class="section-title">프로그램 개요</h3>
+                        <p class="leading-relaxed">
+                            <em>골프 필라테스</em>는 골프 선수와 골프 애호가를 위해 개발된 특화 필라테스 프로그램입니다. 
+                            골프 스윙에 필요한 근력과 유연성을 향상시켜 드라이버 <strong>비거리 향상</strong>과 안정적인 스윙을 도와주며, 
+                            반복적인 골프 동작으로 인한 부상 예방에 초점을 둡니다. TPI (Titleist Performance Institute) 
+                            골프 운동 원리를 접목하여, 코어 회전력 강화와 몸통 회전 가동범위 증대를 이룹니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">운동 목표 및 기대 효과</h3>
+                        <p class="leading-relaxed mb-4">
+                            <strong>비거리 향상:</strong> 힙 회전과 척추 회전 능력을 향상시켜 보다 강력한 <em>회전력</em>을 생성합니다. 
+                            드라이버 비거리 증대를 위해 하체-상체의 분리 움직임 및 지면반력 활용을 훈련합니다.
+                        </p>
+                        <p class="leading-relaxed">
+                            <strong>정확성 & 일관성 향상:</strong> 코어 안정화와 <em>균형 감각</em>을 길러 스윙 시 몸의 흔들림을 줄이고 
+                            임팩트 정확도를 높입니다. 어드레스 자세 교정과 피니시까지 <strong>스윙 밸런스 유지</strong>를 목표로 합니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">대상 고객 및 적응증</h3>
+                        <p class="leading-relaxed">
+                            골프 비거리나 스윙 폼을 개선하고 싶은 골퍼 (초보~상급 모두 가능). 라운드 후 허리나 어깨 통증을 느끼는 
+                            아마추어 골퍼. 프로 선수의 경우 오프시즌 체력훈련 또는 경기 시즌 중 컨디셔닝으로 활용 가능합니다. 
+                            또한 장시간 스크린골프/필드 라운딩으로 근육 피로가 누적된 골퍼에게 권장합니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-container">
+                        <h3 class="section-title">자주 묻는 질문</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 필라테스로 정말 드라이버 비거리가 늘어나나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 네, 많은 회원분들이 <strong>비거리 증가</strong>를 경험하셨습니다. 골프 필라테스는 몸통 회전 가동범위를 늘리고 
+                                파워를 내는 근육을 강화하기 때문에, 스윙 스피드가 올라가고 임팩트가 향상됩니다. 
+                                실제로 3개월간 주 1-2회 프로그램 후 평균 드라이버 비거리가 10~20야드 증가한 사례들이 있습니다.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 골프 칠 때 허리가 아픈데 이 프로그램으로 좋아질까요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 네, 허리 통증 완화에 도움이 됩니다. 반복적인 스윙으로 생긴 <strong>근육 불균형을 해소</strong>하고 
+                                코어를 강화하여 척추에 가해지는 부담을 줄여줍니다. 특히 허리 주변의 유연성과 안정성이 높아지면서 
+                                스윙 시 충격 흡수가 잘 되고, 잘못된 스윙 자세도 교정되어 통증이 줄어드는 효과가 있습니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reference-section">
+                        <h4 class="reference-title">참고 문헌 및 자료</h4>
+                        <ul class="reference-list">
+                            <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (골프 필라테스 설명)</li>
+                            <li>Golf & Pilates Training 가이드 – 회전근개 강화 및 유연성 증진의 효과</li>
+                            <li>메디컬필라테스™ Golf Master 교재 – 골퍼를 위한 필라테스 프로그램 설계 원칙</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 키즈/청소년 성장 필라테스 Card -->
+            <div id="kids" class="program-card">
+                <div class="program-header">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">키즈/청소년 성장 필라테스</h2>
+                    <p class="text-lg opacity-90">Kids/Youth Growth Pilates</p>
+                    <p class="text-base opacity-80 mt-2">성장기 아동·청소년을 위한 맞춤형 발달 운동 프로그램</p>
+                </div>
+                
+                <div class="program-content">
+                    <div class="highlight-section">
+                        <h3 class="section-title">프로그램 개요</h3>
+                        <p class="leading-relaxed">
+                            <em>키즈/청소년 성장 필라테스</em>는 성장기 아동과 청소년의 <strong>건강한 신체 발달</strong>을 지원하는 맞춤형 운동 프로그램입니다. 
+                            현대 아이들의 스마트폰, 게임 등으로 인한 <em>거북목, 라운드숄더</em> 등의 자세 문제를 해결하고, 
+                            성장판이 열려있는 시기에 <strong>올바른 움직임 패턴</strong>을 습득하도록 도와줍니다. 
+                            재미있는 놀이 형태의 운동으로 아이들의 흥미를 유발하면서도 전문적인 운동 효과를 제공합니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">운동 목표 및 기대 효과</h3>
+                        <p class="leading-relaxed mb-4">
+                            <strong>성장 촉진 & 자세 교정:</strong> 성장기에 필요한 <em>척추 신장 운동</em>과 관절 가동범위 증대를 통해 키 성장을 돕고, 
+                            잘못된 자세 습관을 조기에 교정합니다. 특히 목과 어깨의 정렬을 개선하여 <strong>바른 체형</strong> 형성을 지원.
+                        </p>
+                        <p class="leading-relaxed">
+                            <strong>기초 체력 & 운동 능력 향상:</strong> 코어 안정성, 균형감각, 유연성을 기반으로 한 <em>기초 운동 능력</em>을 발달시켜 
+                            향후 다양한 스포츠 활동의 토대를 마련합니다. <strong>집중력과 신체 인식능력</strong> 향상으로 학습 능력에도 긍정적 영향.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">대상 고객 및 적응증</h3>
+                        <p class="leading-relaxed">
+                            만 6세~18세 아동 및 청소년. 자세가 좋지 않거나 성장이 더딘 아이, 운동 부족으로 기초 체력이 약한 아이에게 특히 효과적입니다. 
+                            스마트폰 사용이 많아 거북목이나 굽은 등 문제가 있는 청소년, 집중력이 부족하거나 신체 협응력이 떨어지는 아이들에게 권장합니다. 
+                            또한 특정 스포츠를 시작하기 전 기초 체력을 다지고 싶은 아이들에게 적합합니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-container">
+                        <h3 class="section-title">자주 묻는 질문</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 아이가 필라테스를 재미있어할까요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 네, 키즈 프로그램은 <strong>놀이와 게임 형태</strong>로 구성되어 아이들이 재미있게 참여할 수 있습니다. 
+                                동물 움직임 따라하기, 밸런스 게임, 파트너 운동 등 다양한 활동으로 지루하지 않게 진행됩니다. 
+                                또한 <em>성취감과 자신감</em>을 느낄 수 있는 단계별 목표 설정으로 아이들의 지속적인 참여를 유도합니다.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 몇 살부터 시작할 수 있나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 일반적으로 <strong>만 6세부터</strong> 시작 가능합니다. 이 시기부터 기본적인 지시 사항을 이해하고 따라할 수 있으며, 
+                                집중력도 어느 정도 발달합니다. 다만 개인차가 있으므로 <em>아이의 발달 상태</em>를 고려하여 조정합니다. 
+                                더 어린 아이들의 경우 부모님과 함께하는 <strong>패밀리 클래스</strong> 형태로 참여할 수 있습니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reference-section">
+                        <h4 class="reference-title">참고 문헌 및 자료</h4>
+                        <ul class="reference-list">
+                            <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (키즈 필라테스 설명)</li>
+                            <li>PART5_키즈 필라테스의 이론과 실제 (2020) – 성장기 신체 발달과 운동의 중요성</li>
+                            <li>아동 발달 운동학 – 연령별 운동 프로그램 설계 원칙</li>
+                            <li>청소년 자세 교정 가이드라인</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프리내털&포스트내털 필라테스 Card -->
+            <div id="prenatal" class="program-card">
+                <div class="program-header">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">프리내털&포스트내털 필라테스</h2>
+                    <p class="text-lg opacity-90">Prenatal & Postnatal Pilates</p>
+                    <p class="text-base opacity-80 mt-2">임신 전후 여성 건강을 위한 전문 케어 프로그램</p>
+                </div>
+                
+                <div class="program-content">
+                    <div class="highlight-section">
+                        <h3 class="section-title">프로그램 개요</h3>
+                        <p class="leading-relaxed">
+                            <em>프리내털&포스트내털 필라테스</em>는 임신 준비부터 출산 후 회복까지, 여성의 <strong>임신 전후 건강 관리</strong>를 위한 전문 프로그램입니다. 
+                            임신 중에는 안전하고 효과적인 운동을 통해 <em>체중 관리와 체력 유지</em>를 돕고, 
+                            출산 후에는 <strong>복부 회복과 골반저근 강화</strong>에 중점을 둡니다. 
+                            산전산후 여성의 신체 변화를 깊이 이해한 전문 강사의 세심한 케어로 안전하고 효과적인 운동을 제공합니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">운동 목표 및 기대 효과</h3>
+                        <p class="leading-relaxed mb-4">
+                            <strong>임신 중 관리:</strong> <em>골반저근 강화</em>와 코어 안정성 유지로 출산을 위한 체력을 기르고, 
+                            임신 중 흔한 허리 통증, 골반 통증 완화를 도모합니다. 적절한 체중 증가와 <strong>순산 준비</strong>를 위한 근력 및 지구력 향상.
+                        </p>
+                        <p class="leading-relaxed">
+                            <strong>산후 회복:</strong> 늘어난 복직근(복부 근육 분리) 회복과 <em>골반 정렬 교정</em>을 통해 임신 전 몸매로 돌아가도록 지원합니다. 
+                            육아로 인한 어깨, 목 긴장 완화 및 <strong>전반적인 체력 회복</strong>으로 건강한 육아 생활을 돕습니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">대상 고객 및 적응증</h3>
+                        <p class="leading-relaxed">
+                            임신을 계획하는 여성부터 임신 중인 산모 (안정기 이후), 출산 후 6주 이후 산모까지 포괄적으로 대상으로 합니다. 
+                            임신 중 체중 관리나 체력 유지가 필요한 분, 출산 후 복부나 골반 회복이 필요한 분에게 특히 효과적입니다. 
+                            제왕절개 분만 후 회복 중인 산모, 임신성 당뇨나 고혈압 등으로 운동이 제한적인 경우에도 의사 소견 하에 적용 가능합니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-container">
+                        <h3 class="section-title">자주 묻는 질문</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 임신 중에 운동해도 안전한가요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 네, <strong>안전한 임신 중 운동</strong>은 오히려 산모와 태아에게 도움이 됩니다. 
+                                프리내털 필라테스는 임신 각 시기별 특성을 고려한 <em>안전한 동작</em>들로 구성되어 있으며, 
+                                절대 금기 동작(복부 압박, 과도한 스트레칭 등)은 철저히 배제합니다. 
+                                다만 고위험 임신이거나 특별한 의학적 상황이 있다면 담당 의사와 상담 후 시작하시기 바랍니다.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 제왕절개 후 언제부터 운동할 수 있나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 일반적으로 <strong>제왕절개 후 8~12주</strong> 정도 지나 의사의 허가를 받은 후 시작 가능합니다. 
+                                자연분만보다 회복 기간이 더 필요하므로 <em>절개 부위 회복 상태</em>를 확인한 후 진행합니다. 
+                                초기에는 호흡 운동과 가벼운 골반저근 운동부터 시작하여 단계적으로 강도를 높여나갑니다. 
+                                개인차가 있으므로 몸의 신호를 주의 깊게 관찰하며 진행합니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reference-section">
+                        <h4 class="reference-title">참고 문헌 및 자료</h4>
+                        <ul class="reference-list">
+                            <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (프리내털 프로그램 설명)</li>
+                            <li>PART6_산전산후 필라테스 가이드 (2021) – 임신 중 안전 운동 원칙</li>
+                            <li>여성 건강과 운동 – 임신 전후 신체 변화와 운동 처방</li>
+                            <li>골반저근 회복 프로토콜</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 시니어 필라테스 Card -->
+            <div id="senior" class="program-card">
+                <div class="program-header">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">시니어 필라테스</h2>
+                    <p class="text-lg opacity-90">Senior Pilates</p>
+                    <p class="text-base opacity-80 mt-2">노년기 건강과 활력을 위한 맞춤형 운동 프로그램</p>
+                </div>
+                
+                <div class="program-content">
+                    <div class="highlight-section">
+                        <h3 class="section-title">프로그램 개요</h3>
+                        <p class="leading-relaxed">
+                            <em>시니어 필라테스</em>는 60세 이상 노년층의 <strong>건강한 노화</strong>와 삶의 질 향상을 위한 특별히 설계된 프로그램입니다. 
+                            나이가 들면서 자연스럽게 감소하는 <em>근력, 균형감각, 유연성</em>을 개선하여 일상생활 능력을 유지하고, 
+                            낙상 위험을 줄이며 <strong>독립적인 생활</strong>을 지속할 수 있도록 돕습니다. 
+                            관절에 무리가 가지 않는 저강도 운동으로 안전하면서도 효과적인 운동을 제공합니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">운동 목표 및 기대 효과</h3>
+                        <p class="leading-relaxed mb-4">
+                            <strong>낙상 예방 & 균형감각 향상:</strong> 노년기 가장 위험한 <em>낙상 사고</em>를 예방하기 위해 균형감각과 반응시간을 개선합니다. 
+                            하지 근력 강화와 고유감각 훈련을 통해 <strong>안정적인 보행</strong>과 일상 동작 수행 능력을 향상시킵니다.
+                        </p>
+                        <p class="leading-relaxed">
+                            <strong>치매 예방 & 인지 기능 향상:</strong> 신체 운동과 인지 활동을 결합한 <em>이중 과제 훈련</em>으로 뇌 활성화를 촉진합니다. 
+                            집중력과 기억력 향상에 도움이 되며, <strong>사회적 활동</strong>을 통한 정서적 건강도 함께 증진됩니다.
+                        </p>
+                    </div>
+
+                    <div class="content-section">
+                        <h3 class="section-title">대상 고객 및 적응증</h3>
+                        <p class="leading-relaxed">
+                            만 60세 이상의 노년층으로, 기본적인 일상생활이 가능한 분들을 대상으로 합니다. 
+                            균형감각이 떨어지거나 낙상에 대한 두려움이 있는 분, 관절염이나 골다공증 등으로 운동에 제약이 있는 분에게 적합합니다. 
+                            치매 예방을 원하거나 사회적 활동을 통한 정서적 건강 증진을 원하는 분들에게도 권장합니다. 
+                            단, 심각한 심혈관 질환이나 급성 질병이 있는 경우 의사와 상담 후 참여하시기 바랍니다.
+                        </p>
+                    </div>
+
+                    <div class="faq-container">
+                        <h3 class="section-title">자주 묻는 질문</h3>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 나이가 많은데 필라테스를 해도 될까요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 물론입니다! 시니어 필라테스는 <strong>나이와 체력에 맞춘</strong> 안전한 운동입니다. 
+                                관절에 무리가 가지 않는 저강도 운동으로 구성되어 있으며, 개인의 컨디션에 따라 
+                                <em>운동 강도와 난이도를 조절</em>합니다. 오히려 규칙적인 운동은 노화 과정을 늦추고 
+                                <strong>건강한 노년기</strong>를 만드는 데 큰 도움이 됩니다.
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                Q: 관절염이 있어도 운동할 수 있나요?
+                            </div>
+                            <div class="faq-answer">
+                                A: 네, 가능합니다. 관절염이 있더라도 <strong>적절한 운동</strong>은 오히려 관절 건강에 도움이 됩니다. 
+                                시니어 필라테스는 관절에 충격을 주지 않는 <em>저충격 운동</em>으로 구성되어 있어 
+                                관절염 환자도 안전하게 참여할 수 있습니다. 운동을 통해 관절 주변 근육을 강화하고 
+                                <strong>관절 가동범위</strong>를 유지하여 관절염 증상 완화에도 도움이 됩니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reference-section">
+                        <h4 class="reference-title">참고 문헌 및 자료</h4>
+                        <ul class="reference-list">
+                            <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (시니어 필라테스 설명)</li>
+                            <li>PART7_시니어 건강 운동학 (2022) – 노화와 운동의 상관관계</li>
+                            <li>낙상 예방을 위한 균형 훈련 가이드라인</li>
+                            <li>노인 운동 처방 매뉴얼</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI 가이드 섹션 -->
+        <section id="ai-guide" class="ai-guide-card">
+            <div class="relative z-10">
+                <h2 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-robot mr-3"></i>
+                    AI 강사 가이드
+                </h2>
+                <p class="text-xl mb-6 opacity-90">
+                    NotebookLM으로 생성된 전문적인 프로그램 안내
+                </p>
+                <p class="text-base opacity-80 mb-8 max-w-2xl mx-auto">
+                    인공지능이 생성한 상세한 가이드로 더욱 깊이 있는 프로그램 이해를 얻으세요. 
+                    각 프로그램의 핵심 원리와 실무 적용 방법을 오디오 형태로 제공합니다.
+                </p>
+                <a href="https://notebooklm.google.com/notebook/3161dbc2-9c84-4ec6-827f-4c60eb4945ee?artifactId=8d3c9f7b-fa01-44c2-a8a1-01753cf246e0" 
+                   target="_blank" rel="noopener noreferrer" class="ai-guide-link">
+                    <i class="fas fa-headphones mr-2"></i>
+                    AI 가이드 듣기
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll-triggered animations for program cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all program cards
+        document.querySelectorAll('.program-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(card);
+        });
+
+        // Interactive eye movement
+        function initEyeMovement() {
+            const leftEye = document.getElementById('left-eye');
+            const rightEye = document.getElementById('right-eye');
+            const leftPupil = document.getElementById('left-pupil');
+            const rightPupil = document.getElementById('right-pupil');
+
+            if (!leftEye || !rightEye || !leftPupil || !rightPupil) return;
+
+            function movePupil(eye, pupil, isRightEye = false) {
+                const eyeRect = eye.getBoundingClientRect();
+                const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+                const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+
+                return function(e) {
+                    const mouseX = e.clientX;
+                    const mouseY = e.clientY;
+
+                    // Calculate direction from eye center to mouse
+                    const deltaX = mouseX - eyeCenterX;
+                    const deltaY = mouseY - eyeCenterY;
+
+                    // Calculate distance
+                    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                    // Limit movement to keep pupil inside eye
+                    const maxMove = 25; // Maximum movement distance
+                    const moveX = Math.min(Math.abs(deltaX), maxMove) * (deltaX > 0 ? 1 : -1);
+                    const moveY = Math.min(Math.abs(deltaY), maxMove) * (deltaY > 0 ? 1 : -1);
+
+                    // Apply movement with slight offset for natural look
+                    const offsetX = isRightEye ? 2 : -2;
+                    const offsetY = -1;
+
+                    pupil.style.transform = `translate(calc(-50% + ${moveX + offsetX}px), calc(-50% + ${moveY + offsetY}px))`;
+                };
+            }
+
+            // Add event listeners
+            document.addEventListener('mousemove', movePupil(leftEye, leftPupil, false));
+            document.addEventListener('mousemove', movePupil(rightEye, rightPupil, true));
+
+            // Add touch support for mobile devices
+            document.addEventListener('touchmove', function(e) {
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    const mouseEvent = new MouseEvent('mousemove', {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    });
+                    document.dispatchEvent(mouseEvent);
+                }
+            });
+        }
+
+        // Initialize eye movement when page loads
+        document.addEventListener('DOMContentLoaded', initEyeMovement);
+    </script>
+</body>
+</html>
