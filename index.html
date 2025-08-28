@@ -341,6 +341,139 @@
         .pupil {
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1000;
+        }
+        
+        .hamburger-line {
+            width: 100%;
+            height: 3px;
+            background: var(--deep-navy);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-btn.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+            background: var(--soft-cream) !important;
+        }
+        
+        .mobile-menu-btn.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            background: var(--soft-cream) !important;
+        }
+        
+        .mobile-menu-btn.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+            background: var(--soft-cream) !important;
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 31, 63, 0.95);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .mobile-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .mobile-nav-link {
+            color: var(--soft-cream);
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        .mobile-nav-link:hover {
+            background: var(--golden-brown);
+            color: var(--soft-cream);
+            transform: translateY(-2px);
+        }
+        
+        /* Floating Top Button */
+        .floating-top-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--golden-brown);
+            color: var(--soft-cream);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(153, 101, 21, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+        
+        .floating-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .floating-top-btn:hover {
+            background: var(--deep-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 31, 63, 0.4);
+        }
+        
+        .floating-top-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        @media (max-width: 768px) {
+            .floating-top-btn {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body class="smooth-scroll">
@@ -362,9 +495,38 @@
                     <a href="#senior" class="nav-link">시니어</a>
                     <a href="#ai-guide" class="nav-link">AI 가이드</a>
                 </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="mobile-menu-btn">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu">
+                <div class="mobile-menu-content">
+                    <a href="#pain-rehab" class="mobile-nav-link">통증재활</a>
+                    <a href="#mannequin-tone" class="mobile-nav-link">마네킹톤</a>
+                    <a href="#flat-scol" class="mobile-nav-link">플랫스콜</a>
+                    <a href="#golf" class="mobile-nav-link">골프</a>
+                    <a href="#kids" class="mobile-nav-link">키즈</a>
+                    <a href="#prenatal" class="mobile-nav-link">프리내털</a>
+                    <a href="#senior" class="mobile-nav-link">시니어</a>
+                    <a href="#ai-guide" class="mobile-nav-link">AI 가이드</a>
+                </div>
+            </div>
             </div>
         </nav>
     </header>
+
+    <!-- Floating Top Button -->
+    <button class="floating-top-btn" id="floating-top-btn" title="맨 위로">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <!-- Hero Section -->
     <section class="hero-section">
@@ -1059,8 +1221,78 @@
             });
         }
 
-        // Initialize eye movement when page loads
-        document.addEventListener('DOMContentLoaded', initEyeMovement);
+
+        
+        // Mobile menu functionality
+        function initMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-nav-link');
+            
+            if (!mobileMenuBtn || !mobileMenu) return;
+            
+            // Toggle mobile menu
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+            });
+            
+            // Close mobile menu when clicking on links
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // Close mobile menu when clicking outside
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+        
+        // Floating top button functionality
+        function initFloatingTopBtn() {
+            const floatingTopBtn = document.getElementById('floating-top-btn');
+            
+            if (!floatingTopBtn) return;
+            
+            // Show/hide button based on scroll position
+            function toggleTopButton() {
+                if (window.pageYOffset > 300) {
+                    floatingTopBtn.classList.add('visible');
+                } else {
+                    floatingTopBtn.classList.remove('visible');
+                }
+            }
+            
+            // Scroll to top when button is clicked
+            floatingTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Listen for scroll events
+            window.addEventListener('scroll', toggleTopButton);
+            
+            // Initial check
+            toggleTopButton();
+        }
+        
+        // Initialize all functionality when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initEyeMovement();
+            initMobileMenu();
+            initFloatingTopBtn();
+        });
     </script>
 </body>
 </html>
