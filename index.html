@@ -2332,9 +2332,9 @@
             </div>
                     
                     <!-- 숨겨진 오디오 요소 -->
-                    <audio id="ai-guide-audio" src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" preload="auto" crossorigin="anonymous">
-                        <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/mp4">
-                        <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/m4a">
+                    <audio id="ai-guide-audio" src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" preload="auto" crossorigin="anonymous">
+                        <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/mp4">
+                        <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/m4a">
                         브라우저가 오디오 재생을 지원하지 않습니다.
                     </audio>
                 </div>
@@ -2414,7 +2414,7 @@
             // 오디오 소스가 설정되지 않은 경우 동적으로 설정
             if (!audio.src || audio.src === window.location.href) {
                 console.log('⚠️ 오디오 소스가 설정되지 않음, 동적으로 설정 중...');
-                const audioUrl = 'https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a';
+                const audioUrl = 'https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a';
                 audio.src = audioUrl;
                 console.log('✅ 오디오 소스 설정 완료:', audio.src);
             }
