@@ -702,16 +702,15 @@
     transform: translateY(0) scale(1.02);
 }
 
-.play-pause-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
+/* 로딩 상태 시각적 피드백 */
+.play-pause-btn.loading {
+    opacity: 0.7;
+    cursor: pointer;
 }
 
-.play-pause-btn:disabled:hover {
-    background: linear-gradient(135deg, var(--golden-brown) 0%, #b8860b 100%);
-    transform: none;
-    box-shadow: 0 6px 20px rgba(153, 101, 21, 0.25);
+.play-pause-btn.error {
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .play-pause-btn i {
@@ -2383,6 +2382,11 @@
             let isMuted = false;
             let previousVolume = 100;
 
+            // 오디오 요소 상태 확인
+            console.log('오디오 요소:', audio);
+            console.log('오디오 소스:', audio.src);
+            console.log('오디오 준비 상태:', audio.readyState);
+
             // 재생/일시정지 토글
             playPauseBtn.addEventListener('click', () => {
                 if (isPlaying) {
@@ -2408,8 +2412,8 @@
             // 오디오 로딩 상태 표시
             audio.addEventListener('loadstart', () => {
                 console.log('오디오 파일 로딩 시작...');
-                playPauseBtn.disabled = true;
-                playPauseBtn.style.opacity = '0.5';
+                playPauseBtn.classList.add('loading');
+                playPauseBtn.classList.remove('error');
             });
 
             audio.addEventListener('loadedmetadata', () => {
@@ -2417,16 +2421,16 @@
                 const duration = audio.duration;
                 totalTimeDisplay.textContent = formatTime(duration);
                 progressSlider.max = duration;
-                playPauseBtn.disabled = false;
-                playPauseBtn.style.opacity = '1';
+                playPauseBtn.classList.remove('loading', 'error');
+                console.log('오디오 재생 준비 완료, 재생 가능');
             });
 
             // 오디오 에러 처리
             audio.addEventListener('error', (e) => {
                 console.error('오디오 로딩 에러:', e);
-                playPauseBtn.disabled = true;
-                playPauseBtn.style.opacity = '0.5';
-                alert('오디오 파일을 로드할 수 없습니다. 네트워크 연결을 확인해주세요.');
+                playPauseBtn.classList.remove('loading');
+                playPauseBtn.classList.add('error');
+                console.error('오디오 파일 로딩 실패, 재시도 가능');
             });
 
             audio.addEventListener('timeupdate', () => {
