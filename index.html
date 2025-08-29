@@ -2306,6 +2306,11 @@
 
             let isPlaying = false;
 
+            // 초기 볼륨 설정
+            audio.volume = 0.7;
+            volumeRange.value = 70;
+            updateVolumeIcon(0.7);
+
             // 재생/일시정지 토글
             playPauseBtn.addEventListener('click', async () => {
                 try {
@@ -2383,6 +2388,23 @@
                 updateVolumeIcon(volume);
             });
 
+            // 볼륨 버튼 클릭으로 음소거/음소거 해제
+            volumeBtn.addEventListener('click', () => {
+                if (audio.volume > 0) {
+                    // 현재 볼륨을 저장하고 음소거
+                    audio.dataset.lastVolume = audio.volume;
+                    audio.volume = 0;
+                    volumeRange.value = 0;
+                    updateVolumeIcon(0);
+                } else {
+                    // 저장된 볼륨으로 복원 (기본값: 0.7)
+                    const lastVolume = parseFloat(audio.dataset.lastVolume) || 0.7;
+                    audio.volume = lastVolume;
+                    volumeRange.value = lastVolume * 100;
+                    updateVolumeIcon(lastVolume);
+                }
+            });
+
             // 10초 앞/뒤 스킵 기능
             skipBackward.addEventListener('click', () => {
                 audio.currentTime = Math.max(0, audio.currentTime - 10);
@@ -2411,10 +2433,13 @@
             function updateVolumeIcon(volume) {
                 if (volume === 0) {
                     volumeIcon.className = 'fas fa-volume-mute';
+                    volumeBtn.title = '음소거 해제';
                 } else if (volume < 0.5) {
                     volumeIcon.className = 'fas fa-volume-down';
+                    volumeBtn.title = '음소거';
                 } else {
                     volumeIcon.className = 'fas fa-volume-up';
+                    volumeBtn.title = '음소거';
                 }
             }
 
@@ -2448,6 +2473,10 @@
                         audio.volume = newVolumeDown;
                         volumeRange.value = newVolumeDown * 100;
                         updateVolumeIcon(newVolumeDown);
+                        break;
+                    case 'KeyM':
+                        e.preventDefault();
+                        volumeBtn.click();
                         break;
                 }
             });
