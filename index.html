@@ -2330,8 +2330,6 @@
             }
             
             console.log('오디오 요소 찾음:', audio);
-            console.log('오디오 소스:', audio.src);
-            console.log('오디오 readyState:', audio.readyState);
             const playPauseBtn = document.getElementById('play-pause-btn');
             const playPauseIcon = playPauseBtn.querySelector('i');
             const progressFill = document.getElementById('progress-fill');
@@ -2346,36 +2344,38 @@
             const skipForward = document.getElementById('skip-forward');
 
             let isPlaying = false;
+            let lastVolume = 0.7;
 
-            // 초기 볼륨 설정
-            audio.volume = 0.7;
-            volumeRange.value = 70;
-            updateVolumeIcon(0.7);
-            
-            // 디버깅: 볼륨 컨트롤 요소 확인
-            console.log('볼륨 컨트롤 요소들:', {
-                volumeBtn: volumeBtn,
-                volumeIcon: volumeIcon,
-                volumeRange: volumeRange,
-                initialVolume: audio.volume,
-                initialRangeValue: volumeRange.value
-            });
-            
-            // 볼륨 컨트롤 이벤트 리스너 등록 확인
-            console.log('볼륨 컨트롤 이벤트 리스너 등록 중...');
-            
-            // 볼륨 슬라이더 터치/마우스 이벤트 추가
-            volumeRange.addEventListener('mousedown', () => {
-                console.log('볼륨 슬라이더 마우스 다운');
-            });
+            // Web Audio API를 사용한 볼륨 제어 (모바일 대응)
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            let audioCtx, gainNode;
+            if (AudioContext) {
+                audioCtx = new AudioContext();
+                const source = audioCtx.createMediaElementSource(audio);
+                gainNode = audioCtx.createGain();
+                gainNode.gain.value = lastVolume;
+                source.connect(gainNode).connect(audioCtx.destination);
+                audio.volume = 1; // 디바이스 볼륨과 독립적으로 제어
+            } else {
+                audio.volume = lastVolume;
+            }
 
-            volumeRange.addEventListener('touchstart', () => {
-                console.log('볼륨 슬라이더 터치 시작');
-            });
-            
-            volumeRange.addEventListener('change', (e) => {
-                console.log('볼륨 슬라이더 변경 완료:', e.target.value);
-            });
+            audio.muted = false;
+            volumeRange.value = lastVolume * 100;
+            updateVolumeIcon(lastVolume);
+
+            function setVolume(volume) {
+                if (gainNode) {
+                    gainNode.gain.value = volume;
+                } else {
+                    audio.volume = volume;
+                }
+                audio.muted = volume === 0;
+            }
+
+            function getVolume() {
+                return gainNode ? gainNode.gain.value : audio.volume;
+            }
 
             // 재생/일시정지 토글
             playPauseBtn.addEventListener('click', async () => {
@@ -2384,6 +2384,9 @@
                         audio.pause();
                     } else {
                         playPauseBtn.classList.add('loading');
+                        if (audioCtx && audioCtx.state === 'suspended') {
+                            await audioCtx.resume();
+                        }
                         const playPromise = audio.play();
                         if (playPromise !== undefined) {
                             await playPromise;
@@ -2448,42 +2451,33 @@
             });
 
             // 볼륨 컨트롤 - 슬라이더
-            volumeRange.addEventListener('input', (e) => {
+            volumeRange.addEventListener('input', async (e) => {
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    await audioCtx.resume();
+                }
                 const volume = e.target.value / 100;
-                audio.volume = volume;
+                setVolume(volume);
+                if (volume > 0) {
+                    lastVolume = volume;
+                }
                 updateVolumeIcon(volume);
-                console.log('볼륨 변경:', volume);
             });
 
             // 볼륨 컨트롤 - 버튼 클릭 (음소거/음소거 해제)
             volumeBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
-                if (audio.volume > 0) {
-                    // 현재 볼륨을 저장하고 음소거
-                    audio.dataset.lastVolume = audio.volume;
-                    audio.volume = 0;
+
+                if (!audio.muted && getVolume() > 0) {
+                    lastVolume = getVolume();
+                    setVolume(0);
                     volumeRange.value = 0;
                     updateVolumeIcon(0);
-                    console.log('음소거됨, 저장된 볼륨:', audio.dataset.lastVolume);
                 } else {
-                    // 저장된 볼륨으로 복원 (기본값: 0.7)
-                    const lastVolume = parseFloat(audio.dataset.lastVolume) || 0.7;
-                    audio.volume = lastVolume;
+                    setVolume(lastVolume);
                     volumeRange.value = lastVolume * 100;
                     updateVolumeIcon(lastVolume);
-                    console.log('음소거 해제, 볼륨 복원:', lastVolume);
                 }
-            });
-
-            // 볼륨 슬라이더 터치/마우스 이벤트 추가
-            volumeRange.addEventListener('mousedown', () => {
-                console.log('볼륨 슬라이더 마우스 다운');
-            });
-
-            volumeRange.addEventListener('touchstart', () => {
-                console.log('볼륨 슬라이더 터치 시작');
             });
 
             // 10초 앞/뒤 스킵 기능
@@ -2512,7 +2506,7 @@
 
             // 볼륨 아이콘 업데이트
             function updateVolumeIcon(volume) {
-                if (volume === 0) {
+                if (audio.muted || volume === 0) {
                     volumeIcon.className = 'fas fa-volume-mute';
                     volumeBtn.title = '음소거 해제';
                 } else if (volume < 0.5) {
@@ -2543,16 +2537,22 @@
                         break;
                     case 'ArrowUp':
                         e.preventDefault();
-                        const newVolumeUp = Math.min(1, audio.volume + 0.1);
-                        audio.volume = newVolumeUp;
+                        const newVolumeUp = Math.min(1, getVolume() + 0.1);
+                        setVolume(newVolumeUp);
                         volumeRange.value = newVolumeUp * 100;
+                        if (newVolumeUp > 0) {
+                            lastVolume = newVolumeUp;
+                        }
                         updateVolumeIcon(newVolumeUp);
                         break;
                     case 'ArrowDown':
                         e.preventDefault();
-                        const newVolumeDown = Math.max(0, audio.volume - 0.1);
-                        audio.volume = newVolumeDown;
+                        const newVolumeDown = Math.max(0, getVolume() - 0.1);
+                        setVolume(newVolumeDown);
                         volumeRange.value = newVolumeDown * 100;
+                        if (newVolumeDown > 0) {
+                            lastVolume = newVolumeDown;
+                        }
                         updateVolumeIcon(newVolumeDown);
                         break;
                     case 'KeyM':
