@@ -2332,7 +2332,7 @@
             </div>
                     
                     <!-- 숨겨진 오디오 요소 -->
-                    <audio id="ai-guide-audio" preload="auto" crossorigin="anonymous">
+                    <audio id="ai-guide-audio" src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" preload="auto" crossorigin="anonymous">
                         <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/mp4">
                         <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/m4a">
                         브라우저가 오디오 재생을 지원하지 않습니다.
@@ -2410,6 +2410,14 @@
             console.log('오디오 준비 상태:', audio.readyState);
             console.log('오디오 네트워크 상태:', audio.networkState);
             console.log('오디오 에러:', audio.error);
+            
+            // 오디오 소스가 설정되지 않은 경우 동적으로 설정
+            if (!audio.src || audio.src === window.location.href) {
+                console.log('⚠️ 오디오 소스가 설정되지 않음, 동적으로 설정 중...');
+                const audioUrl = 'https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a';
+                audio.src = audioUrl;
+                console.log('✅ 오디오 소스 설정 완료:', audio.src);
+            }
             
             // 오디오 로딩 상태 상세 모니터링
             console.log('=== 오디오 로딩 상태 모니터링 시작 ===');
