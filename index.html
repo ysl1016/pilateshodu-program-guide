@@ -599,6 +599,632 @@
             visibility: visible;
         }
         
+        /* 커스텀 오디오 플레이어 스타일 */
+.custom-audio-player {
+    background: linear-gradient(135deg, var(--warm-beige) 0%, #f8f4f0 100%);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    box-shadow: 0 12px 40px rgba(153, 101, 21, 0.12);
+    border: 1px solid rgba(153, 101, 21, 0.08);
+    margin: 2.5rem 0;
+    max-width: 100%;
+}
+
+/* PC 버전 최적화 */
+.audio-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    align-items: center;
+}
+
+.audio-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.audio-title {
+    color: var(--deep-navy);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.audio-subtitle {
+    color: var(--golden-brown);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    opacity: 0.95;
+    line-height: 1.3;
+}
+
+.audio-duration {
+    color: var(--deep-navy);
+    font-size: 0.95rem;
+    margin: 0;
+    opacity: 0.75;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+    justify-content: flex-end;
+}
+
+.play-pause-btn {
+    background: linear-gradient(135deg, var(--golden-brown) 0%, #b8860b 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 6px 20px rgba(153, 101, 21, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.play-pause-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.play-pause-btn:hover::before {
+    left: 100%;
+}
+
+.play-pause-btn:hover {
+    background: linear-gradient(135deg, var(--deep-navy) 0%, #2c3e50 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(153, 101, 21, 0.35);
+}
+
+.play-pause-btn:active {
+    transform: translateY(0) scale(1.02);
+}
+
+.play-pause-btn i {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.playback-speed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.playback-speed::before {
+    content: '속도';
+    font-size: 0.75rem;
+    color: var(--deep-navy);
+    opacity: 0.7;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.playback-speed select {
+    background: white;
+    border: 2px solid rgba(153, 101, 21, 0.15);
+    border-radius: 0.75rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--deep-navy);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 80px;
+    text-align: center;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23995515' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1.2em;
+    padding-right: 2.5rem;
+}
+
+.playback-speed select:hover {
+    border-color: var(--golden-brown);
+    box-shadow: 0 4px 12px rgba(153, 101, 21, 0.15);
+    transform: translateY(-1px);
+}
+
+.playback-speed select:focus {
+    outline: none;
+    border-color: var(--golden-brown);
+    box-shadow: 0 0 0 3px rgba(153, 101, 21, 0.1);
+}
+
+.audio-progress {
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+}
+
+.progress-bar {
+    position: relative;
+    height: 0.75rem;
+    background: rgba(153, 101, 21, 0.08);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(153, 101, 21, 0.1);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--golden-brown) 0%, var(--deep-navy) 100%);
+    border-radius: 0.5rem;
+    width: 0%;
+    transition: width 0.15s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.progress-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--golden-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 3px solid white;
+    transition: all 0.2s ease;
+}
+
+.progress-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.progress-slider::-moz-range-thumb {
+    width: 1.25rem;
+    height: 1.25rem;
+    background: var(--golden-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.progress-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--deep-navy);
+    opacity: 0.85;
+    font-weight: 500;
+    padding: 0 0.25rem;
+}
+
+.audio-controls-secondary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 0.5rem;
+    margin-top: 1rem;
+}
+
+.skip-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.skip-btn {
+    background: rgba(153, 101, 21, 0.08);
+    border: 2px solid rgba(153, 101, 21, 0.15);
+    border-radius: 0.75rem;
+    padding: 0.6rem 1rem;
+    color: var(--deep-navy);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-width: 80px;
+    justify-content: center;
+}
+
+.skip-btn:hover {
+    background: rgba(153, 101, 21, 0.15);
+    border-color: var(--golden-brown);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(153, 101, 21, 0.15);
+}
+
+.skip-btn:active {
+    transform: translateY(0);
+}
+
+.skip-btn i {
+    font-size: 0.9rem;
+    color: var(--golden-brown);
+}
+
+.skip-text {
+    color: var(--deep-navy);
+    font-weight: 600;
+}
+
+.audio-volume {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0 0.5rem;
+}
+
+.volume-btn {
+    background: none;
+    border: none;
+    color: var(--deep-navy);
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.volume-btn:hover {
+    background: rgba(153, 101, 21, 0.1);
+    color: var(--golden-brown);
+    transform: scale(1.1);
+}
+
+.volume-btn i {
+    font-size: 1.1rem;
+}
+
+.volume-slider {
+    flex: 1;
+    max-width: 120px;
+    position: relative;
+}
+
+.volume-range {
+    width: 100%;
+    height: 0.375rem;
+    background: rgba(153, 101, 21, 0.15);
+    border-radius: 0.25rem;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid rgba(153, 101, 21, 0.2);
+}
+
+.volume-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    background: var(--golden-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.volume-range::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+.volume-range::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    background: var(--golden-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* 태블릿 반응형 */
+@media (max-width: 1024px) {
+    .custom-audio-player {
+        padding: 1.75rem;
+    }
+    
+    .audio-header {
+        gap: 1.5rem;
+        margin-bottom: 1.75rem;
+    }
+    
+    .audio-title {
+        font-size: 1.35rem;
+    }
+    
+    .audio-subtitle {
+        font-size: 1.05rem;
+    }
+    
+    .audio-controls {
+        gap: 1.25rem;
+    }
+    
+    .play-pause-btn {
+        width: 3.25rem;
+        height: 3.25rem;
+    }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .custom-audio-player {
+        padding: 1.5rem;
+        margin: 2rem 0;
+        border-radius: 1rem;
+    }
+    
+    .audio-header {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    
+    .audio-controls {
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .audio-title {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    
+    .audio-subtitle,
+    .audio-duration {
+        text-align: center;
+    }
+    
+    .play-pause-btn {
+        width: 3rem;
+        height: 3rem;
+    }
+    
+    .playback-speed {
+        align-items: center;
+    }
+    
+    .playback-speed select {
+        min-width: 70px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .audio-progress {
+        margin-bottom: 1.5rem;
+    }
+    
+    .progress-bar {
+        height: 0.625rem;
+    }
+    
+    .time-display {
+        font-size: 0.85rem;
+    }
+    
+    .audio-controls-secondary {
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-top: 1.25rem;
+    }
+    
+    .skip-controls {
+        justify-content: center;
+        gap: 0.75rem;
+    }
+    
+    .skip-btn {
+        min-width: 70px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+    }
+    
+    .audio-volume {
+        justify-content: center;
+        gap: 1rem;
+    }
+    
+    .volume-slider {
+        max-width: 100px;
+    }
+}
+
+/* 작은 모바일 화면 */
+@media (max-width: 480px) {
+    .custom-audio-player {
+        padding: 1.25rem;
+    }
+    
+    .audio-header {
+        gap: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .audio-title {
+        font-size: 1.2rem;
+    }
+    
+    .audio-subtitle {
+        font-size: 1rem;
+    }
+    
+    .audio-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .playback-speed {
+        order: -1;
+    }
+    
+    .audio-progress {
+        margin-bottom: 1.25rem;
+    }
+    
+    .audio-controls-secondary {
+        gap: 1.25rem;
+        margin-top: 1rem;
+    }
+    
+    .skip-controls {
+        gap: 0.5rem;
+    }
+    
+    .skip-btn {
+        min-width: 65px;
+        padding: 0.45rem 0.65rem;
+        font-size: 0.75rem;
+    }
+    
+    .audio-volume {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
+
+/* 강사용 레슨 플랜 스타일 */
+.lesson-plan-container {
+            background: var(--warm-beige);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-left: 5px solid var(--golden-brown);
+            box-shadow: 0 4px 15px rgba(153, 101, 21, 0.1);
+        }
+        
+        .lesson-plan-title {
+            color: var(--deep-navy);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--golden-brown);
+            padding-bottom: 0.75rem;
+        }
+        
+        .lesson-modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .lesson-module {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(153, 101, 21, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-module:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(153, 101, 21, 0.15);
+        }
+        
+        .lesson-module h5 {
+            color: var(--deep-navy);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .lesson-module h5 i {
+            color: var(--golden-brown);
+            width: 20px;
+            text-align: center;
+        }
+        
+        .lesson-module p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .lesson-module strong {
+            color: var(--deep-navy);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .lesson-modules {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .lesson-plan-container {
+                padding: 1.5rem;
+            }
+            
+            .lesson-module {
+                padding: 1.25rem;
+            }
+        }
+        
         /* Floating Top Button */
         .floating-top-btn {
             position: fixed;
@@ -777,6 +1403,11 @@
                             척추 질환, 관절염, 근육통 등 다양한 통증 원인에 대해 <em>개별 맞춤형 운동 처방</em>을 제공하며, 
                             통증의 근본 원인을 해결하여 <strong>지속적인 통증 완화</strong>를 목표로 합니다.
                         </p>
+                        <p class="leading-relaxed mt-4">
+                            박정은 대표원장의 <strong>메디컬필라테스 전문 지도</strong>로 1:1 맞춤형 재활을 진행하며, 
+                            의료진 협진이 필요할 경우 연계하여 <em>과학적 근거 기반</em>의 운동치료를 제공합니다. 
+                            통증클리닉 수석 운동치료실장을 역임한 전문성을 바탕으로 안전하고 효과적인 재활을 도모합니다.
+                        </p>
                     </div>
 
                     <div class="content-section">
@@ -826,6 +1457,44 @@
                         </div>
                     </div>
 
+                    <div class="content-section">
+                        <h3 class="section-title">강사용 레슨 플랜</h3>
+                        <div class="lesson-plan-container">
+                            <h4 class="lesson-plan-title">통증재활 필라테스 레슨 구성</h4>
+                            <div class="lesson-modules">
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-wind"></i> 호흡 & 워밍업 (Breathing & Warm-Up)</h5>
+                                    <p><strong>기구:</strong> Mat (Foam Roller 지원)</p>
+                                    <p><strong>시작 자세:</strong> 등 적게 매트 누운 자세, 무릎 세워 발바닥 지면</p>
+                                    <p><strong>호흡:</strong> 숨을 깊게 들이마시며 옆구리 확장, 내쉬며 복부 수축</p>
+                                    <p><strong>목표:</strong> 흉곽 확장 호흡으로 호흡 패턴 개선, 코어 근육 활성화 및 긴장 완화</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-shoe-prints"></i> 리포머 풋워크 (Reformer Footwork)</h5>
+                                    <p><strong>기구:</strong> Reformer</p>
+                                    <p><strong>스프링:</strong> Yellow (Light) ×2</p>
+                                    <p><strong>시작 자세:</strong> 리포머 캐리지에 누워 발을 풋바 중앙에 위치 (힙너비)</p>
+                                    <p><strong>목표:</strong> 하지 근력 강화와 무릎/고관절 가동범위 향상, 허리에 부담 없이 하체 근육 활성화</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-archway"></i> 필라테스 브릿지 (Pelvic Bridge)</h5>
+                                    <p><strong>기구:</strong> Mat or Reformer</p>
+                                    <p><strong>시작 자세:</strong> 매트 누워 무릎 세움 (리포머 카리지 정지)</p>
+                                    <p><strong>목표:</strong> 척추 분절 움직임 촉진 및 허리 안정성 강화, 둔근/햄스트링 강화로 골반 안정</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-spa"></i> 전신 이완 & 마무리 (Full Body Stretch & Cool Down)</h5>
+                                    <p><strong>기구:</strong> Mat (Stretch Band 활용)</p>
+                                    <p><strong>시작 자세:</strong> 매트 앉거나 서서 스트레칭 준비</p>
+                                    <p><strong>목표:</strong> 운동 후 근육 이완 및 유연성 향상, 긴장 완화로 심신 안정 및 통증 감소</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
@@ -833,6 +1502,7 @@
                             <li>PART1_통증재활 프로그램의 기초 (2019) – 만성 통증의 정의 및 원인</li>
                             <li>의학적 필라테스의 원리와 적용</li>
                             <li>프로그램 구성 및 자문: 가정의학과/안티에이징 전문의 이용승</li>
+                            <li>Verena Geweniger & A. Bohlander, Pilates – A Teacher's Manual (2014) – Therapeutic Pilates 원리 및 사례</li>
                         </ul>
                     </div>
                 </div>
@@ -853,6 +1523,11 @@
                             <em>마네킹톤</em>은 <strong>체형 교정과 근력 강화</strong>를 동시에 달성하는 맞춤형 다이어트 프로그램입니다. 
                             단순한 체중 감량이 아닌 <em>근육량 증가와 체지방 감소</em>를 통해 <strong>건강한 체형 변화</strong>를 목표로 하며, 
                             요요 현상 없이 <em>지속 가능한 다이어트</em>를 제공합니다.
+                        </p>
+                        <p class="leading-relaxed mt-4">
+                            <strong>의학적으로 안전한 다이어트 원칙</strong>에 기반하여, 단기간 무리한 감량이 아닌 <em>지속 가능한 체중감량</em>을 목표로 합니다. 
+                            메디컬필라테스 동작과 생활습관 교정을 병행하여, 건강하게 사이즈를 줄이고 바디라인을 만들어 드립니다. 
+                            식이조절 가이드와 함께 진행되며, 필요 시 의료기관과 협업하여 대사 건강을 관리합니다.
                         </p>
                     </div>
 
@@ -904,6 +1579,44 @@
                         </div>
                     </div>
 
+                    <div class="content-section">
+                        <h3 class="section-title">강사용 레슨 플랜</h3>
+                        <div class="lesson-plan-container">
+                            <h4 class="lesson-plan-title">마네킹톤 필라테스 레슨 구성</h4>
+                            <div class="lesson-modules">
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-sync-alt"></i> 서킷 1: 전신 워밍업 (Full-body Warm-up Circuit)</h5>
+                                    <p><strong>기구:</strong> Reformer + Mat</p>
+                                    <p><strong>스프링:</strong> Blue (Medium)</p>
+                                    <p><strong>시작 자세:</strong> 리포머 누운 자세 → 매트 서서 이동</p>
+                                    <p><strong>목표:</strong> 심박수 상승을 통한 칼로리 소모 (워밍업 단계), 주요 근육군 사전 활성화로 부상 예방</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-circle"></i> 매트 코어 + 하체 (Mat Core & Lower Body)</h5>
+                                    <p><strong>기구:</strong> Mat + Circle (링)</p>
+                                    <p><strong>시작 자세:</strong> 매트 누워 링을 양 무릎 사이에 끼움</p>
+                                    <p><strong>목표:</strong> 내전근 및 코어 활성화로 복부/허벅지 군살 제거, 골반 바닥근 강화 (코어 안정성 향상)</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-dumbbell"></i> 기구 상체 근력 (Apparatus Upper Body Tone)</h5>
+                                    <p><strong>기구:</strong> Cadillac (Trapeze Table)</p>
+                                    <p><strong>스프링:</strong> Arm Springs (Light)</p>
+                                    <p><strong>시작 자세:</strong> 캐딜락에 앉아 팔 스프링 잡기 (어깨높이)</p>
+                                    <p><strong>목표:</strong> 상체 근력 강화로 기초대사량 증가, 자세 교정: 거북목 개선 및 어깨라인 탄력</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-leaf"></i> 쿨다운 & 스트레칭 (Cooldown & Stretch)</h5>
+                                    <p><strong>기구:</strong> Mat</p>
+                                    <p><strong>시작 자세:</strong> 매트 위 앉아 다리 스트레치 자세</p>
+                                    <p><strong>목표:</strong> 운동 후 근육 통증 예방을 위한 이완, 정신적 안정 및 성취감 부여 (세로토닌 분비 유도)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
@@ -911,6 +1624,7 @@
                             <li>PART2_마네킹톤 프로그램의 기초 (2019) – 체형 교정의 원리와 방법</li>
                             <li>건강한 다이어트를 위한 필라테스 운동</li>
                             <li>프로그램 구성 및 자문: 가정의학과/안티에이징 전문의 이용승</li>
+                            <li>PART4_마네킹톤프로그램_비만과 과체중의 이해 (2019) – 체중감량 목표 및 속도 가이드</li>
                         </ul>
                     </div>
                 </div>
@@ -934,6 +1648,12 @@
                             특히 성장기 청소년과 성인의 척추측만증에 맞춤형 동작을 통해 Cobb 각도(척추 측만 정도) 진행을 억제하고, 
                             통증 완화와 자세 개선을 도모합니다.
                         </p>
+                        <p class="leading-relaxed mt-4">
+                            모든 세션은 <strong>슈로스 자격 인증 강사</strong>인 박정은 원장이 직접 진행하며, 
+                            국제 PMA 협회의 <em>Scoliosis Certificate</em>를 취득한 전문성을 바탕으로 
+                            회원 한 분 한 분의 만곡 유형에 맞는 섬세한 교정이 이루어집니다. 
+                            10년 이상 척추측만 환자를 지도한 경험을 통해 안전하고 효과적인 교정을 제공합니다.
+                        </p>
                     </div>
 
                     <div class="content-section">
@@ -944,7 +1664,7 @@
                         </p>
                         <p class="leading-relaxed">
                             <strong>근육 균형 강화:</strong> 측만으로 약화된 <em>척추주변근, 심부근육</em>을 강화하고 과긴장된 근육은 이완시켜 
-                            근육 불균형을 완화합니다. 특히 척추 만곡의 볼록쪽(convex) 근육 스트레칭, 오목쪽(concave) 근육 강화에 중점.
+                            근육 불균형을 완화합니다. 특히 척추 만곡의 볼록쪽(convex) 근육은 강화, 오목쪽(concave) 근육은 이완과 스트레칭에 중점.
                         </p>
                     </div>
 
@@ -983,6 +1703,43 @@
                         </div>
                     </div>
 
+                    <div class="content-section">
+                        <h3 class="section-title">강사용 레슨 플랜</h3>
+                        <div class="lesson-plan-container">
+                            <h4 class="lesson-plan-title">플랫스콜 필라테스 레슨 구성</h4>
+                            <div class="lesson-modules">
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-lungs"></i> 교정 호흡 (Schroth Breathing)</h5>
+                                    <p><strong>기구:</strong> Barrel (래더바렐)</p>
+                                    <p><strong>시작 자세:</strong> 래더바렐 측면에 선 자세 (오목측 등 바렐 쪽)</p>
+                                    <p><strong>호흡:</strong> 들이마시며 볼록측 늑골 사이를 확장, 내쉬며 길게 후-</p>
+                                    <p><strong>목표:</strong> 측만 만곡부위 늑골의 가동성 향상 및 폐활량 증진, 호흡으로 척추 신전 및 측굴 교정 보조</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-balance-scale"></i> 측만 교정 강화 (Alignment & Strengthening)</h5>
+                                    <p><strong>기구:</strong> Spine Corrector + Thera-Band</p>
+                                    <p><strong>시작 자세:</strong> 스파인 코렉터 위 측면으로 누워 만곡 패턴 교정 자세</p>
+                                    <p><strong>목표:</strong> 오목측 코어근(사각근 등) 이완 및 스트레칭으로 만곡 지지력 향상, 볼록측 이완근 강화와 함께 척추 측굴+회전 교정</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-ruler-vertical"></i> 자세 교정 연습 (Posture Correction Practice)</h5>
+                                    <p><strong>기구:</strong> Wall Bar, Mirror</p>
+                                    <p><strong>시작 자세:</strong> 벽에 기대 선 자세, 거울을 보며 자세 확인</p>
+                                    <p><strong>목표:</strong> 일상 자세 교정 팁 연습, 자세 인식 능력 향상으로 만성 요통 및 피로감 감소</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-heart"></i> 호흡 기능 개선 (Respiratory Function Enhancement)</h5>
+                                    <p><strong>기구:</strong> Mat, Breathing Ball</p>
+                                    <p><strong>시작 자세:</strong> 매트 위 앉아 호흡 볼을 가슴 앞에 위치</p>
+                                    <p><strong>목표:</strong> 측만증 환자의 제한된 호흡 능력 향상, 늑골의 비대칭 확장 개선으로 폐활량 증진</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
@@ -990,6 +1747,7 @@
                             <li>PART3_플랫스콜 프로그램의 기초 (2019) – 척추측만증 정의 및 합병증</li>
                             <li>슈로스 메소드 원리와 필라테스 적용</li>
                             <li>강사 자격 – instructors.html (박정은 원장 자격: 슈로스 메소드 등)</li>
+                            <li>PART3_플랫스콜 프로그램의 기초 (2019) – 호흡/심혈관 영향, 슈로스 원리에 기초한 프로그램 개요</li>
                         </ul>
                     </div>
                 </div>
@@ -1061,12 +1819,51 @@
                         </div>
                     </div>
 
+                    <div class="content-section">
+                        <h3 class="section-title">강사용 레슨 플랜</h3>
+                        <div class="lesson-plan-container">
+                            <h4 class="lesson-plan-title">골프 필라테스 레슨 구성</h4>
+                            <div class="lesson-modules">
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-golf-ball"></i> 관절 가동 워밍업 (Joint Mobility Warm-up)</h5>
+                                    <p><strong>기구:</strong> Mat + Foam Roller</p>
+                                    <p><strong>시작 자세:</strong> 매트 서서 골프 어드레스 자세</p>
+                                    <p><strong>목표:</strong> 스윙에 필요한 척추/고관절 회전 가동범위 증가, 라운딩 전 워밍업으로 부상 예방 및 유연성 향상</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-fire"></i> 코어 파워 트레이닝 (Core Power Training)</h5>
+                                    <p><strong>기구:</strong> Exo Chair + Medicine Ball</p>
+                                    <p><strong>스프링:</strong> Heavy (Top-loaded)</p>
+                                    <p><strong>시작 자세:</strong> 엑소체어 옆에 서서 메디신 볼 잡기 (골프 스윙 어드레스)</p>
+                                    <p><strong>목표:</strong> 하체-코어-상체의 파워 전달 향상 (Kinetic chain 강화), 임팩트 순간의 폭발적인 회전 힘 증강</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-sync"></i> 스윙 패턴 연습 (Golf Swing Patterning)</h5>
+                                    <p><strong>기구:</strong> Cadillac + Resistance Band</p>
+                                    <p><strong>스프링:</strong> Arm Springs (Medium)</p>
+                                    <p><strong>시작 자세:</strong> 캐딜락 타워에 밴드 연결, 골프 그립 잡고 어드레스 자세</p>
+                                    <p><strong>목표:</strong> 올바른 백스윙 메커니즘 습득, 상하체 분리 동작 향상으로 스윙 안정성 증대</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-leaf"></i> 쿨다운 스트레칭 (Cooldown Stretching)</h5>
+                                    <p><strong>기구:</strong> Mat + Golf Club</p>
+                                    <p><strong>시작 자세:</strong> 매트 서서 골프채 잡고 어깨너비 스탠스</p>
+                                    <p><strong>목표:</strong> 옆구리, 어깨 등 스윙 근육군의 긴장 완화, 운동 후 근육에 축적된 피로물질 감소 및 회복 촉진</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (골프 필라테스 설명)</li>
                             <li>Golf & Pilates Training 가이드 – 회전근개 강화 및 유연성 증진의 효과</li>
                             <li>메디컬필라테스™ Golf Master 교재 – 골퍼를 위한 필라테스 프로그램 설계 원칙</li>
+                            <li>Titleist Performance Institute (TPI) 자료 – 골퍼 피트니스 요소</li>
                         </ul>
                     </div>
                 </div>
@@ -1138,6 +1935,43 @@
                         </div>
                     </div>
 
+                    <div class="content-section">
+                        <h3 class="section-title">강사용 레슨 플랜</h3>
+                        <div class="lesson-plan-container">
+                            <h4 class="lesson-plan-title">키즈(성장) 필라테스 레슨 구성</h4>
+                            <div class="lesson-modules">
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-gamepad"></i> 게임 워밍업 (Fun Warm-up Game)</h5>
+                                    <p><strong>기구:</strong> Mat + Cones</p>
+                                    <p><strong>시작 자세:</strong> 매트 위 점프 스탠스 (콘 두 개 바닥 배치)</p>
+                                    <p><strong>목표:</strong> 심박수 올려 본운동 준비, 아이의 흥미 유발 및 집중도 향상</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-dumbbell"></i> 코어 & 자세 운동 (Core & Posture Exercises)</h5>
+                                    <p><strong>기구:</strong> Reformer + Foam Cushion</p>
+                                    <p><strong>스프링:</strong> Very Light (White) ×1</p>
+                                    <p><strong>시작 자세:</strong> 리포머 캐리지 위 누워 무릎 굽힘 (쿠션 머리 받침)</p>
+                                    <p><strong>목표:</strong> 코어근육 강화로 척추지지 능력 향상, 골반 기울임 교정 및 복부 힘 기르는 습관</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-balance-scale"></i> 성장 스트레칭 & 밸런스 (Stretching & Balance)</h5>
+                                    <p><strong>기구:</strong> Spine Corrector + Balance Pad</p>
+                                    <p><strong>시작 자세:</strong> 스파인코렉터 위에 앉아 다리 뻗기, 균형패드 앞에</p>
+                                    <p><strong>목표:</strong> 햄스트링 및 척추 후면 사슬 이완으로 유연성 향상, 균형패드 위 서기 등을 통해 균형감각 발달</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-smile"></i> 마무리 놀이 이완 (Cooldown with Fun Element)</h5>
+                                    <p><strong>기구:</strong> Mat + Soft Ball</p>
+                                    <p><strong>시작 자세:</strong> 매트 누워 무릎 세우고 소프트볼 배에 올림</p>
+                                    <p><strong>목표:</strong> 복식 호흡 연습으로 이완 및 폐활량 향상, 심리적 안정 (놀이 요소로 편안한 마무리)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
@@ -1145,6 +1979,8 @@
                             <li>PART5_키즈 필라테스의 이론과 실제 (2020) – 성장기 신체 발달과 운동의 중요성</li>
                             <li>아동 발달 운동학 – 연령별 운동 프로그램 설계 원칙</li>
                             <li>청소년 자세 교정 가이드라인</li>
+                            <li>ACSM Youth Physical Activity Guidelines (2018)</li>
+                            <li>Pilates in Kids 워크숍 교재 (Balanced Body, 2019)</li>
                         </ul>
                     </div>
                 </div>
@@ -1218,6 +2054,43 @@
                         </div>
                     </div>
 
+                    <div class="content-section">
+                        <h3 class="section-title">강사용 레슨 플랜</h3>
+                        <div class="lesson-plan-container">
+                            <h4 class="lesson-plan-title">프리내털 & 포스트내털 필라테스 레슨 구성</h4>
+                            <div class="lesson-modules">
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-heartbeat"></i> 순환 촉진 워밍업 (Circulation Warm-up)</h5>
+                                    <p><strong>기구:</strong> Mat + Stability Ball</p>
+                                    <p><strong>시작 자세:</strong> 안정성 볼에 앉아 다리 약간 넓게 벌림</p>
+                                    <p><strong>목표:</strong> 부드러운 상체 움직임으로 혈액순환 증진 및 어깨 긴장 완화, 골반 주변 근육 이완 및 허리 통증 예방</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-dumbbell"></i> 하체 & 코어 강화 (Lower Body & Core Strength)</h5>
+                                    <p><strong>기구:</strong> Reformer</p>
+                                    <p><strong>스프링:</strong> Yellow (Light) ×2</p>
+                                    <p><strong>시작 자세:</strong> 리포머에 큰 쿠션 기대 반좌위, 발 풋바 넓게 올림</p>
+                                    <p><strong>목표:</strong> 허벅지/둔근 강화로 분만 시 힘내기 체력 확보, 코어 안정 유지 연습 (기구 움직임 중 안정성)</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-baby"></i> 골반저근 & 호흡 (Pelvic Floor + Breathing)</h5>
+                                    <p><strong>기구:</strong> Mat</p>
+                                    <p><strong>시작 자세:</strong> 옆으로 누워 무릎 약간 굽힘 (사이드라인)</p>
+                                    <p><strong>목표:</strong> 골반저근 강화로 분만 시 회음부 컨트롤 및 산후 회복 촉진, 호흡과 함께 골반저근 협응 (복압 조절 능력 강화)</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-spa"></i> 릴렉스 & 마무리 (Cool Down & Relaxation)</h5>
+                                    <p><strong>기구:</strong> Mat + Bolster</p>
+                                    <p><strong>시작 자세:</strong> 매트에 편하게 앉아 볼스터 기댐 (가부좌 또는 다리 뻗음)</p>
+                                    <p><strong>목표:</strong> 심신 안정 및 스트레스 완화 (코티솔 감소 효과), 혈압과 맥박을 안정화하여 안전한 마무리</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
@@ -1225,6 +2098,8 @@
                             <li>PART6_산전산후 필라테스 가이드 (2021) – 임신 중 안전 운동 원칙</li>
                             <li>여성 건강과 운동 – 임신 전후 신체 변화와 운동 처방</li>
                             <li>골반저근 회복 프로토콜</li>
+                            <li>Pilates – A Teacher's Manual (Geweniger & Bohlander, 2014) – Prenatal Pilates 지침</li>
+                            <li>대한산부인과학회 자료 – 임산부 운동 권고사항 (2022)</li>
                         </ul>
                     </div>
                 </div>
@@ -1299,6 +2174,43 @@
                         </div>
                     </div>
 
+                    <div class="content-section">
+                        <h3 class="section-title">강사용 레슨 플랜</h3>
+                        <div class="lesson-plan-container">
+                            <h4 class="lesson-plan-title">시니어 필라테스 레슨 구성</h4>
+                            <div class="lesson-modules">
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-wind"></i> 관절 워밍업 (Joint Loosening Warm-up)</h5>
+                                    <p><strong>기구:</strong> Chair (의자)</p>
+                                    <p><strong>시작 자세:</strong> 의자에 앉아 등받이 기대지 않고 바른 자세</p>
+                                    <p><strong>목표:</strong> 뭉친 어깨 근육 풀고 혈액순환 촉진, 목/어깨 가동범위 증가로 거북목 완화</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-walking"></i> 하체 근력 (Lower Body Strengthening)</h5>
+                                    <p><strong>기구:</strong> Chair + Spring (Exo Chair)</p>
+                                    <p><strong>스프링:</strong> Single Low</p>
+                                    <p><strong>시작 자세:</strong> 엑소체어에 앉은 자세, 발 패달 위 올림</p>
+                                    <p><strong>목표:</strong> 허벅지 및 엉덩이 근력 강화 (의자에서 일어서기 동작 연습), 무릎 관절 주변 근육 강화로 안정성 ↑</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-balance-scale"></i> 균형 운동 (Balance Training)</h5>
+                                    <p><strong>기구:</strong> Mat + Parallel Bars</p>
+                                    <p><strong>시작 자세:</strong> 평행봉 사이 매트 위 서서 한 손씩 잡기</p>
+                                    <p><strong>목표:</strong> 단하지 지지 균형능력 향상으로 낙상 예방, 발목 주변 근력 및 고유수용감각 향상</p>
+                                </div>
+                                
+                                <div class="lesson-module">
+                                    <h5><i class="fas fa-spa"></i> 전신 스트레칭 (Full-body Stretch & Cooldown)</h5>
+                                    <p><strong>기구:</strong> Mat + Wall</p>
+                                    <p><strong>시작 자세:</strong> 벽 짚고 서서 종아리 스트레칭 자세 (한 발 뒤로)</p>
+                                    <p><strong>목표:</strong> 종아리, 허벅지, 허리 등 사용근 이완으로 근육통 방지, 심박수와 혈압을 안정화하여 마무리</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
@@ -1306,6 +2218,8 @@
                             <li>PART7_시니어 건강 운동학 (2022) – 노화와 운동의 상관관계</li>
                             <li>낙상 예방을 위한 균형 훈련 가이드라인</li>
                             <li>노인 운동 처방 매뉴얼</li>
+                            <li>ACSM Guidelines for Older Adults (2019)</li>
+                            <li>Pilates for Osteoporosis (2009) – 시니어 골다공증 필라테스 금기 동작 및 운동 효과</li>
                         </ul>
                     </div>
                 </div>
@@ -1327,18 +2241,69 @@
                     편안하게 앉아서 전문 강사의 상세한 설명을 들어보세요.
                 </p>
                 
-                <!-- 오디오 플레이어 -->
-                <div class="audio-player-container">
-                    <audio id="ai-guide-audio" controls preload="metadata" class="audio-player">
+                <!-- 최적화된 커스텀 오디오 플레이어 -->
+                <div class="custom-audio-player">
+                    <div class="audio-header">
+                        <div class="audio-info">
+                            <h4 class="audio-title">필라테스, 통증부터 치매 예방까지!</h4>
+                            <p class="audio-subtitle">7가지 맞춤형 케어의 핵심 원리 파헤치기</p>
+                            <p class="audio-duration">전문 강사 상세 해설</p>
+                        </div>
+                        <div class="audio-controls">
+                            <button class="play-pause-btn" id="play-pause-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="playback-speed">
+                                <select id="speed-selector">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1" selected>1.0x</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2.0x</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="audio-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                            <input type="range" class="progress-slider" id="progress-slider" min="0" max="100" value="0" step="0.1">
+                        </div>
+                        <div class="time-display">
+                            <span class="current-time" id="current-time">0:00</span>
+                            <span class="total-time" id="total-time">0:00</span>
+                        </div>
+                    </div>
+                    
+                                <div class="audio-controls-secondary">
+                <div class="skip-controls">
+                    <button class="skip-btn" id="skip-backward" title="10초 뒤로">
+                        <i class="fas fa-backward"></i>
+                        <span class="skip-text">10초</span>
+                    </button>
+                    <button class="skip-btn" id="skip-forward" title="10초 앞으로">
+                        <span class="skip-text">10초</span>
+                        <i class="fas fa-forward"></i>
+                    </button>
+                </div>
+                <div class="audio-volume">
+                    <div class="volume-slider">
+                        <input type="range" class="volume-range" id="volume-range" min="0" max="100" value="100">
+                    </div>
+                    <button class="volume-btn" id="volume-btn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+            </div>
+                    
+                    <!-- 숨겨진 오디오 요소 -->
+                    <audio id="ai-guide-audio" preload="metadata">
                         <source src="data/필라테스,_통증부터_치매_예방까지!_7가지_맞춤형_케어의_핵심_원리_파헤치기.m4a" type="audio/mp4">
                         <source src="data/필라테스,_통증부터_치매_예방까지!_7가지_맞춤형_케어의_핵심_원리_파헤치기.m4a" type="audio/m4a">
                         브라우저가 오디오 재생을 지원하지 않습니다.
                     </audio>
-                    <div class="audio-info">
-                        <p class="audio-title">필라테스, 통증부터 치매 예방까지!</p>
-                        <p class="audio-subtitle">7가지 맞춤형 케어의 핵심 원리 파헤치기</p>
-                        <p class="audio-duration">전문 강사 상세 해설</p>
-                    </div>
                 </div>
             </div>
         </section>
@@ -1385,6 +2350,196 @@
             card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
             observer.observe(card);
         });
+
+        // 커스텀 오디오 플레이어 기능
+        function initCustomAudioPlayer() {
+            const audio = document.getElementById('ai-guide-audio');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playPauseIcon = playPauseBtn.querySelector('i');
+            const progressFill = document.getElementById('progress-fill');
+            const progressSlider = document.getElementById('progress-slider');
+            const currentTimeDisplay = document.getElementById('current-time');
+            const totalTimeDisplay = document.getElementById('total-time');
+            const volumeBtn = document.getElementById('volume-btn');
+            const volumeIcon = volumeBtn.querySelector('i');
+            const volumeRange = document.getElementById('volume-range');
+            const speedSelector = document.getElementById('speed-selector');
+            const skipBackward = document.getElementById('skip-backward');
+            const skipForward = document.getElementById('skip-forward');
+
+            let isPlaying = false;
+            let isMuted = false;
+            let previousVolume = 100;
+
+            // 재생/일시정지 토글
+            playPauseBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audio.pause();
+                } else {
+                    audio.play();
+                }
+            });
+
+            // 오디오 이벤트 리스너
+            audio.addEventListener('play', () => {
+                isPlaying = true;
+                playPauseIcon.className = 'fas fa-pause';
+                playPauseBtn.style.background = 'var(--deep-navy)';
+            });
+
+            audio.addEventListener('pause', () => {
+                isPlaying = false;
+                playPauseIcon.className = 'fas fa-play';
+                playPauseBtn.style.background = 'var(--golden-brown)';
+            });
+
+            audio.addEventListener('loadedmetadata', () => {
+                const duration = audio.duration;
+                totalTimeDisplay.textContent = formatTime(duration);
+                progressSlider.max = duration;
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                const currentTime = audio.currentTime;
+                const duration = audio.duration;
+                
+                if (duration > 0) {
+                    const progressPercent = (currentTime / duration) * 100;
+                    progressFill.style.width = progressPercent + '%';
+                    progressSlider.value = currentTime;
+                    currentTimeDisplay.textContent = formatTime(currentTime);
+                }
+            });
+
+            audio.addEventListener('ended', () => {
+                isPlaying = false;
+                playPauseIcon.className = 'fas fa-play';
+                playPauseBtn.style.background = 'var(--golden-brown)';
+                progressFill.style.width = '0%';
+                progressSlider.value = 0;
+                currentTimeDisplay.textContent = '0:00';
+            });
+
+            // 프로그레스 바 클릭으로 시간 이동
+            progressSlider.addEventListener('input', () => {
+                const seekTime = progressSlider.value;
+                audio.currentTime = seekTime;
+            });
+
+            // 볼륨 컨트롤
+            volumeRange.addEventListener('input', () => {
+                const volume = volumeRange.value / 100;
+                audio.volume = volume;
+                updateVolumeIcon(volume);
+            });
+
+
+
+            volumeBtn.addEventListener('click', () => {
+                if (isMuted) {
+                    // 음소거 해제
+                    audio.volume = previousVolume / 100;
+                    volumeRange.value = previousVolume;
+                    updateVolumeIcon(previousVolume / 100);
+                    isMuted = false;
+                } else {
+                    // 음소거
+                    previousVolume = volumeRange.value;
+                    audio.volume = 0;
+                    volumeRange.value = 0;
+                    updateVolumeIcon(0);
+                    isMuted = true;
+                }
+            });
+
+            // 10초 앞/뒤 스킵 기능
+            skipBackward.addEventListener('click', () => {
+                audio.currentTime = Math.max(0, audio.currentTime - 10);
+            });
+
+            skipForward.addEventListener('click', () => {
+                audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+            });
+
+            // 재생 속도 변경
+            speedSelector.addEventListener('change', () => {
+                const speed = parseFloat(speedSelector.value);
+                audio.playbackRate = speed;
+            });
+
+            // 시간 포맷팅 함수
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
+
+            // 볼륨 아이콘 업데이트
+            function updateVolumeIcon(volume) {
+                if (volume === 0) {
+                    volumeIcon.className = 'fas fa-volume-mute';
+                } else if (volume < 0.5) {
+                    volumeIcon.className = 'fas fa-volume-down';
+                } else {
+                    volumeIcon.className = 'fas fa-volume-up';
+                }
+            }
+
+            // 키보드 단축키 지원
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+                
+                switch(e.code) {
+                    case 'Space':
+                        e.preventDefault();
+                        playPauseBtn.click();
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        audio.currentTime = Math.max(0, audio.currentTime - 10);
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        const newVolumeUp = Math.min(1, audio.volume + 0.1);
+                        audio.volume = newVolumeUp;
+                        volumeRange.value = newVolumeUp * 100;
+                        updateVolumeIcon(newVolumeUp);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        const newVolumeDown = Math.max(0, audio.volume - 0.1);
+                        audio.volume = newVolumeDown;
+                        volumeRange.value = newVolumeDown * 100;
+                        updateVolumeIcon(newVolumeDown);
+                        break;
+
+                }
+            });
+
+            // 터치 디바이스 지원
+            let isDragging = false;
+            
+            progressSlider.addEventListener('mousedown', () => {
+                isDragging = true;
+            });
+            
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+            
+            progressSlider.addEventListener('input', () => {
+                if (isDragging) {
+                    const seekTime = progressSlider.value;
+                    audio.currentTime = seekTime;
+                }
+            });
+        }
 
         // Interactive eye movement
         function initEyeMovement() {
@@ -1639,6 +2794,7 @@
         
         // Initialize all functionality when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            initCustomAudioPlayer();
             initEyeMovement();
             initMobileMenu();
             initFloatingTopBtn();
