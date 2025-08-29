@@ -706,11 +706,32 @@
 .play-pause-btn.loading {
     opacity: 0.7;
     cursor: pointer;
+    position: relative;
+}
+
+.play-pause-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--golden-brown);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .play-pause-btn.error {
     opacity: 0.8;
     cursor: pointer;
+    background: #dc3545 !important;
 }
 
 .play-pause-btn i {
@@ -2310,7 +2331,7 @@
             </div>
                     
                     <!-- 숨겨진 오디오 요소 -->
-                    <audio id="ai-guide-audio" preload="metadata">
+                    <audio id="ai-guide-audio" preload="auto" crossorigin="anonymous">
                         <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/mp4">
                         <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/m4a">
                         브라우저가 오디오 재생을 지원하지 않습니다.
@@ -2387,12 +2408,24 @@
             console.log('오디오 소스:', audio.src);
             console.log('오디오 준비 상태:', audio.readyState);
 
-            // 재생/일시정지 토글
-            playPauseBtn.addEventListener('click', () => {
-                if (isPlaying) {
-                    audio.pause();
-                } else {
-                    audio.play();
+            // 재생/일시정지 토글 (최적화)
+            playPauseBtn.addEventListener('click', async () => {
+                try {
+                    if (isPlaying) {
+                        audio.pause();
+                    } else {
+                        // 재생 시 즉시 반응
+                        playPauseBtn.classList.add('loading');
+                        const playPromise = audio.play();
+                        
+                        if (playPromise !== undefined) {
+                            await playPromise;
+                            console.log('오디오 재생 시작됨');
+                        }
+                    }
+                } catch (error) {
+                    console.error('오디오 재생 오류:', error);
+                    playPauseBtn.classList.remove('loading');
                 }
             });
 
@@ -2409,11 +2442,13 @@
                 playPauseBtn.style.background = 'var(--golden-brown)';
             });
 
-            // 오디오 로딩 상태 표시
+            // 오디오 로딩 상태 표시 및 최적화
             audio.addEventListener('loadstart', () => {
                 console.log('오디오 파일 로딩 시작...');
                 playPauseBtn.classList.add('loading');
                 playPauseBtn.classList.remove('error');
+                // 로딩 시작 시 즉시 다운로드 시작
+                audio.load();
             });
 
             audio.addEventListener('loadedmetadata', () => {
@@ -2423,6 +2458,21 @@
                 progressSlider.max = duration;
                 playPauseBtn.classList.remove('loading', 'error');
                 console.log('오디오 재생 준비 완료, 재생 가능');
+            });
+
+            // 버퍼링 상태 모니터링
+            audio.addEventListener('progress', () => {
+                console.log('오디오 버퍼링 진행 중...');
+            });
+
+            audio.addEventListener('canplay', () => {
+                console.log('오디오 재생 가능 상태');
+                playPauseBtn.classList.remove('loading');
+            });
+
+            audio.addEventListener('canplaythrough', () => {
+                console.log('오디오 전체 재생 가능 상태');
+                playPauseBtn.classList.remove('loading');
             });
 
             // 오디오 에러 처리
