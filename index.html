@@ -218,14 +218,12 @@
             margin: 0 auto 1.5rem;
             border-radius: 0.5rem;
             background: var(--soft-cream);
-            /* 안드로이드 호환성을 위한 추가 스타일 */
             -webkit-appearance: none;
             appearance: none;
             height: 60px;
             cursor: pointer;
         }
         
-        /* Webkit 브라우저 (Chrome, Safari) 스타일 */
         .audio-player::-webkit-media-controls-panel {
             background: var(--soft-cream);
             border-radius: 0.5rem;
@@ -248,7 +246,6 @@
             font-weight: 600;
         }
         
-        /* Firefox 브라우저 스타일 */
         .audio-player::-moz-range-track {
             background: var(--warm-beige);
             border-radius: 0.25rem;
@@ -264,7 +261,6 @@
             cursor: pointer;
         }
         
-        /* 안드로이드 기본 오디오 컨트롤 강제 표시 */
         .audio-player::-webkit-media-controls {
             display: flex !important;
             opacity: 1 !important;
@@ -275,7 +271,6 @@
             opacity: 1 !important;
         }
         
-        /* 모바일 디바이스에서 진행 바 강제 표시 */
         @media (max-width: 768px) {
             .audio-player {
                 height: 70px;
@@ -430,12 +425,11 @@
         
         .smooth-scroll {
             scroll-behavior: smooth;
-            scroll-padding-top: 100px; /* 네비게이션 헤더 높이 + 여백 */
+            scroll-padding-top: 100px;
         }
         
-        /* 스크롤 타겟 섹션에 대한 추가 스타일 */
         .program-card {
-            scroll-margin-top: 100px; /* 스크롤 시 상단 여백 확보 */
+            scroll-margin-top: 100px;
         }
         
         strong {
@@ -449,12 +443,10 @@
             font-weight: 500;
         }
         
-        /* Eye movement animation */
         .pupil {
             transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Mobile Menu Styles */
         .mobile-menu-btn {
             display: flex;
             flex-direction: column;
@@ -476,7 +468,6 @@
             transition: all 0.3s ease;
         }
         
-        /* 햄버거 메뉴 애니메이션 제거 - 항상 동일한 모양 유지 */
         .mobile-menu-btn.active .hamburger-line:nth-child(1) {
             transform: none;
             background: var(--deep-navy);
@@ -495,8 +486,8 @@
         .mobile-menu {
             position: fixed;
             top: 0;
-            left: -300px; /* 좌측에서 시작하여 숨김 */
-            width: 300px; /* 메뉴 너비 조정 */
+            left: -300px;
+            width: 300px;
             height: 100vh;
             background: linear-gradient(135deg, var(--deep-navy) 0%, var(--golden-brown) 100%);
             z-index: 999;
@@ -507,7 +498,7 @@
         }
         
         .mobile-menu.active {
-            left: 0; /* 좌측에서 슬라이드 인 */
+            left: 0;
         }
         
         .mobile-menu-header {
@@ -580,7 +571,6 @@
             transform: scale(1.1);
         }
         
-        /* 모바일 메뉴 오버레이 */
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -1026,10 +1016,7 @@
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid white;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
-
-
 
 /* 태블릿 반응형 */
 @media (max-width: 1024px) {
@@ -1217,10 +1204,7 @@
         font-size: 1rem;
     }
 }
-
-
         
-        /* Floating Top Button */
         .floating-top-btn {
             position: fixed;
             bottom: 2rem;
@@ -1270,7 +1254,6 @@
             }
         }
 
-        /* AI 가이드 사용법 안내 스타일 */
         .audio-usage-tip {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 1rem;
@@ -1376,7 +1359,6 @@
                     </a>
                 </div>
             </div>
-            </div>
         </nav>
     </header>
 
@@ -1410,7 +1392,7 @@
 
     <!-- Main Content Container -->
     <main class="container mx-auto px-6 py-12">
-        <!-- AI 가이드 섹션을 최상단에 배치 -->
+        <!-- AI 가이드 섹션 -->
         <section id="ai-guide" class="ai-guide-card mb-12">
             <div class="relative z-10">
                 <h2 class="text-4xl font-bold mb-4">
@@ -1432,7 +1414,7 @@
                     브라우저가 오디오 재생을 지원하지 않습니다.
                 </audio>
 
-                <!-- 최적화된 커스텀 오디오 플레이어 -->
+                <!-- 커스텀 오디오 플레이어 -->
                 <div class="custom-audio-player">
                     <div class="audio-header">
                         <div class="audio-info">
@@ -1490,7 +1472,6 @@
                     </div>
                 </div>
 
-                <!-- 사용자 경험 안내 문구 추가 -->
                 <div class="audio-usage-tip mt-6 text-center">
                     <p class="text-lg opacity-90 font-medium">
                         <i class="fas fa-lightbulb mr-2 text-yellow-400"></i>
@@ -1574,8 +1555,6 @@
                         </div>
                     </div>
 
-
-
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
@@ -1583,7 +1562,7 @@
                             <li>PART1_통증재활 프로그램의 기초 (2019) – 만성 통증의 정의 및 원인</li>
                             <li>의학적 필라테스의 원리와 적용</li>
                             <li>프로그램 구성 및 자문: 가정의학과/안티에이징 전문의 이용승</li>
-                            <li>Verena Geweniger & A. Bohlander, Pilates – A Teacher's Manual (2014) – Therapeutic Pilates 원리 및 사례</li>
+                            <li>Verena Geweniger & A. Bohlander, Pilates – A Teacher's Manual (2014)</li>
                         </ul>
                     </div>
                 </div>
@@ -1660,16 +1639,14 @@
                         </div>
                     </div>
 
-
-
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (마네킹톤 프로그램 설명)</li>
-                            <li>PART2_마네킹톤 프로그램의 기초 (2019) – 체형 교정의 원리와 방법</li>
+                            <li>PART2_마네킹톤 프로그램의 기초 (2019)</li>
                             <li>건강한 다이어트를 위한 필라테스 운동</li>
                             <li>프로그램 구성 및 자문: 가정의학과/안티에이징 전문의 이용승</li>
-                            <li>PART4_마네킹톤프로그램_비만과 과체중의 이해 (2019) – 체중감량 목표 및 속도 가이드</li>
+                            <li>PART4_마네킹톤프로그램_비만과 과체중의 이해 (2019)</li>
                         </ul>
                     </div>
                 </div>
@@ -1689,15 +1666,12 @@
                         <p class="leading-relaxed">
                             <em>플랫스콜</em>은 <strong>척추측만증</strong> 특화 필라테스 교정 프로그램입니다. 
                             독일 <em>슈로스 메소드(Schroth Method)</em>의 3차원 교정 원리를 필라테스에 접목하여, 
-                            정적 교정의 한계를 보완한 <strong>동적인 척추 교정 운동</strong>을 제공합니다. 
-                            특히 성장기 청소년과 성인의 척추측만증에 맞춤형 동작을 통해 Cobb 각도(척추 측만 정도) 진행을 억제하고, 
-                            통증 완화와 자세 개선을 도모합니다.
+                            정적 교정의 한계를 보완한 <strong>동적인 척추 교정 운동</strong>을 제공합니다.
                         </p>
                         <p class="leading-relaxed mt-4">
                             모든 세션은 <strong>슈로스 자격 인증 강사</strong>인 박정은 원장이 직접 진행하며, 
                             국제 PMA 협회의 <em>Scoliosis Certificate</em>를 취득한 전문성을 바탕으로 
-                            회원 한 분 한 분의 만곡 유형에 맞는 섬세한 교정이 이루어집니다. 
-                            10년 이상 척추측만 환자를 지도한 경험을 통해 안전하고 효과적인 교정을 제공합니다.
+                            회원 한 분 한 분의 만곡 유형에 맞는 섬세한 교정이 이루어집니다.
                         </p>
                     </div>
 
@@ -1705,20 +1679,17 @@
                         <h3 class="section-title">운동 목표 및 기대 효과</h3>
                         <p class="leading-relaxed mb-4">
                             <strong>척추 정렬 교정:</strong> 측만의 만곡을 3차원적으로 교정하여 척추의 정중정렬을 회복합니다. 
-                            <em>슈로스 5대 원칙</em> (디렉션, 회전교정 호흡 등)을 활용한 운동으로 만곡 각도 감소 및 자세 대칭성 향상.
+                            <em>슈로스 5대 원칙</em>을 활용한 운동으로 자세 대칭성 향상.
                         </p>
                         <p class="leading-relaxed">
-                            <strong>근육 균형 강화:</strong> 측만으로 약화된 <em>척추주변근, 심부근육</em>을 강화하고 과긴장된 근육은 이완시켜 
-                            근육 불균형을 완화합니다. 특히 척추 만곡의 볼록쪽(convex) 근육은 강화, 오목쪽(concave) 근육은 이완과 스트레칭에 중점.
+                            <strong>근육 균형 강화:</strong> 약화된 근육 강화 및 과긴장 근육 이완으로 불균형 완화.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">대상 고객 및 적응증</h3>
                         <p class="leading-relaxed">
-                            <em>특발성 척추측만증</em> 진단을 받은 청소년 및 성인. Cobb 각도 10도 이상의 경증부터 교정 운동이 필요한 
-                            중등도 측만증까지 해당됩니다. 성장기 청소년의 경우 조기 교정을 통해 만곡 진행을 억제하려는 분, 
-                            성인의 경우 자세 개선과 통증 관리를 원하는 분에게 권장합니다.
+                            <em>특발성 척추측만증</em> 청소년 및 성인. Cobb 각도 10도 이상의 경증부터 중등도까지.
                         </p>
                     </div>
 
@@ -1730,34 +1701,27 @@
                                 Q: 이 프로그램만으로 측만증이 완치되나요?
                             </div>
                             <div class="faq-answer">
-                                A: <em>완치</em>의 개념보다는 <strong>관리와 개선</strong>으로 접근합니다. 성장기 청소년의 경우 꾸준한 운동으로 
-                                만곡 진행을 억제하거나 경미한 개선을 기대할 수 있습니다. 성인의 경우 각도 자체의 큰 변화는 어려울 수 있으나, 
-                                <strong>자세 향상과 통증 감소</strong> 등의 임상적 개선이 관찰됩니다.
+                                A: <em>완치</em>보다는 <strong>관리와 개선</strong>에 초점. 성장기에는 진행 억제, 성인은 자세·통증 개선이 주효.
                             </div>
                         </div>
 
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 교정용 보조기(코르셋)를 착용 중인데 운동해도 되나요?
+                                Q: 보조기 착용 중인데 운동해도 되나요?
                             </div>
                             <div class="faq-answer">
-                                A: 네, 가능합니다. 보조기는 지정된 착용 시간 외에 운동할 때는 벗고 진행합니다. 운동을 통해 
-                                <strong>근육으로 척추를 지지</strong>하는 능력을 길러주면 보조기 착용 기간 단축에도 도움이 됩니다. 
-                                단, 보조기 착용으로 피부 압박 부위가 예민할 수 있으니 해당 부위 자극이 없도록 자세를 조정합니다.
+                                A: 가능. 지정된 착용 시간 외 운동 시 벗고 진행. 근육 지지 능력 강화에 유리.
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (플랫스콜 프로그램 설명)</li>
-                            <li>PART3_플랫스콜 프로그램의 기초 (2019) – 척추측만증 정의 및 합병증</li>
+                            <li>PART3_플랫스콜 프로그램의 기초 (2019)</li>
                             <li>슈로스 메소드 원리와 필라테스 적용</li>
-                            <li>강사 자격 – instructors.html (박정은 원장 자격: 슈로스 메소드 등)</li>
-                            <li>PART3_플랫스콜 프로그램의 기초 (2019) – 호흡/심혈관 영향, 슈로스 원리에 기초한 프로그램 개요</li>
+                            <li>강사 자격 – instructors.html</li>
                         </ul>
                     </div>
                 </div>
@@ -1775,31 +1739,24 @@
                     <div class="highlight-section">
                         <h3 class="section-title">프로그램 개요</h3>
                         <p class="leading-relaxed">
-                            <em>골프 필라테스</em>는 골프 선수와 골프 애호가를 위해 개발된 특화 필라테스 프로그램입니다. 
-                            골프 스윙에 필요한 근력과 유연성을 향상시켜 <strong>드라이버 비거리 증대</strong>와 안정적인 스윙을 도와주며, 
-                            반복적인 골프 동작으로 인한 부상 예방에 초점을 둡니다. TPI (Titleist Performance Institute) 
-                            골프 운동 원리를 접목하여, 코어 회전력 강화와 몸통 회전 가동범위 증대를 달성합니다.
+                            <em>골프 필라테스</em>는 골프 스윙에 필요한 근력과 유연성을 향상시켜 <strong>비거리 증대</strong>와 부상 예방을 돕습니다.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">운동 목표 및 기대 효과</h3>
                         <p class="leading-relaxed mb-4">
-                            <strong>비거리 향상:</strong> 힙 회전과 척추 회전 능력을 향상시켜 보다 강력한 <em>회전력</em>을 생성합니다. 
-                            드라이버 비거리 증대를 위해 하체-상체의 분리 움직임 및 지면반력 활용을 훈련합니다.
+                            <strong>비거리 향상:</strong> 회전 가동범위 증대와 코어 안정화로 파워 향상.
                         </p>
                         <p class="leading-relaxed">
-                            <strong>정확성 & 일관성 향상:</strong> 코어 안정화와 <em>균형 감각</em>을 길러 스윙 시 몸의 흔들림을 줄이고 
-                            임팩트 정확도를 높입니다. 어드레스 자세 교정과 피니시까지 <strong>스윙 밸런스 유지</strong>를 목표로 합니다.
+                            <strong>정확성:</strong> 균형·안정성 강화로 스윙 일관성 개선.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">대상 고객 및 적응증</h3>
                         <p class="leading-relaxed">
-                            골프 비거리나 스윙 폼을 개선하고 싶은 골퍼 (초보~상급 모두 가능). 라운드 후 허리나 어깨 통증을 느끼는 
-                            아마추어 골퍼. 프로 선수의 경우 오프시즌 체력훈련 또는 경기 시즌 중 컨디셔닝으로 활용 가능합니다. 
-                            또한 장시간 스크린골프/필드 라운딩으로 근육 피로가 누적된 골퍼에게 권장합니다.
+                            초보부터 상급 골퍼. 라운드 후 요·견통 있는 경우 권장.
                         </p>
                     </div>
 
@@ -1808,36 +1765,28 @@
                         
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 필라테스로 정말 드라이버 비거리가 늘어나나요?
+                                Q: 드라이버 비거리가 늘어날까요?
                             </div>
                             <div class="faq-answer">
-                                A: 네, 많은 회원분들이 <strong>비거리 증가</strong>를 경험하셨습니다. 골프 필라테스는 몸통 회전 가동범위를 늘리고 
-                                파워를 내는 근육을 강화하기 때문에, 스윙 스피드가 올라가고 임팩트가 향상됩니다. 
-                                실제로 3개월간 주 1-2회 프로그램 후 평균 드라이버 비거리가 10~20야드 증가한 사례들이 있습니다.
+                                A: 회전력·코어 강화로 <strong>증가 사례 다수</strong>.
                             </div>
                         </div>
 
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 골프 칠 때 허리가 아픈데 이 프로그램으로 좋아질까요?
+                                Q: 허리 통증 완화에 도움이 되나요?
                             </div>
                             <div class="faq-answer">
-                                A: 네, 허리 통증 완화에 도움이 됩니다. 반복적인 스윙으로 생긴 <strong>근육 불균형을 해소</strong>하고 
-                                코어를 강화하여 척추에 가해지는 부담을 줄여줍니다. 특히 허리 주변의 유연성과 안정성이 높아지면서 
-                                스윙 시 충격 흡수가 잘 되고, 잘못된 스윙 자세도 교정되어 통증이 줄어드는 효과가 있습니다.
+                                A: 근불균형 개선과 자세 교정으로 <strong>완화</strong>에 기여.
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (골프 필라테스 설명)</li>
-                            <li>Golf & Pilates Training 가이드 – 회전근개 강화 및 유연성 증진의 효과</li>
-                            <li>메디컬필라테스™ Golf Master 교재 – 골퍼를 위한 필라테스 프로그램 설계 원칙</li>
-                            <li>Titleist Performance Institute (TPI) 자료 – 골퍼 피트니스 요소</li>
+                            <li>TPI 자료 – 골퍼 피트니스 요소</li>
                         </ul>
                     </div>
                 </div>
@@ -1855,31 +1804,24 @@
                     <div class="highlight-section">
                         <h3 class="section-title">프로그램 개요</h3>
                         <p class="leading-relaxed">
-                            <em>키즈/청소년 성장 필라테스</em>는 성장기 아동과 청소년의 <strong>건강한 신체 발달</strong>을 지원하는 맞춤형 운동 프로그램입니다. 
-                            현대 아이들의 스마트폰, 게임 등으로 인한 <em>거북목, 라운드숄더</em> 등의 자세 문제를 해결하고, 
-                            성장판이 열려 있는 시기에 <strong>올바른 움직임 패턴</strong>을 습득하도록 도와줍니다. 
-                            재미있는 놀이 형태의 운동으로 아이들의 흥미를 유발하면서도 전문적인 운동 효과를 제공합니다.
+                            <em>성장 촉진·자세 교정</em>과 기초 체력 향상을 목표로 한 발달 운동 프로그램.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">운동 목표 및 기대 효과</h3>
                         <p class="leading-relaxed mb-4">
-                            <strong>성장 촉진 & 자세 교정:</strong> 성장기에 필요한 <em>척추 신장 운동</em>과 관절 가동범위 증대를 통해 키 성장을 돕고, 
-                            잘못된 자세 습관을 조기에 교정합니다. 특히 목과 어깨의 정렬을 개선하여 <strong>바른 체형</strong> 형성을 지원.
+                            척추 신장, 관절 가동범위 증대, 집중력·신체 인식능력 향상.
                         </p>
                         <p class="leading-relaxed">
-                            <strong>기초 체력 & 운동 능력 향상:</strong> 코어 안정성, 균형감각, 유연성을 기반으로 한 <em>기초 운동 능력</em>을 발달시켜 
-                            향후 다양한 스포츠 활동의 토대를 마련합니다. <strong>집중력과 신체 인식능력</strong> 향상으로 학습 능력에도 긍정적 영향.
+                            균형·유연성·코어 안정성 강화로 스포츠 기초 역량 확보.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">대상 고객 및 적응증</h3>
                         <p class="leading-relaxed">
-                            만 6세~18세 아동 및 청소년. 자세가 좋지 않거나 성장이 더딘 아이, 운동 부족으로 기초 체력이 약한 아이에게 특히 효과적입니다. 
-                            스마트폰 사용이 많아 거북목이나 굽은 등 문제가 있는 청소년, 집중력이 부족하거나 신체 협응력이 떨어지는 아이들에게 권장합니다. 
-                            또한 특정 스포츠를 시작하기 전 기초 체력을 다지고 싶은 아이들에게 적합합니다.
+                            만 6~18세. 거북목·라운드숄더 교정, 운동부족 개선, 스포츠 입문 준비.
                         </p>
                     </div>
 
@@ -1888,38 +1830,28 @@
                         
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 아이가 필라테스를 재미있어할까요?
+                                Q: 재미있게 할 수 있나요?
                             </div>
                             <div class="faq-answer">
-                                A: 네, 키즈 프로그램은 <strong>놀이와 게임 형태</strong>로 구성되어 아이들이 재미있게 참여할 수 있습니다. 
-                                동물 움직임 따라하기, 밸런스 게임, 파트너 운동 등 다양한 활동으로 지루하지 않게 진행됩니다. 
-                                또한 <em>성취감과 자신감</em>을 느낄 수 있는 단계별 목표 설정으로 아이들의 지속적인 참여를 유도합니다.
+                                A: 놀이·게임형 구성으로 <strong>흥미 유발</strong> 및 지속 참여 유도.
                             </div>
                         </div>
 
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 몇 살부터 시작할 수 있나요?
+                                Q: 몇 살부터 가능?
                             </div>
                             <div class="faq-answer">
-                                A: 일반적으로 <strong>만 6세부터</strong> 시작 가능합니다. 이 시기부터 기본적인 지시 사항을 이해하고 따라할 수 있으며, 
-                                집중력도 어느 정도 발달합니다. 다만 개인차가 있으므로 <em>아이의 발달 상태</em>를 고려하여 조정합니다. 
-                                더 어린 아이들의 경우 부모님과 함께하는 <strong>패밀리 클래스</strong> 형태로 참여할 수 있습니다.
+                                A: 보통 <strong>만 6세</strong>부터. 발달 상태에 따라 조정.
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (키즈 필라테스 설명)</li>
-                            <li>PART5_키즈 필라테스의 이론과 실제 (2020) – 성장기 신체 발달과 운동의 중요성</li>
-                            <li>아동 발달 운동학 – 연령별 운동 프로그램 설계 원칙</li>
-                            <li>청소년 자세 교정 가이드라인</li>
                             <li>ACSM Youth Physical Activity Guidelines (2018)</li>
-                            <li>Pilates in Kids 워크숍 교재 (Balanced Body, 2019)</li>
                         </ul>
                     </div>
                 </div>
@@ -1937,31 +1869,24 @@
                     <div class="highlight-section">
                         <h3 class="section-title">프로그램 개요</h3>
                         <p class="leading-relaxed">
-                            <em>프리내털 & 포스트내털 필라테스</em>는 임신 준비부터 출산 후 회복까지, 여성의 <strong>임신 전후 건강 관리</strong>를 위한 전문 프로그램입니다. 
-                            임신 중에는 안전하고 효과적인 운동을 통해 <em>체중 관리와 체력 유지</em>를 돕고, 
-                            출산 후에는 <strong>복부 회복과 골반저근 강화</strong>에 중점을 둡니다. 
-                            산전산후 여성의 신체 변화를 깊이 이해한 전문 강사의 세심한 케어로 안전하고 효과적인 운동을 제공합니다.
+                            임신 중 체력 유지와 산후 복부·골반 회복을 위한 전문 프로그램.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">운동 목표 및 기대 효과</h3>
                         <p class="leading-relaxed mb-4">
-                            <strong>임신 중 관리:</strong> <em>골반저근 강화</em>와 코어 안정성 유지로 출산을 위한 체력을 기르고, 
-                            임신 중 흔한 허리 통증, 골반 통증 완화를 도모합니다. 적절한 체중 증가와 <strong>순산 준비</strong>를 위한 근력 및 지구력 향상.
+                            골반저근 강화, 코어 안정, 허리·골반 통증 완화, 순산 준비.
                         </p>
                         <p class="leading-relaxed">
-                            <strong>산후 회복:</strong> 늘어난 복직근(복부 근육 분리) 회복과 <em>골반 정렬 교정</em>을 통해 임신 전 몸매로 돌아가도록 지원합니다. 
-                            육아로 인한 어깨, 목 긴장 완화 및 <strong>전반적인 체력 회복</strong>으로 건강한 육아 생활을 돕습니다.
+                            산후 복직근 이개 회복, 정렬 교정, 전반 체력 회복.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">대상 고객 및 적응증</h3>
                         <p class="leading-relaxed">
-                            <em>임신을 계획하는 여성</em>부터 <em>임신 중인 산모</em> (안정기 이후), <em>출산 후 6주 이후 산모</em>까지 포괄적으로 대상으로 합니다. 
-                            임신 중 <strong>체중 관리</strong>나 <strong>체력 유지</strong>가 필요한 분, 출산 후 <strong>복부나 골반 회복</strong>이 필요한 분에게 특히 효과적입니다. 
-                            <em>제왕절개 분만 후 회복 중인 산모</em>, <em>임신성 당뇨나 고혈압</em> 등으로 운동이 제한적인 경우에도 <strong>의사 소견 하에 적용 가능</strong>합니다.
+                            임신 계획·임신 중(안정기 이후)·출산 6주 이후 산모. 의사 소견에 따른 적용.
                         </p>
                     </div>
 
@@ -1970,40 +1895,28 @@
                         
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 임신 중에 운동해도 안전한가요?
+                                Q: 임신 중 운동은 안전한가요?
                             </div>
                             <div class="faq-answer">
-                                A: 네, <strong>안전한 임신 중 운동</strong>은 오히려 산모와 태아에게 도움이 됩니다. 
-                                프리내털 필라테스는 임신 각 시기별 특성을 고려한 <em>안전한 동작</em>들로 구성되어 있으며, 
-                                절대 금기 동작(복부 압박, 과도한 스트레칭 등)은 철저히 배제합니다. 
-                                다만 고위험 임신이거나 특별한 의학적 상황이 있다면 담당 의사와 상담 후 시작하시기 바랍니다.
+                                A: 안전 지침 준수 시 <strong>권장</strong>. 금기 동작 배제, 상태별 조정 필수.
                             </div>
                         </div>
 
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 제왕절개 후 언제부터 운동할 수 있나요?
+                                Q: 제왕절개 후 시작 시점?
                             </div>
                             <div class="faq-answer">
-                                A: 일반적으로 <strong>제왕절개 후 8~12주</strong> 정도 지나 의사의 허가를 받은 후 시작 가능합니다. 
-                                자연분만보다 회복 기간이 더 필요하므로 <em>절개 부위 회복 상태</em>를 확인한 후 진행합니다. 
-                                초기에는 호흡 운동과 가벼운 골반저근 운동부터 시작하여 단계적으로 강도를 높여나갑니다. 
-                                개인차가 있으므로 몸의 신호를 주의 깊게 관찰하며 진행합니다.
+                                A: 보통 <strong>8~12주</strong> 후 의사 허가 후 시작.
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (프리내털 프로그램 설명)</li>
-                            <li>PART6_산전산후 필라테스 가이드 (2021) – 임신 중 안전 운동 원칙</li>
-                            <li>여성 건강과 운동 – 임신 전후 신체 변화와 운동 처방</li>
-                            <li>골반저근 회복 프로토콜</li>
-                            <li>Pilates – A Teacher's Manual (Geweniger & Bohlander, 2014) – Prenatal Pilates 지침</li>
-                            <li>대한산부인과학회 자료 – 임산부 운동 권고사항 (2022)</li>
+                            <li>대한산부인과학회 임산부 운동 권고(2022)</li>
                         </ul>
                     </div>
                 </div>
@@ -2021,32 +1934,24 @@
                     <div class="highlight-section">
                         <h3 class="section-title">프로그램 개요</h3>
                         <p class="leading-relaxed">
-                            <em>시니어 필라테스</em>는 60세 이상 노년층의 <strong>건강한 노화</strong>와 삶의 질 향상을 위한 특별히 설계된 프로그램입니다. 
-                            나이가 들면서 자연스럽게 감소하는 <em>근력, 균형감각, 유연성</em>을 개선하여 일상생활 능력을 유지하고, 
-                            낙상 위험을 줄이며 <strong>독립적인 생활</strong>을 지속할 수 있도록 돕습니다. 
-                            관절에 무리가 가지 않는 저강도 운동으로 안전하면서도 효과적인 운동을 제공합니다.
+                            낙상 예방, 균형·유연성·근력 향상으로 일상 기능 유지와 인지 기능 자극.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">운동 목표 및 기대 효과</h3>
                         <p class="leading-relaxed mb-4">
-                            <strong>낙상 예방 & 균형감각 향상:</strong> 노년기 가장 위험한 <em>낙상 사고</em>를 예방하기 위해 균형감각과 반응시간을 개선합니다. 
-                            하지 근력 강화와 고유감각 훈련을 통해 <strong>안정적인 보행</strong>과 일상 동작 수행 능력을 향상시킵니다.
+                            균형감각 향상과 하지 근력 강화로 안정적 보행.
                         </p>
                         <p class="leading-relaxed">
-                            <strong>치매 예방 & 인지 기능 향상:</strong> 신체 운동과 인지 활동을 결합한 <em>이중 과제 훈련</em>으로 뇌 활성화를 촉진합니다. 
-                            집중력과 기억력 향상에 도움이 되며, <strong>사회적 활동</strong>을 통한 정서적 건강도 함께 증진됩니다.
+                            이중 과제 훈련으로 인지·정서 건강 증진.
                         </p>
                     </div>
 
                     <div class="content-section">
                         <h3 class="section-title">대상 고객 및 적응증</h3>
                         <p class="leading-relaxed">
-                            만 60세 이상의 노년층으로, 기본적인 일상생활이 가능한 분들을 대상으로 합니다. 
-                            균형감각이 떨어지거나 낙상에 대한 두려움이 있는 분, 관절염이나 골다공증 등으로 운동에 제약이 있는 분에게 적합합니다. 
-                            치매 예방을 원하거나 사회적 활동을 통한 정서적 건강 증진을 원하는 분들에게도 권장합니다. 
-                            단, 심각한 심혈관 질환이나 급성 질병이 있는 경우 의사와 상담 후 참여하시기 바랍니다.
+                            60세 이상. 관절 질환 보유자 포함. 심혈관 급성기 제외.
                         </p>
                     </div>
 
@@ -2055,47 +1960,33 @@
                         
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 나이가 많은데 필라테스를 해도 될까요?
+                                Q: 나이가 많아도 가능?
                             </div>
                             <div class="faq-answer">
-                                A: 물론입니다! 시니어 필라테스는 <strong>나이와 체력에 맞춘</strong> 안전한 운동입니다. 
-                                관절에 무리가 가지 않는 저강도 운동으로 구성되어 있으며, 개인의 컨디션에 따라 
-                                <em>운동 강도와 난이도를 조절</em>합니다. 오히려 규칙적인 운동은 노화 과정을 늦추고 
-                                <strong>건강한 노년기</strong>를 만드는 데 큰 도움이 됩니다.
+                                A: 저충격·개인화 강도로 <strong>안전</strong>하게 진행 가능.
                             </div>
                         </div>
 
                         <div class="faq-item">
                             <div class="faq-question">
-                                Q: 관절염이 있어도 운동할 수 있나요?
+                                Q: 관절염이 있어도?
                             </div>
                             <div class="faq-answer">
-                                A: 네, 가능합니다. 관절염이 있더라도 <strong>적절한 운동</strong>은 오히려 관절 건강에 도움이 됩니다. 
-                                시니어 필라테스는 관절에 충격을 주지 않는 <em>저충격 운동</em>으로 구성되어 있어 
-                                관절염 환자도 안전하게 참여할 수 있습니다. 운동을 통해 관절 주변 근육을 강화하고 
-                                <strong>관절 가동범위</strong>를 유지하여 관절염 증상 완화에도 도움이 됩니다.
+                                A: 관절친화적 구성으로 참여 가능. 주변근 강화와 ROM 유지에 도움.
                             </div>
                         </div>
                     </div>
-
-
 
                     <div class="reference-section">
                         <h4 class="reference-title">참고 문헌 및 자료</h4>
                         <ul class="reference-list">
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (시니어 필라테스 설명)</li>
-                            <li>PART7_시니어 건강 운동학 (2022) – 노화와 운동의 상관관계</li>
-                            <li>낙상 예방을 위한 균형 훈련 가이드라인</li>
-                            <li>노인 운동 처방 매뉴얼</li>
                             <li>ACSM Guidelines for Older Adults (2019)</li>
-                            <li>Pilates for Osteoporosis (2009) – 시니어 골다공증 필라테스 금기 동작 및 운동 효과</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </main>
 
     <script>
@@ -2105,24 +1996,15 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    // 네비게이션 헤더의 높이를 고려하여 스크롤 위치 조정
                     const headerHeight = document.querySelector('.nav-header').offsetHeight;
-                    const targetPosition = target.offsetTop - headerHeight - 20; // 20px 여백 추가
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 }
             });
         });
 
         // Scroll-triggered animations for program cards
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -2132,7 +2014,6 @@
             });
         }, observerOptions);
 
-        // Observe all program cards
         document.querySelectorAll('.program-card').forEach(card => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(30px)';
@@ -2140,108 +2021,69 @@
             observer.observe(card);
         });
 
-
-
-            // 오디오 에러 처리
-
-
         // Interactive eye movement
         function initEyeMovement() {
             const leftEye = document.getElementById('left-eye');
             const rightEye = document.getElementById('right-eye');
             const leftPupil = document.getElementById('left-pupil');
             const rightPupil = document.getElementById('right-pupil');
-
             if (!leftEye || !rightEye || !leftPupil || !rightPupil) return;
 
             function movePupil(eye, pupil, isRightEye = false) {
                 const eyeRect = eye.getBoundingClientRect();
                 const eyeCenterX = eyeRect.left + eyeRect.width / 2;
                 const eyeCenterY = eyeRect.top + eyeRect.height / 2;
-
                 return function(e) {
                     const mouseX = e.clientX;
                     const mouseY = e.clientY;
-
-                    // Calculate direction from eye center to mouse
                     const deltaX = mouseX - eyeCenterX;
                     const deltaY = mouseY - eyeCenterY;
-
-                    // Calculate distance
-                    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-                    // Limit movement to keep pupil inside eye
-                    const maxMove = 25; // Maximum movement distance
+                    const maxMove = 25;
                     const moveX = Math.min(Math.abs(deltaX), maxMove) * (deltaX > 0 ? 1 : -1);
                     const moveY = Math.min(Math.abs(deltaY), maxMove) * (deltaY > 0 ? 1 : -1);
-
-                    // Apply movement with slight offset for natural look
                     const offsetX = isRightEye ? 2 : -2;
                     const offsetY = -1;
-
                     pupil.style.transform = `translate(calc(-50% + ${moveX + offsetX}px), calc(-50% + ${moveY + offsetY}px))`;
                 };
             }
-
-            // Add event listeners
             document.addEventListener('mousemove', movePupil(leftEye, leftPupil, false));
             document.addEventListener('mousemove', movePupil(rightEye, rightPupil, true));
-
-            // Add touch support for mobile devices
             document.addEventListener('touchmove', function(e) {
                 if (e.touches.length > 0) {
-                    const touch = e.touches[0];
-                    const mouseEvent = new MouseEvent('mousemove', {
-                        clientX: touch.clientX,
-                        clientY: touch.clientY
-                    });
-                    document.dispatchEvent(mouseEvent);
+                    const t = e.touches[0];
+                    const evt = new MouseEvent('mousemove', { clientX: t.clientX, clientY: t.clientY });
+                    document.dispatchEvent(evt);
                 }
             });
         }
 
-
-        
-        // Mobile menu functionality
+        // Mobile menu
         function initMobileMenu() {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
             const mobileMenuClose = document.getElementById('mobile-menu-close');
             const mobileMenuLinks = document.querySelectorAll('.mobile-nav-link');
-            
             if (!mobileMenuBtn || !mobileMenu || !mobileMenuOverlay) return;
-            
-            // Toggle mobile menu
-            mobileMenuBtn.addEventListener('click', function() {
+
+            function openMenu() {
                 mobileMenu.classList.add('active');
                 mobileMenuOverlay.classList.add('active');
                 mobileMenuBtn.classList.add('active');
                 document.body.style.overflow = 'hidden';
-            });
-            
-            // Close mobile menu functions
-            function closeMobileMenu() {
+            }
+            function closeMenu() {
                 mobileMenu.classList.remove('active');
                 mobileMenuOverlay.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
                 document.body.style.overflow = '';
             }
-            
-            // Close button
-            if (mobileMenuClose) {
-                mobileMenuClose.addEventListener('click', closeMobileMenu);
-            }
-            
-            // Overlay click to close
-            mobileMenuOverlay.addEventListener('click', closeMobileMenu);
-            
-            // Close mobile menu when clicking on links
+            mobileMenuBtn.addEventListener('click', openMenu);
+            if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMenu);
+            mobileMenuOverlay.addEventListener('click', closeMenu);
             mobileMenuLinks.forEach(link => {
                 link.addEventListener('click', function() {
-                    closeMobileMenu();
-                    
-                    // 모바일 메뉴 닫힌 후 스크롤 위치 조정
+                    closeMenu();
                     setTimeout(() => {
                         const href = this.getAttribute('href');
                         if (href && href.startsWith('#')) {
@@ -2249,87 +2091,39 @@
                             if (target) {
                                 const headerHeight = document.querySelector('.nav-header').offsetHeight;
                                 const targetPosition = target.offsetTop - headerHeight - 20;
-                                
-                                window.scrollTo({
-                                    top: targetPosition,
-                                    behavior: 'smooth'
-                                });
+                                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                             }
                         }
-                    }, 300); // 메뉴가 닫힌 후 스크롤 실행
+                    }, 300);
                 });
             });
-            
-            // Close on escape key
             document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-                    closeMobileMenu();
-                }
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) closeMenu();
             });
-            
-            // Close on swipe left (for mobile)
-            let startX = 0;
-            let currentX = 0;
-            
-            mobileMenu.addEventListener('touchstart', function(e) {
-                startX = e.touches[0].clientX;
-            });
-            
-            mobileMenu.addEventListener('touchmove', function(e) {
-                currentX = e.touches[0].clientX;
-            });
-            
-            mobileMenu.addEventListener('touchend', function(e) {
-                const swipeDistance = startX - currentX;
-                if (swipeDistance > 50) { // 왼쪽으로 스와이프
-                    closeMobileMenu();
-                }
-            });
+            let startX = 0, currentX = 0;
+            mobileMenu.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+            mobileMenu.addEventListener('touchmove', e => { currentX = e.touches[0].clientX; });
+            mobileMenu.addEventListener('touchend', () => { if (startX - currentX > 50) closeMenu(); });
         }
         
-        // Floating top button functionality
+        // Floating top button
         function initFloatingTopBtn() {
             const floatingTopBtn = document.getElementById('floating-top-btn');
-            
             if (!floatingTopBtn) return;
-            
-            // Show/hide button based on scroll position
             function toggleTopButton() {
-                if (window.pageYOffset > 300) {
-                    floatingTopBtn.classList.add('visible');
-                } else {
-                    floatingTopBtn.classList.remove('visible');
-                }
+                if (window.pageYOffset > 300) floatingTopBtn.classList.add('visible');
+                else floatingTopBtn.classList.remove('visible');
             }
-            
-            // Scroll to top when button is clicked
-            floatingTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-            
-            // Listen for scroll events
+            floatingTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             window.addEventListener('scroll', toggleTopButton);
-            
-            // Initial check
             toggleTopButton();
         }
-        
 
-        
-        // 오디오 플레이어 초기화 함수
+        // Audio player
         function initAudioPlayer() {
-            console.log('오디오 플레이어 초기화 시작...');
             const audio = document.getElementById('ai-guide-audio');
-            
-            if (!audio) {
-                console.error('오디오 요소를 찾을 수 없습니다!');
-                return;
-            }
-            
-            console.log('오디오 요소 찾음:', audio);
+            if (!audio) return;
+
             const playPauseBtn = document.getElementById('play-pause-btn');
             const playPauseIcon = playPauseBtn.querySelector('i');
             const progressFill = document.getElementById('progress-fill');
@@ -2346,165 +2140,149 @@
             let isPlaying = false;
             let lastVolume = 0.7;
 
-            // Web Audio API를 사용한 볼륨 제어 (모바일 대응)
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            let audioCtx, gainNode;
-            if (AudioContext) {
+            const AudioContextRef = window.AudioContext || window.webkitAudioContext;
+            let audioCtx = null, gainNode = null, mediaSource = null;
+
+            function ensureAudioGraph() {
+                if (!AudioContextRef || audioCtx) return;
                 audioCtx = new AudioContext();
-                const source = audioCtx.createMediaElementSource(audio);
+                mediaSource = audioCtx.createMediaElementSource(audio);
                 gainNode = audioCtx.createGain();
                 gainNode.gain.value = lastVolume;
-                source.connect(gainNode).connect(audioCtx.destination);
-                audio.volume = 1; // 디바이스 볼륨과 독립적으로 제어
-            } else {
-                audio.volume = lastVolume;
+                mediaSource.connect(gainNode).connect(audioCtx.destination);
+                audio.volume = 1; // Web Audio로 제어
             }
 
-            audio.muted = false;
-            volumeRange.value = lastVolume * 100;
-            updateVolumeIcon(lastVolume);
-
-            function setVolume(volume) {
-                if (gainNode) {
-                    gainNode.gain.value = volume;
+            function setVolume(v) {
+                v = Math.max(0, Math.min(1, Number(v)));
+                if (AudioContextRef) {
+                    ensureAudioGraph();
+                    if (gainNode) gainNode.gain.value = v;
+                    else audio.volume = v;
                 } else {
-                    audio.volume = volume;
+                    audio.volume = v;
                 }
-                audio.muted = volume === 0;
+                audio.muted = v === 0;
+                volumeRange.value = Math.round(v * 100);
+                updateVolumeIcon(v);
+                if (v > 0) lastVolume = v;
             }
 
             function getVolume() {
-                return gainNode ? gainNode.gain.value : audio.volume;
+                if (gainNode) return Number(gainNode.gain.value);
+                return Number(audio.volume);
             }
 
-            // 재생/일시정지 토글
+            // 초기 UI
+            audio.muted = false;
+            volumeRange.value = Math.round(lastVolume * 100);
+            updateVolumeIcon(lastVolume);
+
+            // 재생/일시정지
             playPauseBtn.addEventListener('click', async () => {
                 try {
-                    if (isPlaying) {
-                        audio.pause();
-                    } else {
+                    if (!isPlaying) {
                         playPauseBtn.classList.add('loading');
-                        if (audioCtx && audioCtx.state === 'suspended') {
-                            await audioCtx.resume();
-                        }
-                        const playPromise = audio.play();
-                        if (playPromise !== undefined) {
-                            await playPromise;
-                        }
+                        ensureAudioGraph();
+                        if (audioCtx && audioCtx.state === 'suspended') await audioCtx.resume();
+                        await audio.play();
+                    } else {
+                        audio.pause();
                     }
-                } catch (error) {
-                    console.error('오디오 재생 오류:', error);
+                } catch (err) {
+                    console.error('오디오 재생 오류:', err);
+                    playPauseBtn.classList.add('error');
+                } finally {
                     playPauseBtn.classList.remove('loading');
                 }
             });
 
-            // 오디오 이벤트 리스너
-            audio.addEventListener('play', () => {
-                isPlaying = true;
-                playPauseIcon.className = 'fas fa-pause';
-            });
-
-            audio.addEventListener('pause', () => {
-                isPlaying = false;
-                playPauseIcon.className = 'fas fa-play';
-            });
-
-            audio.addEventListener('loadstart', () => {
-                console.log('오디오 로딩 시작...');
-                playPauseBtn.classList.add('loading');
-            });
+            audio.addEventListener('play', () => { isPlaying = true; playPauseIcon.className = 'fas fa-pause'; });
+            audio.addEventListener('pause', () => { isPlaying = false; playPauseIcon.className = 'fas fa-play'; });
+            audio.addEventListener('loadstart', () => playPauseBtn.classList.add('loading'));
+            audio.addEventListener('canplay', () => playPauseBtn.classList.remove('loading'));
+            audio.addEventListener('error', (e) => { console.error('오디오 로딩 에러:', e); playPauseBtn.classList.add('error'); playPauseBtn.classList.remove('loading'); });
 
             audio.addEventListener('loadedmetadata', () => {
-                console.log('오디오 메타데이터 로드 완료, 길이:', audio.duration);
                 const duration = audio.duration;
                 totalTimeDisplay.textContent = formatTime(duration);
                 progressSlider.max = duration;
-                playPauseBtn.classList.remove('loading');
-            });
-
-            audio.addEventListener('canplay', () => {
-                playPauseBtn.classList.remove('loading');
-            });
-
-            audio.addEventListener('error', (e) => {
-                console.error('오디오 로딩 에러:', e);
-                playPauseBtn.classList.remove('loading');
-                playPauseBtn.classList.add('error');
+                progressSlider.step = 0.1;
             });
 
             audio.addEventListener('timeupdate', () => {
                 const currentTime = audio.currentTime;
-                const duration = audio.duration;
-                
+                const duration = audio.duration || 0;
                 if (duration > 0) {
-                    const progressPercent = (currentTime / duration) * 100;
-                    progressFill.style.width = progressPercent + '%';
+                    progressFill.style.width = (currentTime / duration) * 100 + '%';
                     progressSlider.value = currentTime;
                     currentTimeDisplay.textContent = formatTime(currentTime);
                 }
             });
 
-            // 프로그레스 바 클릭으로 시간 이동
-            progressSlider.addEventListener('input', () => {
-                const seekTime = progressSlider.value;
-                audio.currentTime = seekTime;
-            });
+            // 탐색
+            progressSlider.addEventListener('input', () => { audio.currentTime = Number(progressSlider.value); });
 
-            // 볼륨 컨트롤 - 슬라이더
+            // 볼륨 슬라이더
             volumeRange.addEventListener('input', async (e) => {
-                if (audioCtx && audioCtx.state === 'suspended') {
-                    await audioCtx.resume();
-                }
-                const volume = e.target.value / 100;
-                setVolume(volume);
-                if (volume > 0) {
-                    lastVolume = volume;
-                }
-                updateVolumeIcon(volume);
+                if (audioCtx && audioCtx.state === 'suspended') await audioCtx.resume();
+                const v = e.target.value / 100;
+                setVolume(v);
             });
 
-            // 볼륨 컨트롤 - 버튼 클릭 (음소거/음소거 해제)
+            // 음소거 버튼
             volumeBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-
                 if (!audio.muted && getVolume() > 0) {
                     lastVolume = getVolume();
                     setVolume(0);
-                    volumeRange.value = 0;
-                    updateVolumeIcon(0);
                 } else {
-                    setVolume(lastVolume);
-                    volumeRange.value = lastVolume * 100;
-                    updateVolumeIcon(lastVolume);
+                    setVolume(lastVolume || 0.7);
                 }
             });
 
-            // 10초 앞/뒤 스킵 기능
-            skipBackward.addEventListener('click', () => {
-                audio.currentTime = Math.max(0, audio.currentTime - 10);
+            // 스킵
+            skipBackward.addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); });
+            skipForward.addEventListener('click', () => { audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 10); });
+
+            // 재생 속도
+            speedSelector.addEventListener('change', () => { audio.playbackRate = parseFloat(speedSelector.value); });
+
+            // 키보드 단축키
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.isContentEditable) return;
+                switch (e.code) {
+                    case 'Space':
+                        e.preventDefault(); playPauseBtn.click(); break;
+                    case 'ArrowLeft':
+                        e.preventDefault(); audio.currentTime = Math.max(0, audio.currentTime - 10); break;
+                    case 'ArrowRight':
+                        e.preventDefault(); audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + 10); break;
+                    case 'ArrowUp': {
+                        e.preventDefault();
+                        const v = Math.min(1, getVolume() + 0.1);
+                        setVolume(v);
+                        break;
+                    }
+                    case 'ArrowDown': {
+                        e.preventDefault();
+                        const v = Math.max(0, getVolume() - 0.1);
+                        setVolume(v);
+                        break;
+                    }
+                    case 'KeyM':
+                        e.preventDefault(); volumeBtn.click(); break;
+                }
             });
 
-            skipForward.addEventListener('click', () => {
-                audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
-            });
-
-            // 재생 속도 변경
-            speedSelector.addEventListener('change', () => {
-                const speed = parseFloat(speedSelector.value);
-                audio.playbackRate = speed;
-            });
-
-            // 시간 포맷팅 함수
             function formatTime(seconds) {
                 if (isNaN(seconds)) return '0:00';
-                
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = Math.floor(seconds % 60);
-                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+                const m = Math.floor(seconds / 60);
+                const s = Math.floor(seconds % 60);
+                return `${m}:${s.toString().padStart(2, '0')}`;
             }
 
-            // 볼륨 아이콘 업데이트
             function updateVolumeIcon(volume) {
                 if (audio.muted || volume === 0) {
                     volumeIcon.className = 'fas fa-volume-mute';
@@ -2517,61 +2295,14 @@
                     volumeBtn.title = '음소거';
                 }
             }
-
-            // 키보드 단축키 지원
-            document.addEventListener('keydown', (e) => {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-                
-                switch(e.code) {
-                    case 'Space':
-                        e.preventDefault();
-                        playPauseBtn.click();
-                        break;
-                    case 'ArrowLeft':
-                        e.preventDefault();
-                        audio.currentTime = Math.max(0, audio.currentTime - 10);
-                        break;
-                    case 'ArrowRight':
-                        e.preventDefault();
-                        audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
-                        break;
-                    case 'ArrowUp':
-                        e.preventDefault();
-                        const newVolumeUp = Math.min(1, getVolume() + 0.1);
-                        setVolume(newVolumeUp);
-                        volumeRange.value = newVolumeUp * 100;
-                        if (newVolumeUp > 0) {
-                            lastVolume = newVolumeUp;
-                        }
-                        updateVolumeIcon(newVolumeUp);
-                        break;
-                    case 'ArrowDown':
-                        e.preventDefault();
-                        const newVolumeDown = Math.max(0, getVolume() - 0.1);
-                        setVolume(newVolumeDown);
-                        volumeRange.value = newVolumeDown * 100;
-                        if (newVolumeDown > 0) {
-                            lastVolume = newVolumeDown;
-                        }
-                        updateVolumeIcon(newVolumeDown);
-                        break;
-                    case 'KeyM':
-                        e.preventDefault();
-                        volumeBtn.click();
-                        break;
-                }
-            });
         }
 
-        // Initialize all functionality when page loads
+        // Init
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('페이지 로드 완료, 초기화 중...');
-
             initEyeMovement();
             initMobileMenu();
             initFloatingTopBtn();
             initAudioPlayer();
-
         });
     </script>
 </body>
