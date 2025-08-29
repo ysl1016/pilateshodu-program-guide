@@ -599,18 +599,30 @@
             visibility: visible;
         }
         
-        /* 커스텀 오디오 플레이어 스타일 */
+        /* iTunes 스타일 오디오 플레이어 */
 .custom-audio-player {
-    background: linear-gradient(135deg, var(--warm-beige) 0%, #f8f4f0 100%);
-    border-radius: 1.25rem;
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+    border-radius: 0.75rem;
     padding: 2rem;
-    box-shadow: 0 12px 40px rgba(153, 101, 21, 0.12);
-    border: 1px solid rgba(153, 101, 21, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid #404040;
     margin: 2.5rem 0;
     max-width: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
-/* PC 버전 최적화 */
+.custom-audio-player::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--golden-brown), transparent);
+}
+
+/* iTunes 스타일 오디오 헤더 */
 .audio-header {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -626,7 +638,7 @@
 }
 
 .audio-title {
-    color: var(--deep-navy);
+    color: #ffffff;
     font-size: 1.5rem;
     font-weight: 700;
     margin: 0;
@@ -644,10 +656,10 @@
 }
 
 .audio-duration {
-    color: var(--deep-navy);
+    color: #cccccc;
     font-size: 0.95rem;
     margin: 0;
-    opacity: 0.75;
+    opacity: 0.8;
     font-style: italic;
     font-weight: 500;
 }
@@ -661,7 +673,7 @@
 }
 
 .play-pause-btn {
-    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+    background: linear-gradient(135deg, var(--golden-brown) 0%, #b8860b 100%);
     color: white;
     border: none;
     border-radius: 50%;
@@ -672,7 +684,7 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
+    box-shadow: 0 6px 20px rgba(153, 101, 21, 0.4);
     position: relative;
     overflow: hidden;
 }
@@ -684,7 +696,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transition: left 0.5s;
 }
 
@@ -693,9 +705,9 @@
 }
 
 .play-pause-btn:hover {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: linear-gradient(135deg, #daa520 0%, var(--golden-brown) 100%);
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+    box-shadow: 0 8px 25px rgba(153, 101, 21, 0.5);
 }
 
 .play-pause-btn:active {
@@ -707,7 +719,7 @@
     opacity: 0.8;
     cursor: pointer;
     position: relative;
-    background: linear-gradient(135deg, #654321 0%, #8B4513 100%) !important;
+    background: linear-gradient(135deg, #8b6914 0%, var(--golden-brown) 100%) !important;
 }
 
 .play-pause-btn.loading::after {
@@ -719,7 +731,7 @@
     height: 20px;
     margin: -10px 0 0 -10px;
     border: 2px solid transparent;
-    border-top: 2px solid #8B4513;
+    border-top: 2px solid var(--golden-brown);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -758,19 +770,19 @@
 }
 
 .playback-speed select {
-    background: white;
-    border: 2px solid rgba(153, 101, 21, 0.15);
-    border-radius: 0.75rem;
+    background: #333333;
+    border: 2px solid #555555;
+    border-radius: 0.5rem;
     padding: 0.6rem 1rem;
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--deep-navy);
+    color: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 80px;
     text-align: center;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23995515' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 0.7rem center;
     background-size: 1.2em;
@@ -783,14 +795,15 @@
 
 .playback-speed select:hover {
     border-color: var(--golden-brown);
-    box-shadow: 0 4px 12px rgba(153, 101, 21, 0.15);
+    background-color: #404040;
+    box-shadow: 0 4px 12px rgba(153, 101, 21, 0.3);
     transform: translateY(-1px);
 }
 
 .playback-speed select:focus {
     outline: none;
     border-color: var(--golden-brown);
-    box-shadow: 0 0 0 3px rgba(153, 101, 21, 0.1);
+    box-shadow: 0 0 0 3px rgba(153, 101, 21, 0.3);
 }
 
 .audio-progress {
@@ -801,16 +814,16 @@
 .progress-bar {
     position: relative;
     height: 0.75rem;
-    background: rgba(153, 101, 21, 0.08);
+    background: #333333;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
     overflow: hidden;
-    border: 1px solid rgba(153, 101, 21, 0.1);
+    border: 1px solid #555555;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--golden-brown) 0%, var(--deep-navy) 100%);
+    background: linear-gradient(90deg, var(--golden-brown) 0%, #daa520 100%);
     border-radius: 0.5rem;
     width: 0%;
     transition: width 0.15s ease;
@@ -887,8 +900,8 @@
     display: flex;
     justify-content: space-between;
     font-size: 0.9rem;
-    color: var(--deep-navy);
-    opacity: 0.85;
+    color: #cccccc;
+    opacity: 0.9;
     font-weight: 500;
     padding: 0 0.25rem;
 }
@@ -909,11 +922,11 @@
 }
 
 .skip-btn {
-    background: rgba(153, 101, 21, 0.08);
-    border: 2px solid rgba(153, 101, 21, 0.15);
-    border-radius: 0.75rem;
+    background: #333333;
+    border: 2px solid #555555;
+    border-radius: 0.5rem;
     padding: 0.6rem 1rem;
-    color: var(--deep-navy);
+    color: #ffffff;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -926,10 +939,10 @@
 }
 
 .skip-btn:hover {
-    background: rgba(153, 101, 21, 0.15);
+    background: #404040;
     border-color: var(--golden-brown);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(153, 101, 21, 0.15);
+    box-shadow: 0 4px 12px rgba(153, 101, 21, 0.3);
 }
 
 .skip-btn:active {
@@ -954,9 +967,9 @@
 }
 
 .volume-btn {
-    background: none;
-    border: none;
-    color: var(--deep-navy);
+    background: #333333;
+    border: 2px solid #555555;
+    color: #ffffff;
     cursor: pointer;
     padding: 0.75rem;
     border-radius: 0.5rem;
@@ -971,14 +984,15 @@
 }
 
 .volume-btn:hover {
-    background: rgba(153, 101, 21, 0.1);
+    background: #404040;
     color: var(--golden-brown);
+    border-color: var(--golden-brown);
     transform: scale(1.1);
 }
 
 .volume-btn:active {
     transform: scale(0.95);
-    background-color: rgba(153, 101, 21, 0.15);
+    background-color: #555555;
 }
 
 .volume-btn i {
@@ -995,11 +1009,11 @@
 .volume-range {
     width: 100%;
     height: 0.5rem;
-    background: rgba(153, 101, 21, 0.15);
+    background: #333333;
     border-radius: 0.25rem;
     outline: none;
     cursor: pointer;
-    border: 1px solid rgba(153, 101, 21, 0.2);
+    border: 1px solid #555555;
     -webkit-appearance: none;
     appearance: none;
     transition: all 0.2s ease;
@@ -1136,9 +1150,9 @@
             .volume-range {
                 height: 0.5rem;
                 min-height: 48px;
-                /* PC 버전과 동일한 디자인 보장 */
-                background: rgba(153, 101, 21, 0.15);
-                border: 1px solid rgba(153, 101, 21, 0.2);
+                /* iTunes 스타일 디자인 */
+                background: #333333;
+                border: 1px solid #555555;
                 border-radius: 0.25rem;
             }
             
@@ -1203,7 +1217,73 @@
         font-size: 1rem;
     }
     
+    .audio-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
     
+    .playback-speed {
+        order: -1;
+    }
+    
+    .audio-progress {
+        margin-bottom: 1.25rem;
+    }
+    
+    .audio-controls-secondary {
+        gap: 1.25rem;
+        margin-top: 1rem;
+    }
+    
+    .skip-controls {
+        gap: 0.5rem;
+    }
+    
+    .skip-btn {
+        min-width: 65px;
+        padding: 0.45rem 0.65rem;
+        font-size: 0.75rem;
+    }
+    
+    .audio-volume {
+        flex-direction: row;
+        gap: 0.75rem;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .volume-slider {
+        max-width: 80px;
+        min-width: 60px;
+    }
+    
+    .volume-range {
+        height: 0.5rem;
+        /* iTunes 스타일 디자인 */
+        background: #333333;
+        border: 1px solid #555555;
+        border-radius: 0.25rem;
+    }
+    
+    .volume-range::-webkit-slider-thumb {
+        width: 1.2rem;
+        height: 1.2rem;
+        /* iTunes 스타일 디자인 */
+        background: var(--golden-brown);
+        border: 2px solid white;
+        border-radius: 50%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .volume-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+    }
+    
+    .volume-btn i {
+        font-size: 1rem;
+    }
 }
 
 
