@@ -661,7 +661,7 @@
 }
 
 .play-pause-btn {
-    background: linear-gradient(135deg, var(--golden-brown) 0%, #b8860b 100%);
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
     color: white;
     border: none;
     border-radius: 50%;
@@ -672,7 +672,7 @@
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 6px 20px rgba(153, 101, 21, 0.25);
+    box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
     position: relative;
     overflow: hidden;
 }
@@ -693,9 +693,9 @@
 }
 
 .play-pause-btn:hover {
-    background: linear-gradient(135deg, var(--deep-navy) 0%, #2c3e50 100%);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(153, 101, 21, 0.35);
+    box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
 }
 
 .play-pause-btn:active {
@@ -718,7 +718,7 @@
     height: 20px;
     margin: -10px 0 0 -10px;
     border: 2px solid transparent;
-    border-top: 2px solid var(--golden-brown);
+    border-top: 2px solid #8B4513;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -2433,13 +2433,13 @@
             audio.addEventListener('play', () => {
                 isPlaying = true;
                 playPauseIcon.className = 'fas fa-pause';
-                playPauseBtn.style.background = 'var(--deep-navy)';
+                playPauseBtn.style.background = '#1a1a2e';
             });
 
             audio.addEventListener('pause', () => {
                 isPlaying = false;
                 playPauseIcon.className = 'fas fa-play';
-                playPauseBtn.style.background = 'var(--golden-brown)';
+                playPauseBtn.style.background = '#8B4513';
             });
 
             // 오디오 로딩 상태 표시 및 최적화
