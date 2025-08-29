@@ -1307,6 +1307,35 @@
                 font-size: 1.25rem;
             }
         }
+
+        /* AI 가이드 사용법 안내 스타일 */
+        .audio-usage-tip {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .audio-usage-tip p:first-child {
+            color: var(--soft-cream);
+            font-weight: 600;
+        }
+
+        .audio-usage-tip p:last-child {
+            color: var(--warm-beige);
+            opacity: 0.9;
+        }
+
+        .audio-usage-tip .fa-lightbulb {
+            color: #FFD700;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 5px #FFD700); }
+            to { filter: drop-shadow(0 0 15px #FFD700); }
+        }
     </style>
 </head>
 <body class="smooth-scroll">
@@ -1419,6 +1448,92 @@
 
     <!-- Main Content Container -->
     <main class="container mx-auto px-6 py-12">
+        <!-- AI 가이드 섹션을 최상단에 배치 -->
+        <section id="ai-guide" class="ai-guide-card mb-12">
+            <div class="relative z-10">
+                <h2 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-robot mr-3"></i>
+                    AI 강사 가이드
+                </h2>
+                <p class="text-xl mb-6 opacity-90">
+                    전문적인 프로그램 안내 오디오 가이드
+                </p>
+                <p class="text-base opacity-80 mb-8 max-w-2xl mx-auto">
+                    각 프로그램의 핵심 원리와 실무 적용 방법을 오디오 형태로 제공합니다. 
+                    편안하게 앉아서 전문 강사의 상세한 설명을 들어보세요.
+                </p>
+                
+                <!-- 최적화된 커스텀 오디오 플레이어 -->
+                <div class="custom-audio-player">
+                    <div class="audio-header">
+                        <div class="audio-info">
+                            <h4 class="audio-title">필라테스, 통증부터 치매 예방까지!</h4>
+                            <p class="audio-subtitle">7가지 맞춤형 케어의 핵심 원리 파헤치기</p>
+                            <p class="audio-duration">전문 강사 상세 해설</p>
+                        </div>
+                        <div class="audio-controls">
+                            <button class="play-pause-btn" id="play-pause-btn">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="playback-speed">
+                                <select id="speed-selector">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1" selected>1.0x</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2.0x</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="audio-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progress-fill"></div>
+                            <input type="range" class="progress-slider" id="progress-slider" min="0" max="100" value="0" step="0.1">
+                        </div>
+                        <div class="time-display">
+                            <span class="current-time" id="current-time">0:00</span>
+                            <span class="total-time" id="total-time">0:00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="audio-controls-secondary">
+                        <div class="skip-controls">
+                            <button class="skip-btn" id="skip-backward" title="10초 뒤로">
+                                <i class="fas fa-backward"></i>
+                                <span class="skip-text">10초</span>
+                            </button>
+                            <button class="skip-btn" id="skip-forward" title="10초 앞으로">
+                                <span class="skip-text">10초</span>
+                                <i class="fas fa-forward"></i>
+                            </button>
+                        </div>
+                        <div class="audio-volume">
+                            <div class="volume-slider">
+                                <input type="range" class="volume-range" id="volume-range" min="0" max="100" value="100">
+                            </div>
+                            <button class="volume-btn" id="volume-btn">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 사용자 경험 안내 문구 추가 -->
+                <div class="audio-usage-tip mt-6 text-center">
+                    <p class="text-lg opacity-90 font-medium">
+                        <i class="fas fa-lightbulb mr-2 text-yellow-400"></i>
+                        <strong>팁:</strong> 오디오를 재생한 후 아래 프로그램들을 스크롤하며 읽어보세요!
+                    </p>
+                    <p class="text-base opacity-80 mt-2">
+                        전문 강사의 설명을 들으면서 각 프로그램의 내용을 함께 학습하면 더욱 효과적입니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <div class="grid-container">
             <!-- 통증재활 필라테스 Card -->
             <div id="pain-rehab" class="program-card">
@@ -2259,89 +2374,7 @@
             </div>
         </div>
 
-        <!-- AI 가이드 섹션 -->
-        <section id="ai-guide" class="ai-guide-card">
-            <div class="relative z-10">
-                <h2 class="text-4xl font-bold mb-4">
-                    <i class="fas fa-robot mr-3"></i>
-                    AI 강사 가이드
-                </h2>
-                <p class="text-xl mb-6 opacity-90">
-                    전문적인 프로그램 안내 오디오 가이드
-                </p>
-                <p class="text-base opacity-80 mb-8 max-w-2xl mx-auto">
-                    각 프로그램의 핵심 원리와 실무 적용 방법을 오디오 형태로 제공합니다. 
-                    편안하게 앉아서 전문 강사의 상세한 설명을 들어보세요.
-                </p>
-                
-                <!-- 숨겨진 오디오 요소 -->
-                <audio id="ai-guide-audio" preload="auto" crossorigin="anonymous">
-                    <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/mp4">
-                    <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/m4a">
-                    브라우저가 오디오 재생을 지원하지 않습니다.
-                </audio>
 
-                <!-- 최적화된 커스텀 오디오 플레이어 -->
-                <div class="custom-audio-player">
-                    <div class="audio-header">
-                        <div class="audio-info">
-                            <h4 class="audio-title">필라테스, 통증부터 치매 예방까지!</h4>
-                            <p class="audio-subtitle">7가지 맞춤형 케어의 핵심 원리 파헤치기</p>
-                            <p class="audio-duration">전문 강사 상세 해설</p>
-                        </div>
-                        <div class="audio-controls">
-                            <button class="play-pause-btn" id="play-pause-btn">
-                                <i class="fas fa-play"></i>
-                            </button>
-                            <div class="playback-speed">
-                                <select id="speed-selector">
-                                    <option value="0.5">0.5x</option>
-                                    <option value="0.75">0.75x</option>
-                                    <option value="1" selected>1.0x</option>
-                                    <option value="1.25">1.25x</option>
-                                    <option value="1.5">1.5x</option>
-                                    <option value="2">2.0x</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="audio-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progress-fill"></div>
-                            <input type="range" class="progress-slider" id="progress-slider" min="0" max="100" value="0" step="0.1">
-                        </div>
-                        <div class="time-display">
-                            <span class="current-time" id="current-time">0:00</span>
-                            <span class="total-time" id="total-time">0:00</span>
-                        </div>
-                    </div>
-                    
-                                <div class="audio-controls-secondary">
-                <div class="skip-controls">
-                    <button class="skip-btn" id="skip-backward" title="10초 뒤로">
-                        <i class="fas fa-backward"></i>
-                        <span class="skip-text">10초</span>
-                    </button>
-                    <button class="skip-btn" id="skip-forward" title="10초 앞으로">
-                        <span class="skip-text">10초</span>
-                        <i class="fas fa-forward"></i>
-                    </button>
-                </div>
-                <div class="audio-volume">
-                    <div class="volume-slider">
-                        <input type="range" class="volume-range" id="volume-range" min="0" max="100" value="100">
-                    </div>
-                    <button class="volume-btn" id="volume-btn">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
-                </div>
-            </div>
-                    
-
-                </div>
-            </div>
-        </section>
     </main>
 
     <script>
