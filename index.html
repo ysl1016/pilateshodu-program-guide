@@ -775,6 +775,10 @@
     background-position: right 0.7rem center;
     background-size: 1.2em;
     padding-right: 2.5rem;
+    /* 모바일 터치 최적화 */
+    min-height: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .playback-speed select:hover {
@@ -838,6 +842,10 @@
     opacity: 0;
     cursor: pointer;
     z-index: 2;
+    /* 모바일 터치 최적화 */
+    min-height: 44px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .progress-slider::-webkit-slider-thumb {
@@ -850,6 +858,9 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border: 3px solid white;
     transition: all 0.2s ease;
+    /* 모바일 터치 최적화 */
+    min-height: 44px;
+    touch-action: manipulation;
 }
 
 .progress-slider::-webkit-slider-thumb:hover {
@@ -1297,6 +1308,96 @@
         @keyframes glow {
             from { filter: drop-shadow(0 0 5px #FFD700); }
             to { filter: drop-shadow(0 0 15px #FFD700); }
+        }
+        
+        /* 모바일 디바이스 최적화 */
+        @media (max-width: 768px) {
+            .custom-audio-player {
+                padding: 1rem;
+                margin: 1rem 0;
+            }
+            
+            .audio-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .audio-controls {
+                gap: 1rem;
+            }
+            
+            .play-pause-btn {
+                width: 3.5rem;
+                height: 3.5rem;
+                font-size: 1.2rem;
+            }
+            
+            .progress-slider {
+                min-height: 48px;
+            }
+            
+            .progress-slider::-webkit-slider-thumb {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+            
+            .volume-range {
+                min-height: 48px;
+            }
+            
+            .volume-range::-webkit-slider-thumb {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+            
+            .playback-speed select {
+                min-height: 48px;
+                font-size: 1rem;
+                padding: 0.75rem 1rem;
+            }
+            
+            .skip-btn {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .audio-controls-secondary {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+            
+            .skip-controls {
+                gap: 1rem;
+            }
+        }
+        
+        /* 태블릿 디바이스 최적화 */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .custom-audio-player {
+                padding: 1.5rem;
+            }
+            
+            .audio-header {
+                gap: 1.5rem;
+            }
+            
+            .play-pause-btn {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+        
+        /* 고해상도 디스플레이 최적화 */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .progress-slider::-webkit-slider-thumb {
+                border-width: 2px;
+            }
+            
+            .volume-range::-webkit-slider-thumb {
+                border-width: 2px;
+            }
         }
     </style>
 </head>
@@ -2347,10 +2448,48 @@
 
             let isPlaying = false;
 
-            // 초기 볼륨 설정
-            audio.volume = 0.7;
-            volumeRange.value = 70;
-            updateVolumeIcon(0.7);
+            // 볼륨 동기화 및 초기 설정
+            let systemVolume = 0.7;
+            let lastUserVolume = 0.7;
+            
+            // 저장된 볼륨 설정 불러오기
+            const savedVolume = localStorage.getItem('audioVolume');
+            if (savedVolume !== null) {
+                lastUserVolume = parseFloat(savedVolume);
+                audio.volume = lastUserVolume;
+                volumeRange.value = lastUserVolume * 100;
+            } else {
+                audio.volume = 0.7;
+                volumeRange.value = 70;
+            }
+            updateVolumeIcon(audio.volume);
+            
+            // MediaSession API 지원 확인 및 설정
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.setActionHandler('previoustrack', null);
+                navigator.mediaSession.setActionHandler('nexttrack', null);
+                navigator.mediaSession.setActionHandler('seekbackward', null);
+                navigator.mediaSession.setActionHandler('seekforward', null);
+                navigator.mediaSession.setActionHandler('seekto', null);
+                navigator.mediaSession.setActionHandler('stop', null);
+                
+                // 볼륨 변경 감지
+                navigator.mediaSession.setActionHandler('volumeup', () => {
+                    const newVolume = Math.min(1, audio.volume + 0.1);
+                    audio.volume = newVolume;
+                    volumeRange.value = newVolume * 100;
+                    updateVolumeIcon(newVolume);
+                    localStorage.setItem('audioVolume', newVolume.toString());
+                });
+                
+                navigator.mediaSession.setActionHandler('volumedown', () => {
+                    const newVolume = Math.max(0, audio.volume - 0.1);
+                    audio.volume = newVolume;
+                    volumeRange.value = newVolume * 100;
+                    updateVolumeIcon(newVolume);
+                    localStorage.setItem('audioVolume', newVolume.toString());
+                });
+            }
             
             // 디버깅: 볼륨 컨트롤 요소 확인
             console.log('볼륨 컨트롤 요소들:', {
@@ -2364,13 +2503,32 @@
             // 볼륨 컨트롤 이벤트 리스너 등록 확인
             console.log('볼륨 컨트롤 이벤트 리스너 등록 중...');
             
-            // 볼륨 슬라이더 터치/마우스 이벤트 추가
+            // 볼륨 슬라이더 터치/마우스 이벤트 최적화
+            let volumeTouchStart = 0;
+            let volumeTouchStartValue = 0;
+            
             volumeRange.addEventListener('mousedown', () => {
                 console.log('볼륨 슬라이더 마우스 다운');
             });
 
-            volumeRange.addEventListener('touchstart', () => {
+            volumeRange.addEventListener('touchstart', (e) => {
+                volumeTouchStart = e.touches[0].clientY;
+                volumeTouchStartValue = parseFloat(volumeRange.value);
                 console.log('볼륨 슬라이더 터치 시작');
+            });
+            
+            volumeRange.addEventListener('touchmove', (e) => {
+                const touchY = e.touches[0].clientY;
+                const deltaY = volumeTouchStart - touchY;
+                const deltaPercent = (deltaY / 100) * 100; // 100px 이동당 100% 변화
+                const newValue = Math.max(0, Math.min(100, volumeTouchStartValue + deltaPercent));
+                
+                volumeRange.value = newValue;
+                const volume = newValue / 100;
+                audio.volume = volume;
+                lastUserVolume = volume;
+                updateVolumeIcon(volume);
+                localStorage.setItem('audioVolume', volume.toString());
             });
             
             volumeRange.addEventListener('change', (e) => {
@@ -2429,29 +2587,81 @@
                 playPauseBtn.classList.add('error');
             });
 
+            // 성능 최적화된 시간 업데이트
+            let lastUpdateTime = 0;
+            const UPDATE_THROTTLE = 100; // 100ms마다 업데이트
+            
             audio.addEventListener('timeupdate', () => {
                 const currentTime = audio.currentTime;
                 const duration = audio.duration;
+                const now = Date.now();
                 
-                if (duration > 0) {
+                if (duration > 0 && (now - lastUpdateTime) > UPDATE_THROTTLE) {
                     const progressPercent = (currentTime / duration) * 100;
-                    progressFill.style.width = progressPercent + '%';
-                    progressSlider.value = currentTime;
-                    currentTimeDisplay.textContent = formatTime(currentTime);
+                    
+                    // requestAnimationFrame을 사용하여 부드러운 애니메이션
+                    requestAnimationFrame(() => {
+                        progressFill.style.width = progressPercent + '%';
+                        progressSlider.value = currentTime;
+                        currentTimeDisplay.textContent = formatTime(currentTime);
+                    });
+                    
+                    lastUpdateTime = now;
                 }
             });
 
-            // 프로그레스 바 클릭으로 시간 이동
+            // 프로그레스 바 최적화된 시간 이동
+            let isSeeking = false;
+            
             progressSlider.addEventListener('input', () => {
+                isSeeking = true;
                 const seekTime = progressSlider.value;
                 audio.currentTime = seekTime;
+            });
+            
+            progressSlider.addEventListener('change', () => {
+                isSeeking = false;
+            });
+            
+            // 터치 제스처 지원 (모바일)
+            let touchStartX = 0;
+            let progressTouchStartTime = 0;
+            
+            progressSlider.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                progressTouchStartTime = audio.currentTime;
+            });
+            
+            progressSlider.addEventListener('touchmove', (e) => {
+                if (isSeeking) return;
+                
+                const touchX = e.touches[0].clientX;
+                const rect = progressSlider.getBoundingClientRect();
+                const percent = (touchX - rect.left) / rect.width;
+                const seekTime = percent * audio.duration;
+                
+                if (seekTime >= 0 && seekTime <= audio.duration) {
+                    audio.currentTime = seekTime;
+                    progressSlider.value = seekTime;
+                }
+            });
+            
+            // PC 마우스 이벤트 최적화
+            progressSlider.addEventListener('mousedown', () => {
+                isSeeking = true;
+            });
+            
+            progressSlider.addEventListener('mouseup', () => {
+                isSeeking = false;
             });
 
             // 볼륨 컨트롤 - 슬라이더
             volumeRange.addEventListener('input', (e) => {
                 const volume = e.target.value / 100;
                 audio.volume = volume;
+                lastUserVolume = volume;
                 updateVolumeIcon(volume);
+                localStorage.setItem('audioVolume', volume.toString());
                 console.log('볼륨 변경:', volume);
             });
 
@@ -2462,18 +2672,17 @@
                 
                 if (audio.volume > 0) {
                     // 현재 볼륨을 저장하고 음소거
-                    audio.dataset.lastVolume = audio.volume;
+                    lastUserVolume = audio.volume;
                     audio.volume = 0;
                     volumeRange.value = 0;
                     updateVolumeIcon(0);
-                    console.log('음소거됨, 저장된 볼륨:', audio.dataset.lastVolume);
+                    console.log('음소거됨, 저장된 볼륨:', lastUserVolume);
                 } else {
-                    // 저장된 볼륨으로 복원 (기본값: 0.7)
-                    const lastVolume = parseFloat(audio.dataset.lastVolume) || 0.7;
-                    audio.volume = lastVolume;
-                    volumeRange.value = lastVolume * 100;
-                    updateVolumeIcon(lastVolume);
-                    console.log('음소거 해제, 볼륨 복원:', lastVolume);
+                    // 저장된 볼륨으로 복원
+                    audio.volume = lastUserVolume;
+                    volumeRange.value = lastUserVolume * 100;
+                    updateVolumeIcon(lastUserVolume);
+                    console.log('음소거 해제, 볼륨 복원:', lastUserVolume);
                 }
             });
 
@@ -2495,10 +2704,55 @@
                 audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
             });
 
-            // 재생 속도 변경
+            // 재생 속도 제어 최적화
+            let currentSpeed = 1.0;
+            
+            // 저장된 재생 속도 불러오기
+            const savedSpeed = localStorage.getItem('audioSpeed');
+            if (savedSpeed !== null) {
+                currentSpeed = parseFloat(savedSpeed);
+                audio.playbackRate = currentSpeed;
+                speedSelector.value = currentSpeed;
+            }
+            
+            // 재생 속도 변경 이벤트
             speedSelector.addEventListener('change', () => {
                 const speed = parseFloat(speedSelector.value);
+                currentSpeed = speed;
                 audio.playbackRate = speed;
+                localStorage.setItem('audioSpeed', speed.toString());
+                
+                // 시각적 피드백 추가
+                speedSelector.style.transform = 'scale(1.05)';
+                speedSelector.style.borderColor = 'var(--golden-brown)';
+                
+                setTimeout(() => {
+                    speedSelector.style.transform = 'scale(1)';
+                    speedSelector.style.borderColor = 'rgba(153, 101, 21, 0.15)';
+                }, 200);
+                
+                console.log('재생 속도 변경:', speed);
+            });
+            
+            // 키보드 단축키로 재생 속도 조절
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+                
+                if (e.key === '>' || e.key === '.') {
+                    e.preventDefault();
+                    const newSpeed = Math.min(2, currentSpeed + 0.25);
+                    currentSpeed = newSpeed;
+                    audio.playbackRate = newSpeed;
+                    speedSelector.value = newSpeed;
+                    localStorage.setItem('audioSpeed', newSpeed.toString());
+                } else if (e.key === '<' || e.key === ',') {
+                    e.preventDefault();
+                    const newSpeed = Math.max(0.5, currentSpeed - 0.25);
+                    currentSpeed = newSpeed;
+                    audio.playbackRate = newSpeed;
+                    speedSelector.value = newSpeed;
+                    localStorage.setItem('audioSpeed', newSpeed.toString());
+                }
             });
 
             // 시간 포맷팅 함수
@@ -2524,7 +2778,7 @@
                 }
             }
 
-            // 키보드 단축키 지원
+            // 향상된 키보드 단축키 지원
             document.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
                 
@@ -2547,6 +2801,7 @@
                         audio.volume = newVolumeUp;
                         volumeRange.value = newVolumeUp * 100;
                         updateVolumeIcon(newVolumeUp);
+                        localStorage.setItem('audioVolume', newVolumeUp.toString());
                         break;
                     case 'ArrowDown':
                         e.preventDefault();
@@ -2554,11 +2809,47 @@
                         audio.volume = newVolumeDown;
                         volumeRange.value = newVolumeDown * 100;
                         updateVolumeIcon(newVolumeDown);
+                        localStorage.setItem('audioVolume', newVolumeDown.toString());
                         break;
                     case 'KeyM':
                         e.preventDefault();
                         volumeBtn.click();
                         break;
+                    case 'KeyR':
+                        e.preventDefault();
+                        audio.currentTime = 0;
+                        break;
+                    case 'KeyF':
+                        e.preventDefault();
+                        if (audio.requestFullscreen) {
+                            audio.requestFullscreen();
+                        }
+                        break;
+                }
+            });
+            
+            // 터치 제스처 지원 (모바일)
+            let gestureTouchStartTime = 0;
+            let gestureTouchStartY = 0;
+            
+            document.addEventListener('touchstart', (e) => {
+                if (e.target.closest('.custom-audio-player')) {
+                    gestureTouchStartTime = Date.now();
+                    gestureTouchStartY = e.touches[0].clientY;
+                }
+            });
+            
+            document.addEventListener('touchend', (e) => {
+                if (e.target.closest('.custom-audio-player')) {
+                    const touchEndTime = Date.now();
+                    const touchDuration = touchEndTime - gestureTouchStartTime;
+                    const touchEndY = e.changedTouches[0].clientY;
+                    const touchDistance = Math.abs(touchEndY - gestureTouchStartY);
+                    
+                    // 길게 누르기 (1초 이상) - 음소거 토글
+                    if (touchDuration > 1000 && touchDistance < 50) {
+                        volumeBtn.click();
+                    }
                 }
             });
         }
