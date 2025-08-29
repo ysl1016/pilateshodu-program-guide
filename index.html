@@ -988,13 +988,12 @@
 
 .volume-slider {
     flex: 1;
-    max-width: 120px;
     position: relative;
 }
 
 .volume-range {
     width: 100%;
-    height: 0.5rem;
+    height: clamp(0.4rem, 2vw, 0.6rem);
     background: rgba(153, 101, 21, 0.15);
     border-radius: 0.25rem;
     outline: none;
@@ -1012,8 +1011,8 @@
 
 .volume-range::-webkit-slider-thumb {
     appearance: none;
-    width: 1.2rem;
-    height: 1.2rem;
+    width: clamp(1rem, 3vw, 1.5rem);
+    height: clamp(1rem, 3vw, 1.5rem);
     background: var(--golden-brown);
     border-radius: 50%;
     cursor: pointer;
@@ -1031,14 +1030,14 @@
     }
 
     .volume-range::-moz-range-thumb {
-        width: 1.2rem;
-        height: 1.2rem;
-        background: var(--golden-brown);
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid white;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
+    width: clamp(1rem, 3vw, 1.5rem);
+    height: clamp(1rem, 3vw, 1.5rem);
+    background: var(--golden-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
 
 
 
@@ -1128,28 +1127,11 @@
                 align-items: center;
             }
             
-            .volume-slider {
-                max-width: 100px;
-                min-width: 80px;
-            }
-            
             .volume-range {
-                height: 0.5rem;
-                min-height: 48px;
                 /* PC 버전과 동일한 디자인 보장 */
                 background: rgba(153, 101, 21, 0.15);
                 border: 1px solid rgba(153, 101, 21, 0.2);
                 border-radius: 0.25rem;
-            }
-            
-            .volume-range::-webkit-slider-thumb {
-                width: 1.5rem;
-                height: 1.5rem;
-                /* PC 버전과 동일한 디자인 보장 */
-                background: var(--golden-brown);
-                border: 2px solid white;
-                border-radius: 50%;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
             }
             
             .volume-btn {
@@ -1163,24 +1145,22 @@
             }
             
             .play-pause-btn {
-                width: 3.5rem;
-                height: 3.5rem;
-                font-size: 1.2rem;
+                font-size: clamp(1rem, 2.5vw, 1.2rem);
             }
             
             .progress-slider {
-                min-height: 48px;
+                min-height: clamp(2.5rem, 6vw, 3rem);
             }
             
             .progress-slider::-webkit-slider-thumb {
-                width: 1.5rem;
-                height: 1.5rem;
+                width: clamp(1.2rem, 3vw, 1.5rem);
+                height: clamp(1.2rem, 3vw, 1.5rem);
             }
             
             .playback-speed select {
-                min-height: 48px;
-                font-size: 1rem;
-                padding: 0.75rem 1rem;
+                min-height: clamp(2.5rem, 6vw, 3rem);
+                font-size: clamp(0.9rem, 2vw, 1rem);
+                padding: clamp(0.6rem, 1.5vw, 0.75rem) clamp(0.8rem, 2vw, 1rem);
             }
         }
 
@@ -1226,49 +1206,31 @@
     }
     
     .skip-btn {
-        min-width: 65px;
-        padding: 0.45rem 0.65rem;
-        font-size: 0.75rem;
+        min-width: clamp(4rem, 12vw, 5rem);
+        padding: clamp(0.4rem, 1vw, 0.5rem) clamp(0.6rem, 1.5vw, 0.8rem);
+        font-size: clamp(0.7rem, 2vw, 0.8rem);
     }
     
     .audio-volume {
         flex-direction: row;
-        gap: 0.75rem;
+        gap: clamp(0.5rem, 1.5vw, 0.75rem);
         justify-content: center;
         align-items: center;
     }
     
-    .volume-slider {
-        max-width: 80px;
-        min-width: 60px;
-    }
-    
     .volume-range {
-        height: 0.5rem;
         /* PC 버전과 동일한 디자인 보장 */
         background: rgba(153, 101, 21, 0.15);
         border: 1px solid rgba(153, 101, 21, 0.2);
         border-radius: 0.25rem;
     }
     
-    .volume-range::-webkit-slider-thumb {
-        width: 1.2rem;
-        height: 1.2rem;
-        /* iTunes 스타일 디자인 */
-        background: var(--golden-brown);
-        border: 2px solid white;
-        border-radius: 50%;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    }
-    
     .volume-btn {
-        width: 2.5rem;
-        height: 2.5rem;
-        padding: 0.5rem;
+        padding: clamp(0.4rem, 1vw, 0.5rem);
     }
     
     .volume-btn i {
-        font-size: 1rem;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
     }
 }
 
