@@ -704,9 +704,10 @@
 
 /* 로딩 상태 시각적 피드백 */
 .play-pause-btn.loading {
-    opacity: 0.7;
+    opacity: 0.8;
     cursor: pointer;
     position: relative;
+    background: linear-gradient(135deg, #654321 0%, #8B4513 100%) !important;
 }
 
 .play-pause-btn.loading::after {
@@ -2403,28 +2404,41 @@
             let isMuted = false;
             let previousVolume = 100;
 
-            // 오디오 요소 상태 확인
+            // 오디오 요소 상태 확인 및 디버깅
             console.log('오디오 요소:', audio);
             console.log('오디오 소스:', audio.src);
             console.log('오디오 준비 상태:', audio.readyState);
+            console.log('오디오 네트워크 상태:', audio.networkState);
+            console.log('오디오 에러:', audio.error);
+            
+            // 오디오 로딩 상태 상세 모니터링
+            console.log('=== 오디오 로딩 상태 모니터링 시작 ===');
 
             // 재생/일시정지 토글 (최적화)
             playPauseBtn.addEventListener('click', async () => {
                 try {
                     if (isPlaying) {
+                        console.log('⏸️ 오디오 일시정지');
                         audio.pause();
                     } else {
+                        console.log('▶️ 오디오 재생 시도...');
+                        console.log('📊 재생 전 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
+                        console.log('📊 오디오 길이:', audio.duration, '초');
+                        console.log('📊 오디오 에러:', audio.error);
+                        
                         // 재생 시 즉시 반응
                         playPauseBtn.classList.add('loading');
                         const playPromise = audio.play();
                         
                         if (playPromise !== undefined) {
                             await playPromise;
-                            console.log('오디오 재생 시작됨');
+                            console.log('✅ 오디오 재생 시작됨');
                         }
                     }
                 } catch (error) {
-                    console.error('오디오 재생 오류:', error);
+                    console.error('❌ 오디오 재생 오류:', error);
+                    console.error('에러 타입:', error.name);
+                    console.error('에러 메시지:', error.message);
                     playPauseBtn.classList.remove('loading');
                 }
             });
@@ -2444,7 +2458,8 @@
 
             // 오디오 로딩 상태 표시 및 최적화
             audio.addEventListener('loadstart', () => {
-                console.log('오디오 파일 로딩 시작...');
+                console.log('🎵 오디오 파일 로딩 시작...');
+                console.log('📊 현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
                 playPauseBtn.classList.add('loading');
                 playPauseBtn.classList.remove('error');
                 // 로딩 시작 시 즉시 다운로드 시작
@@ -2452,35 +2467,44 @@
             });
 
             audio.addEventListener('loadedmetadata', () => {
-                console.log('오디오 메타데이터 로드 완료');
+                console.log('✅ 오디오 메타데이터 로드 완료');
+                console.log('⏱️ 오디오 길이:', audio.duration, '초');
+                console.log('📊 현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
                 const duration = audio.duration;
                 totalTimeDisplay.textContent = formatTime(duration);
                 progressSlider.max = duration;
                 playPauseBtn.classList.remove('loading', 'error');
-                console.log('오디오 재생 준비 완료, 재생 가능');
+                console.log('🎯 오디오 재생 준비 완료, 재생 가능');
             });
 
             // 버퍼링 상태 모니터링
             audio.addEventListener('progress', () => {
-                console.log('오디오 버퍼링 진행 중...');
+                console.log('📈 오디오 버퍼링 진행 중...');
+                console.log('📊 버퍼링된 시간:', audio.buffered.length > 0 ? audio.buffered.end(0) : 'N/A');
             });
 
             audio.addEventListener('canplay', () => {
-                console.log('오디오 재생 가능 상태');
+                console.log('🎵 오디오 재생 가능 상태');
+                console.log('📊 현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
                 playPauseBtn.classList.remove('loading');
             });
 
             audio.addEventListener('canplaythrough', () => {
-                console.log('오디오 전체 재생 가능 상태');
+                console.log('🎯 오디오 전체 재생 가능 상태');
+                console.log('📊 현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
                 playPauseBtn.classList.remove('loading');
             });
 
             // 오디오 에러 처리
             audio.addEventListener('error', (e) => {
-                console.error('오디오 로딩 에러:', e);
+                console.error('❌ 오디오 로딩 에러 발생!');
+                console.error('에러 상세:', e);
+                console.error('오디오 에러 코드:', audio.error ? audio.error.code : 'N/A');
+                console.error('오디오 에러 메시지:', audio.error ? audio.error.message : 'N/A');
+                console.error('현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
                 playPauseBtn.classList.remove('loading');
                 playPauseBtn.classList.add('error');
-                console.error('오디오 파일 로딩 실패, 재시도 가능');
+                console.error('🔄 오디오 파일 로딩 실패, 재시도 가능');
             });
 
             audio.addEventListener('timeupdate', () => {
