@@ -2274,6 +2274,13 @@
                     편안하게 앉아서 전문 강사의 상세한 설명을 들어보세요.
                 </p>
                 
+                <!-- 숨겨진 오디오 요소 -->
+                <audio id="ai-guide-audio" preload="auto" crossorigin="anonymous">
+                    <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/mp4">
+                    <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/m4a">
+                    브라우저가 오디오 재생을 지원하지 않습니다.
+                </audio>
+
                 <!-- 최적화된 커스텀 오디오 플레이어 -->
                 <div class="custom-audio-player">
                     <div class="audio-header">
@@ -2331,12 +2338,7 @@
                 </div>
             </div>
                     
-                    <!-- 숨겨진 오디오 요소 -->
-                    <audio id="ai-guide-audio" src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" preload="auto" crossorigin="anonymous">
-                        <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/mp4">
-                        <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/m4a">
-                        브라우저가 오디오 재생을 지원하지 않습니다.
-                    </audio>
+
                 </div>
             </div>
         </section>
@@ -2384,278 +2386,10 @@
             observer.observe(card);
         });
 
-        // 커스텀 오디오 플레이어 기능
-        function initCustomAudioPlayer() {
-            const audio = document.getElementById('ai-guide-audio');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const playPauseIcon = playPauseBtn.querySelector('i');
-            const progressFill = document.getElementById('progress-fill');
-            const progressSlider = document.getElementById('progress-slider');
-            const currentTimeDisplay = document.getElementById('current-time');
-            const totalTimeDisplay = document.getElementById('total-time');
-            const volumeBtn = document.getElementById('volume-btn');
-            const volumeIcon = volumeBtn.querySelector('i');
-            const volumeRange = document.getElementById('volume-range');
-            const speedSelector = document.getElementById('speed-selector');
-            const skipBackward = document.getElementById('skip-backward');
-            const skipForward = document.getElementById('skip-forward');
 
-            let isPlaying = false;
-            let isMuted = false;
-            let previousVolume = 100;
-
-            // 오디오 요소 상태 확인 및 디버깅
-            console.log('오디오 요소:', audio);
-            console.log('오디오 소스:', audio.src);
-            console.log('오디오 준비 상태:', audio.readyState);
-            console.log('오디오 네트워크 상태:', audio.networkState);
-            console.log('오디오 에러:', audio.error);
-            
-            // 오디오 소스가 설정되지 않은 경우 동적으로 설정
-            if (!audio.src || audio.src === window.location.href) {
-                console.log('⚠️ 오디오 소스가 설정되지 않음, 동적으로 설정 중...');
-                const audioUrl = 'https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a';
-                audio.src = audioUrl;
-                console.log('✅ 오디오 소스 설정 완료:', audio.src);
-            }
-            
-            // 오디오 로딩 상태 상세 모니터링
-            console.log('=== 오디오 로딩 상태 모니터링 시작 ===');
-
-            // 재생/일시정지 토글 (최적화)
-            playPauseBtn.addEventListener('click', async () => {
-                try {
-                    if (isPlaying) {
-                        console.log('⏸️ 오디오 일시정지');
-                        audio.pause();
-                    } else {
-                        console.log('▶️ 오디오 재생 시도...');
-                        console.log('📊 재생 전 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
-                        console.log('📊 오디오 길이:', audio.duration, '초');
-                        console.log('📊 오디오 에러:', audio.error);
-                        
-                        // 재생 시 즉시 반응
-                        playPauseBtn.classList.add('loading');
-                        const playPromise = audio.play();
-                        
-                        if (playPromise !== undefined) {
-                            await playPromise;
-                            console.log('✅ 오디오 재생 시작됨');
-                        }
-                    }
-                } catch (error) {
-                    console.error('❌ 오디오 재생 오류:', error);
-                    console.error('에러 타입:', error.name);
-                    console.error('에러 메시지:', error.message);
-                    playPauseBtn.classList.remove('loading');
-                }
-            });
-
-            // 오디오 이벤트 리스너
-            audio.addEventListener('play', () => {
-                isPlaying = true;
-                playPauseIcon.className = 'fas fa-pause';
-                playPauseBtn.style.background = '#1a1a2e';
-            });
-
-            audio.addEventListener('pause', () => {
-                isPlaying = false;
-                playPauseIcon.className = 'fas fa-play';
-                playPauseBtn.style.background = '#8B4513';
-            });
-
-            // 오디오 로딩 상태 표시 및 최적화
-            audio.addEventListener('loadstart', () => {
-                console.log('🎵 오디오 파일 로딩 시작...');
-                console.log('📊 현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
-                playPauseBtn.classList.add('loading');
-                playPauseBtn.classList.remove('error');
-                // 로딩 시작 시 즉시 다운로드 시작
-                audio.load();
-            });
-
-            audio.addEventListener('loadedmetadata', () => {
-                console.log('✅ 오디오 메타데이터 로드 완료');
-                console.log('⏱️ 오디오 길이:', audio.duration, '초');
-                console.log('📊 현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
-                const duration = audio.duration;
-                totalTimeDisplay.textContent = formatTime(duration);
-                progressSlider.max = duration;
-                playPauseBtn.classList.remove('loading', 'error');
-                console.log('🎯 오디오 재생 준비 완료, 재생 가능');
-            });
-
-            // 버퍼링 상태 모니터링
-            audio.addEventListener('progress', () => {
-                console.log('📈 오디오 버퍼링 진행 중...');
-                console.log('📊 버퍼링된 시간:', audio.buffered.length > 0 ? audio.buffered.end(0) : 'N/A');
-            });
-
-            audio.addEventListener('canplay', () => {
-                console.log('🎵 오디오 재생 가능 상태');
-                console.log('📊 현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
-                playPauseBtn.classList.remove('loading');
-            });
-
-            audio.addEventListener('canplaythrough', () => {
-                console.log('🎯 오디오 전체 재생 가능 상태');
-                console.log('📊 현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
-                playPauseBtn.classList.remove('loading');
-            });
 
             // 오디오 에러 처리
-            audio.addEventListener('error', (e) => {
-                console.error('❌ 오디오 로딩 에러 발생!');
-                console.error('에러 상세:', e);
-                console.error('오디오 에러 코드:', audio.error ? audio.error.code : 'N/A');
-                console.error('오디오 에러 메시지:', audio.error ? audio.error.message : 'N/A');
-                console.error('현재 상태 - readyState:', audio.readyState, 'networkState:', audio.networkState);
-                playPauseBtn.classList.remove('loading');
-                playPauseBtn.classList.add('error');
-                console.error('🔄 오디오 파일 로딩 실패, 재시도 가능');
-            });
 
-            audio.addEventListener('timeupdate', () => {
-                const currentTime = audio.currentTime;
-                const duration = audio.duration;
-                
-                if (duration > 0) {
-                    const progressPercent = (currentTime / duration) * 100;
-                    progressFill.style.width = progressPercent + '%';
-                    progressSlider.value = currentTime;
-                    currentTimeDisplay.textContent = formatTime(currentTime);
-                }
-            });
-
-            audio.addEventListener('ended', () => {
-                isPlaying = false;
-                playPauseIcon.className = 'fas fa-play';
-                playPauseBtn.style.background = 'var(--golden-brown)';
-                progressFill.style.width = '0%';
-                progressSlider.value = 0;
-                currentTimeDisplay.textContent = '0:00';
-            });
-
-            // 프로그레스 바 클릭으로 시간 이동
-            progressSlider.addEventListener('input', () => {
-                const seekTime = progressSlider.value;
-                audio.currentTime = seekTime;
-            });
-
-            // 볼륨 컨트롤
-            volumeRange.addEventListener('input', () => {
-                const volume = volumeRange.value / 100;
-                audio.volume = volume;
-                updateVolumeIcon(volume);
-            });
-
-
-
-            volumeBtn.addEventListener('click', () => {
-                if (isMuted) {
-                    // 음소거 해제
-                    audio.volume = previousVolume / 100;
-                    volumeRange.value = previousVolume;
-                    updateVolumeIcon(previousVolume / 100);
-                    isMuted = false;
-                } else {
-                    // 음소거
-                    previousVolume = volumeRange.value;
-                    audio.volume = 0;
-                    volumeRange.value = 0;
-                    updateVolumeIcon(0);
-                    isMuted = true;
-                }
-            });
-
-            // 10초 앞/뒤 스킵 기능
-            skipBackward.addEventListener('click', () => {
-                audio.currentTime = Math.max(0, audio.currentTime - 10);
-            });
-
-            skipForward.addEventListener('click', () => {
-                audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
-            });
-
-            // 재생 속도 변경
-            speedSelector.addEventListener('change', () => {
-                const speed = parseFloat(speedSelector.value);
-                audio.playbackRate = speed;
-            });
-
-            // 시간 포맷팅 함수
-            function formatTime(seconds) {
-                if (isNaN(seconds)) return '0:00';
-                
-                const minutes = Math.floor(seconds / 60);
-                const remainingSeconds = Math.floor(seconds % 60);
-                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-            }
-
-            // 볼륨 아이콘 업데이트
-            function updateVolumeIcon(volume) {
-                if (volume === 0) {
-                    volumeIcon.className = 'fas fa-volume-mute';
-                } else if (volume < 0.5) {
-                    volumeIcon.className = 'fas fa-volume-down';
-                } else {
-                    volumeIcon.className = 'fas fa-volume-up';
-                }
-            }
-
-            // 키보드 단축키 지원
-            document.addEventListener('keydown', (e) => {
-                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-                
-                switch(e.code) {
-                    case 'Space':
-                        e.preventDefault();
-                        playPauseBtn.click();
-                        break;
-                    case 'ArrowLeft':
-                        e.preventDefault();
-                        audio.currentTime = Math.max(0, audio.currentTime - 10);
-                        break;
-                    case 'ArrowRight':
-                        e.preventDefault();
-                        audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
-                        break;
-                    case 'ArrowUp':
-                        e.preventDefault();
-                        const newVolumeUp = Math.min(1, audio.volume + 0.1);
-                        audio.volume = newVolumeUp;
-                        volumeRange.value = newVolumeUp * 100;
-                        updateVolumeIcon(newVolumeUp);
-                        break;
-                    case 'ArrowDown':
-                        e.preventDefault();
-                        const newVolumeDown = Math.max(0, audio.volume - 0.1);
-                        audio.volume = newVolumeDown;
-                        volumeRange.value = newVolumeDown * 100;
-                        updateVolumeIcon(newVolumeDown);
-                        break;
-
-                }
-            });
-
-            // 터치 디바이스 지원
-            let isDragging = false;
-            
-            progressSlider.addEventListener('mousedown', () => {
-                isDragging = true;
-            });
-            
-            document.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
-            
-            progressSlider.addEventListener('input', () => {
-                if (isDragging) {
-                    const seekTime = progressSlider.value;
-                    audio.currentTime = seekTime;
-                }
-            });
-        }
 
         // Interactive eye movement
         function initEyeMovement() {
@@ -2829,93 +2563,180 @@
             toggleTopButton();
         }
         
-        // Audio player compatibility enhancement
-        function initAudioPlayer() {
-            const audioPlayer = document.getElementById('ai-guide-audio');
-            
-            if (!audioPlayer) return;
-            
-            // 안드로이드 및 모바일 디바이스에서 진행 바 강제 표시
-            function ensureControlsVisibility() {
-                // 진행 바가 보이지 않는 경우 강제로 표시
-                const timeline = audioPlayer.querySelector('::-webkit-media-controls-timeline');
-                if (timeline) {
-                    timeline.style.display = 'block';
-                    timeline.style.opacity = '1';
-                }
-                
-                // 오디오 컨트롤 전체가 보이도록 강제
-                const controls = audioPlayer.querySelector('::-webkit-media-controls');
-                if (controls) {
-                    controls.style.display = 'flex';
-                    controls.style.opacity = '1';
-                }
-            }
-            
-            // 오디오 로드 완료 후 컨트롤 표시 확인
-            audioPlayer.addEventListener('loadedmetadata', function() {
-                ensureControlsVisibility();
-                
-                // 안드로이드에서 진행 바가 보이지 않는 경우를 위한 추가 처리
-                setTimeout(ensureControlsVisibility, 100);
-                setTimeout(ensureControlsVisibility, 500);
-            });
-            
-            // 오디오 재생 시작 시 컨트롤 표시 확인
-            audioPlayer.addEventListener('play', function() {
-                ensureControlsVisibility();
-            });
-            
-            // 터치 이벤트로 진행 바 표시 강제
-            audioPlayer.addEventListener('touchstart', function() {
-                ensureControlsVisibility();
-            });
-            
-            // 클릭 이벤트로 진행 바 표시 강제
-            audioPlayer.addEventListener('click', function() {
-                ensureControlsVisibility();
-            });
-            
-            // 안드로이드 디바이스 감지 및 특별 처리
-            function isAndroid() {
-                return /Android/i.test(navigator.userAgent);
-            }
-            
-            if (isAndroid()) {
-                // 안드로이드에서 추가적인 컨트롤 표시 보장
-                audioPlayer.addEventListener('canplay', function() {
-                    ensureControlsVisibility();
-                });
-                
-                // 안드로이드에서 진행 바 스타일 강제 적용
-                const style = document.createElement('style');
-                style.textContent = `
-                    #ai-guide-audio::-webkit-media-controls-timeline {
-                        display: block !important;
-                        opacity: 1 !important;
-                        visibility: visible !important;
-                        height: 12px !important;
-                        background: #F5F1E8 !important;
-                        border-radius: 6px !important;
-                    }
-                    #ai-guide-audio::-webkit-media-controls {
-                        display: flex !important;
-                        opacity: 1 !important;
-                        visibility: visible !important;
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        }
+
         
+        // 오디오 플레이어 초기화 함수
+        function initAudioPlayer() {
+            const audio = document.getElementById('ai-guide-audio');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const playPauseIcon = playPauseBtn.querySelector('i');
+            const progressFill = document.getElementById('progress-fill');
+            const progressSlider = document.getElementById('progress-slider');
+            const currentTimeDisplay = document.getElementById('current-time');
+            const totalTimeDisplay = document.getElementById('total-time');
+            const volumeBtn = document.getElementById('volume-btn');
+            const volumeIcon = volumeBtn.querySelector('i');
+            const volumeRange = document.getElementById('volume-range');
+            const speedSelector = document.getElementById('speed-selector');
+            const skipBackward = document.getElementById('skip-backward');
+            const skipForward = document.getElementById('skip-forward');
+
+            let isPlaying = false;
+
+            // 재생/일시정지 토글
+            playPauseBtn.addEventListener('click', async () => {
+                try {
+                    if (isPlaying) {
+                        audio.pause();
+                    } else {
+                        playPauseBtn.classList.add('loading');
+                        const playPromise = audio.play();
+                        if (playPromise !== undefined) {
+                            await playPromise;
+                        }
+                    }
+                } catch (error) {
+                    console.error('오디오 재생 오류:', error);
+                    playPauseBtn.classList.remove('loading');
+                }
+            });
+
+            // 오디오 이벤트 리스너
+            audio.addEventListener('play', () => {
+                isPlaying = true;
+                playPauseIcon.className = 'fas fa-pause';
+            });
+
+            audio.addEventListener('pause', () => {
+                isPlaying = false;
+                playPauseIcon.className = 'fas fa-play';
+            });
+
+            audio.addEventListener('loadstart', () => {
+                playPauseBtn.classList.add('loading');
+            });
+
+            audio.addEventListener('loadedmetadata', () => {
+                const duration = audio.duration;
+                totalTimeDisplay.textContent = formatTime(duration);
+                progressSlider.max = duration;
+                playPauseBtn.classList.remove('loading');
+            });
+
+            audio.addEventListener('canplay', () => {
+                playPauseBtn.classList.remove('loading');
+            });
+
+            audio.addEventListener('error', (e) => {
+                console.error('오디오 로딩 에러:', e);
+                playPauseBtn.classList.remove('loading');
+                playPauseBtn.classList.add('error');
+            });
+
+            audio.addEventListener('timeupdate', () => {
+                const currentTime = audio.currentTime;
+                const duration = audio.duration;
+                
+                if (duration > 0) {
+                    const progressPercent = (currentTime / duration) * 100;
+                    progressFill.style.width = progressPercent + '%';
+                    progressSlider.value = currentTime;
+                    currentTimeDisplay.textContent = formatTime(currentTime);
+                }
+            });
+
+            // 프로그레스 바 클릭으로 시간 이동
+            progressSlider.addEventListener('input', () => {
+                const seekTime = progressSlider.value;
+                audio.currentTime = seekTime;
+            });
+
+            // 볼륨 컨트롤
+            volumeRange.addEventListener('input', () => {
+                const volume = volumeRange.value / 100;
+                audio.volume = volume;
+                updateVolumeIcon(volume);
+            });
+
+            // 10초 앞/뒤 스킵 기능
+            skipBackward.addEventListener('click', () => {
+                audio.currentTime = Math.max(0, audio.currentTime - 10);
+            });
+
+            skipForward.addEventListener('click', () => {
+                audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+            });
+
+            // 재생 속도 변경
+            speedSelector.addEventListener('change', () => {
+                const speed = parseFloat(speedSelector.value);
+                audio.playbackRate = speed;
+            });
+
+            // 시간 포맷팅 함수
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return '0:00';
+                
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
+
+            // 볼륨 아이콘 업데이트
+            function updateVolumeIcon(volume) {
+                if (volume === 0) {
+                    volumeIcon.className = 'fas fa-volume-mute';
+                } else if (volume < 0.5) {
+                    volumeIcon.className = 'fas fa-volume-down';
+                } else {
+                    volumeIcon.className = 'fas fa-volume-up';
+                }
+            }
+
+            // 키보드 단축키 지원
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+                
+                switch(e.code) {
+                    case 'Space':
+                        e.preventDefault();
+                        playPauseBtn.click();
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        audio.currentTime = Math.max(0, audio.currentTime - 10);
+                        break;
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        audio.currentTime = Math.min(audio.duration, audio.currentTime + 10);
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        const newVolumeUp = Math.min(1, audio.volume + 0.1);
+                        audio.volume = newVolumeUp;
+                        volumeRange.value = newVolumeUp * 100;
+                        updateVolumeIcon(newVolumeUp);
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        const newVolumeDown = Math.max(0, audio.volume - 0.1);
+                        audio.volume = newVolumeDown;
+                        volumeRange.value = newVolumeDown * 100;
+                        updateVolumeIcon(newVolumeDown);
+                        break;
+                }
+            });
+        }
+
         // Initialize all functionality when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('페이지 로드 완료, 오디오 플레이어 초기화 중...');
-            initCustomAudioPlayer();
+            console.log('페이지 로드 완료, 초기화 중...');
+
             initEyeMovement();
             initMobileMenu();
             initFloatingTopBtn();
             initAudioPlayer();
+
         });
     </script>
 </body>
