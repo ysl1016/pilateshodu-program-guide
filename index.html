@@ -31,6 +31,9 @@
             box-shadow: 0 10px 30px rgba(0, 31, 63, 0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(153, 101, 21, 0.1);
+            min-height: 800px;
+            display: flex;
+            flex-direction: column;
         }
         
         .program-card:hover {
@@ -199,6 +202,60 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         
+        /* Audio Player Styles */
+        .audio-player-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .audio-player {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+            border-radius: 0.5rem;
+            background: var(--soft-cream);
+        }
+        
+        .audio-player::-webkit-media-controls-panel {
+            background: var(--soft-cream);
+        }
+        
+        .audio-player::-webkit-media-controls-play-button {
+            background: var(--golden-brown);
+            border-radius: 50%;
+        }
+        
+        .audio-info {
+            text-align: center;
+            color: var(--soft-cream);
+        }
+        
+        .audio-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--soft-cream);
+        }
+        
+        .audio-subtitle {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--warm-beige);
+            opacity: 0.9;
+        }
+        
+        .audio-duration {
+            font-size: 0.9rem;
+            color: var(--warm-beige);
+            opacity: 0.8;
+            font-style: italic;
+        }
+        
         .nav-header {
             background: white;
             box-shadow: 0 4px 20px rgba(0, 31, 63, 0.1);
@@ -285,18 +342,6 @@
             grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
             gap: 2.5rem;
             margin: 3rem 0;
-        }
-        
-        .program-card {
-            background: white;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 31, 63, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(153, 101, 21, 0.1);
-            min-height: 800px;
-            display: flex;
-            flex-direction: column;
         }
         
         .program-content {
@@ -625,7 +670,7 @@
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (통증재활 프로그램 설명)</li>
                             <li>PART1_통증재활 프로그램의 기초 (2019) – 만성 통증의 정의 및 원인</li>
                             <li>의학적 필라테스의 원리와 적용</li>
-                            <li>프로그램 구성 및 자문: 가정의학과/안테에이징 전문의 이용승</li>
+                            <li>프로그램 구성 및 자문: 가정의학과/안티에이징 전문의 이용승</li>
                         </ul>
                     </div>
                 </div>
@@ -703,7 +748,7 @@
                             <li>프로그램 소개 – pilateshodu 웹사이트 programs.html (마네킹톤 프로그램 설명)</li>
                             <li>PART2_마네킹톤 프로그램의 기초 (2019) – 체형 교정의 원리와 방법</li>
                             <li>건강한 다이어트를 위한 필라테스 운동</li>
-                            <li>프로그램 구성 및 자문: 가정의학과/안테에이징 전문의 이용승</li>
+                            <li>프로그램 구성 및 자문: 가정의학과/안티에이징 전문의 이용승</li>
                         </ul>
                     </div>
                 </div>
@@ -724,7 +769,7 @@
                             <em>플랫스콜</em>은 <strong>척추측만증</strong> 특화 필라테스 교정 프로그램입니다. 
                             독일 <em>슈로스 메소드(Schroth Method)</em>의 3차원 교정 원리를 필라테스에 접목하여, 
                             정적 교정의 한계를 보완한 <strong>동적인 척추 교정 운동</strong>을 제공합니다. 
-                            특히 성장기 청소년과 성인의 척추측만증에 맞춤 맞춤 동작을 통해 Cobb 각도 진행을 억제하고, 
+                            특히 성장기 청소년과 성인의 척추측만증에 맞춤형 동작을 통해 Cobb 각도(척추 측만 정도) 진행을 억제하고, 
                             통증 완화와 자세 개선을 도모합니다.
                         </p>
                     </div>
@@ -801,9 +846,9 @@
                         <h3 class="section-title">프로그램 개요</h3>
                         <p class="leading-relaxed">
                             <em>골프 필라테스</em>는 골프 선수와 골프 애호가를 위해 개발된 특화 필라테스 프로그램입니다. 
-                            골프 스윙에 필요한 근력과 유연성을 향상시켜 드라이버 <strong>비거리 향상</strong>과 안정적인 스윙을 도와주며, 
+                            골프 스윙에 필요한 근력과 유연성을 향상시켜 <strong>드라이버 비거리 증대</strong>와 안정적인 스윙을 도와주며, 
                             반복적인 골프 동작으로 인한 부상 예방에 초점을 둡니다. TPI (Titleist Performance Institute) 
-                            골프 운동 원리를 접목하여, 코어 회전력 강화와 몸통 회전 가동범위 증대를 이룹니다.
+                            골프 운동 원리를 접목하여, 코어 회전력 강화와 몸통 회전 가동범위 증대를 달성합니다.
                         </p>
                     </div>
 
@@ -879,7 +924,7 @@
                         <p class="leading-relaxed">
                             <em>키즈/청소년 성장 필라테스</em>는 성장기 아동과 청소년의 <strong>건강한 신체 발달</strong>을 지원하는 맞춤형 운동 프로그램입니다. 
                             현대 아이들의 스마트폰, 게임 등으로 인한 <em>거북목, 라운드숄더</em> 등의 자세 문제를 해결하고, 
-                            성장판이 열려있는 시기에 <strong>올바른 움직임 패턴</strong>을 습득하도록 도와줍니다. 
+                            성장판이 열려 있는 시기에 <strong>올바른 움직임 패턴</strong>을 습득하도록 도와줍니다. 
                             재미있는 놀이 형태의 운동으로 아이들의 흥미를 유발하면서도 전문적인 운동 효과를 제공합니다.
                         </p>
                     </div>
@@ -946,7 +991,7 @@
             <!-- 프리내털&포스트내털 필라테스 Card -->
             <div id="prenatal" class="program-card">
                 <div class="program-header">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">프리내털&포스트내털 필라테스</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">프리내털 & 포스트내털 필라테스</h2>
                     <p class="text-lg opacity-90">Prenatal & Postnatal Pilates</p>
                     <p class="text-base opacity-80 mt-2">임신 전후 여성 건강을 위한 전문 케어 프로그램</p>
                 </div>
@@ -955,7 +1000,7 @@
                     <div class="highlight-section">
                         <h3 class="section-title">프로그램 개요</h3>
                         <p class="leading-relaxed">
-                            <em>프리내털&포스트내털 필라테스</em>는 임신 준비부터 출산 후 회복까지, 여성의 <strong>임신 전후 건강 관리</strong>를 위한 전문 프로그램입니다. 
+                            <em>프리내털 & 포스트내털 필라테스</em>는 임신 준비부터 출산 후 회복까지, 여성의 <strong>임신 전후 건강 관리</strong>를 위한 전문 프로그램입니다. 
                             임신 중에는 안전하고 효과적인 운동을 통해 <em>체중 관리와 체력 유지</em>를 돕고, 
                             출산 후에는 <strong>복부 회복과 골반저근 강화</strong>에 중점을 둡니다. 
                             산전산후 여성의 신체 변화를 깊이 이해한 전문 강사의 세심한 케어로 안전하고 효과적인 운동을 제공합니다.
@@ -1113,17 +1158,26 @@
                     AI 강사 가이드
                 </h2>
                 <p class="text-xl mb-6 opacity-90">
-                    NotebookLM으로 생성된 전문적인 프로그램 안내
+                    전문적인 프로그램 안내 오디오 가이드
                 </p>
                 <p class="text-base opacity-80 mb-8 max-w-2xl mx-auto">
-                    인공지능이 생성한 상세한 가이드로 더욱 깊이 있는 프로그램 이해를 얻으세요. 
-                    각 프로그램의 핵심 원리와 실무 적용 방법을 오디오 형태로 제공합니다.
+                    각 프로그램의 핵심 원리와 실무 적용 방법을 오디오 형태로 제공합니다. 
+                    편안하게 앉아서 전문 강사의 상세한 설명을 들어보세요.
                 </p>
-                <a href="https://notebooklm.google.com/notebook/3161dbc2-9c84-4ec6-827f-4c60eb4945ee?artifactId=8d3c9f7b-fa01-44c2-a8a1-01753cf246e0" 
-                   target="_blank" rel="noopener noreferrer" class="ai-guide-link">
-                    <i class="fas fa-headphones mr-2"></i>
-                    AI 가이드 듣기
-                </a>
+                
+                <!-- 오디오 플레이어 -->
+                <div class="audio-player-container">
+                    <audio id="ai-guide-audio" controls preload="metadata" class="audio-player">
+                        <source src="data/필라테스,_통증부터_치매_예방까지!_7가지_맞춤형_케어의_핵심_원리_파헤치기.m4a" type="audio/mp4">
+                        <source src="data/필라테스,_통증부터_치매_예방까지!_7가지_맞춤형_케어의_핵심_원리_파헤치기.m4a" type="audio/m4a">
+                        브라우저가 오디오 재생을 지원하지 않습니다.
+                    </audio>
+                    <div class="audio-info">
+                        <p class="audio-title">필라테스, 통증부터 치매 예방까지!</p>
+                        <p class="audio-subtitle">7가지 맞춤형 케어의 핵심 원리 파헤치기</p>
+                        <p class="audio-duration">전문 강사 상세 해설</p>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
