@@ -702,6 +702,18 @@
     transform: translateY(0) scale(1.02);
 }
 
+.play-pause-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.play-pause-btn:disabled:hover {
+    background: linear-gradient(135deg, var(--golden-brown) 0%, #b8860b 100%);
+    transform: none;
+    box-shadow: 0 6px 20px rgba(153, 101, 21, 0.25);
+}
+
 .play-pause-btn i {
     font-size: 1.2rem;
     font-weight: 600;
@@ -2300,8 +2312,8 @@
                     
                     <!-- 숨겨진 오디오 요소 -->
                     <audio id="ai-guide-audio" preload="metadata">
-                        <source src="https://github.com/ysl1016/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/mp4">
-                        <source src="https://github.com/ysl1016/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/m4a">
+                        <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/mp4">
+                        <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/m4a">
                         브라우저가 오디오 재생을 지원하지 않습니다.
                     </audio>
                 </div>
@@ -2393,10 +2405,28 @@
                 playPauseBtn.style.background = 'var(--golden-brown)';
             });
 
+            // 오디오 로딩 상태 표시
+            audio.addEventListener('loadstart', () => {
+                console.log('오디오 파일 로딩 시작...');
+                playPauseBtn.disabled = true;
+                playPauseBtn.style.opacity = '0.5';
+            });
+
             audio.addEventListener('loadedmetadata', () => {
+                console.log('오디오 메타데이터 로드 완료');
                 const duration = audio.duration;
                 totalTimeDisplay.textContent = formatTime(duration);
                 progressSlider.max = duration;
+                playPauseBtn.disabled = false;
+                playPauseBtn.style.opacity = '1';
+            });
+
+            // 오디오 에러 처리
+            audio.addEventListener('error', (e) => {
+                console.error('오디오 로딩 에러:', e);
+                playPauseBtn.disabled = true;
+                playPauseBtn.style.opacity = '0.5';
+                alert('오디오 파일을 로드할 수 없습니다. 네트워크 연결을 확인해주세요.');
             });
 
             audio.addEventListener('timeupdate', () => {
@@ -2794,6 +2824,7 @@
         
         // Initialize all functionality when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('페이지 로드 완료, 오디오 플레이어 초기화 중...');
             initCustomAudioPlayer();
             initEyeMovement();
             initMobileMenu();
