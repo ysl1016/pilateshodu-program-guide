@@ -1348,6 +1348,7 @@
                     <span style="font-family: 'Manrope', sans-serif; color: var(--golden-brown); margin-left: 0.25rem; font-weight: 700;">HODU</span>
                 </div>
                 <div class="hidden md:flex space-x-4">
+                    <a href="#ai-guide" class="nav-link">AI 가이드</a>
                     <a href="#pain-rehab" class="nav-link">통증재활</a>
                     <a href="#mannequin-tone" class="nav-link">마네킹톤</a>
                     <a href="#flat-scol" class="nav-link">플랫스콜</a>
@@ -1355,7 +1356,6 @@
                     <a href="#kids" class="nav-link">키즈</a>
                     <a href="#prenatal" class="nav-link">프리내털</a>
                     <a href="#senior" class="nav-link">시니어</a>
-                    <a href="#ai-guide" class="nav-link">AI 가이드</a>
                 </div>
                 
                 <!-- Mobile Menu Button -->
@@ -1380,6 +1380,10 @@
                     </button>
                 </div>
                 <div class="mobile-menu-content">
+                    <a href="#ai-guide" class="mobile-nav-link">
+                        <i class="fas fa-robot"></i>
+                        AI 가이드
+                    </a>
                     <a href="#pain-rehab" class="mobile-nav-link">
                         <i class="fas fa-heart"></i>
                         통증재활
@@ -1407,10 +1411,6 @@
                     <a href="#senior" class="mobile-nav-link">
                         <i class="fas fa-user-graduate"></i>
                         시니어
-                    </a>
-                    <a href="#ai-guide" class="mobile-nav-link">
-                        <i class="fas fa-robot"></i>
-                        AI 가이드
                     </a>
                 </div>
             </div>
@@ -1463,6 +1463,13 @@
                     편안하게 앉아서 전문 강사의 상세한 설명을 들어보세요.
                 </p>
                 
+                <!-- 숨겨진 오디오 요소 -->
+                <audio id="ai-guide-audio" preload="auto" crossorigin="anonymous">
+                    <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/mp4">
+                    <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/m4a">
+                    브라우저가 오디오 재생을 지원하지 않습니다.
+                </audio>
+
                 <!-- 최적화된 커스텀 오디오 플레이어 -->
                 <div class="custom-audio-player">
                     <div class="audio-header">
@@ -2600,7 +2607,17 @@
         
         // 오디오 플레이어 초기화 함수
         function initAudioPlayer() {
+            console.log('오디오 플레이어 초기화 시작...');
             const audio = document.getElementById('ai-guide-audio');
+            
+            if (!audio) {
+                console.error('오디오 요소를 찾을 수 없습니다!');
+                return;
+            }
+            
+            console.log('오디오 요소 찾음:', audio);
+            console.log('오디오 소스:', audio.src);
+            console.log('오디오 readyState:', audio.readyState);
             const playPauseBtn = document.getElementById('play-pause-btn');
             const playPauseIcon = playPauseBtn.querySelector('i');
             const progressFill = document.getElementById('progress-fill');
@@ -2646,10 +2663,12 @@
             });
 
             audio.addEventListener('loadstart', () => {
+                console.log('오디오 로딩 시작...');
                 playPauseBtn.classList.add('loading');
             });
 
             audio.addEventListener('loadedmetadata', () => {
+                console.log('오디오 메타데이터 로드 완료, 길이:', audio.duration);
                 const duration = audio.duration;
                 totalTimeDisplay.textContent = formatTime(duration);
                 progressSlider.max = duration;
