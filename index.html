@@ -218,15 +218,76 @@
             margin: 0 auto 1.5rem;
             border-radius: 0.5rem;
             background: var(--soft-cream);
+            /* 안드로이드 호환성을 위한 추가 스타일 */
+            -webkit-appearance: none;
+            appearance: none;
+            height: 60px;
+            cursor: pointer;
         }
         
+        /* Webkit 브라우저 (Chrome, Safari) 스타일 */
         .audio-player::-webkit-media-controls-panel {
             background: var(--soft-cream);
+            border-radius: 0.5rem;
         }
         
         .audio-player::-webkit-media-controls-play-button {
             background: var(--golden-brown);
             border-radius: 50%;
+        }
+        
+        .audio-player::-webkit-media-controls-timeline {
+            background: var(--warm-beige);
+            border-radius: 0.25rem;
+            height: 8px;
+        }
+        
+        .audio-player::-webkit-media-controls-current-time-display,
+        .audio-player::-webkit-media-controls-time-remaining-display {
+            color: var(--deep-navy);
+            font-weight: 600;
+        }
+        
+        /* Firefox 브라우저 스타일 */
+        .audio-player::-moz-range-track {
+            background: var(--warm-beige);
+            border-radius: 0.25rem;
+            height: 8px;
+        }
+        
+        .audio-player::-moz-range-thumb {
+            background: var(--golden-brown);
+            border: none;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        
+        /* 안드로이드 기본 오디오 컨트롤 강제 표시 */
+        .audio-player::-webkit-media-controls {
+            display: flex !important;
+            opacity: 1 !important;
+        }
+        
+        .audio-player::-webkit-media-controls-timeline {
+            display: block !important;
+            opacity: 1 !important;
+        }
+        
+        /* 모바일 디바이스에서 진행 바 강제 표시 */
+        @media (max-width: 768px) {
+            .audio-player {
+                height: 70px;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+            
+            .audio-player::-webkit-media-controls-timeline {
+                display: block !important;
+                opacity: 1 !important;
+                height: 12px;
+            }
         }
         
         .audio-info {
@@ -369,6 +430,12 @@
         
         .smooth-scroll {
             scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* 네비게이션 헤더 높이 + 여백 */
+        }
+        
+        /* 스크롤 타겟 섹션에 대한 추가 스타일 */
+        .program-card {
+            scroll-margin-top: 100px; /* 스크롤 시 상단 여백 확보 */
         }
         
         strong {
@@ -409,65 +476,127 @@
             transition: all 0.3s ease;
         }
         
+        /* 햄버거 메뉴 애니메이션 제거 - 항상 동일한 모양 유지 */
         .mobile-menu-btn.active .hamburger-line:nth-child(1) {
-            transform: rotate(45deg) translate(6px, 6px);
-            background: var(--soft-cream) !important;
+            transform: none;
+            background: var(--deep-navy);
         }
         
         .mobile-menu-btn.active .hamburger-line:nth-child(2) {
-            opacity: 0;
-            background: var(--soft-cream) !important;
+            opacity: 1;
+            background: var(--deep-navy);
         }
         
         .mobile-menu-btn.active .hamburger-line:nth-child(3) {
-            transform: rotate(-45deg) translate(6px, -6px);
-            background: var(--soft-cream) !important;
+            transform: none;
+            background: var(--deep-navy);
         }
         
         .mobile-menu {
             position: fixed;
             top: 0;
-            left: 0;
-            width: 100%;
+            left: -300px; /* 좌측에서 시작하여 숨김 */
+            width: 300px; /* 메뉴 너비 조정 */
             height: 100vh;
-            background: rgba(0, 31, 63, 0.95);
+            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--golden-brown) 100%);
             z-index: 999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column;
+            overflow-y: auto;
         }
         
         .mobile-menu.active {
-            opacity: 1;
-            visibility: visible;
+            left: 0; /* 좌측에서 슬라이드 인 */
+        }
+        
+        .mobile-menu-header {
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .mobile-menu-title {
+            color: var(--soft-cream);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
         }
         
         .mobile-menu-content {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 2rem;
+            padding: 1rem 0;
+            flex: 1;
         }
         
         .mobile-nav-link {
             color: var(--soft-cream);
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 500;
             text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 0.5rem;
+            padding: 1rem 1.5rem;
             transition: all 0.3s ease;
-            text-align: center;
-            min-width: 200px;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
         
-        .mobile-nav-link:hover {
-            background: var(--golden-brown);
+        .mobile-nav-link:hover,
+        .mobile-nav-link:active {
+            background: rgba(255, 255, 255, 0.1);
             color: var(--soft-cream);
-            transform: translateY(-2px);
+            border-left-color: var(--golden-brown);
+            transform: translateX(5px);
+        }
+        
+        .mobile-nav-link i {
+            width: 20px;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--soft-cream);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        /* 모바일 메뉴 오버레이 */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
         
         /* Floating Top Button */
@@ -551,17 +680,50 @@
                 </div>
             </div>
             
+            <!-- Mobile Menu Overlay -->
+            <div id="mobile-menu-overlay" class="mobile-menu-overlay"></div>
+            
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="mobile-menu">
+                <div class="mobile-menu-header">
+                    <h3 class="mobile-menu-title">메뉴</h3>
+                    <button id="mobile-menu-close" class="mobile-menu-close" title="메뉴 닫기">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
                 <div class="mobile-menu-content">
-                    <a href="#pain-rehab" class="mobile-nav-link">통증재활</a>
-                    <a href="#mannequin-tone" class="mobile-nav-link">마네킹톤</a>
-                    <a href="#flat-scol" class="mobile-nav-link">플랫스콜</a>
-                    <a href="#golf" class="mobile-nav-link">골프</a>
-                    <a href="#kids" class="mobile-nav-link">키즈</a>
-                    <a href="#prenatal" class="mobile-nav-link">프리내털</a>
-                    <a href="#senior" class="mobile-nav-link">시니어</a>
-                    <a href="#ai-guide" class="mobile-nav-link">AI 가이드</a>
+                    <a href="#pain-rehab" class="mobile-nav-link">
+                        <i class="fas fa-heart"></i>
+                        통증재활
+                    </a>
+                    <a href="#mannequin-tone" class="mobile-nav-link">
+                        <i class="fas fa-dumbbell"></i>
+                        마네킹톤
+                    </a>
+                    <a href="#flat-scol" class="mobile-nav-link">
+                        <i class="fas fa-user-md"></i>
+                        플랫스콜
+                    </a>
+                    <a href="#golf" class="mobile-nav-link">
+                        <i class="fas fa-golf-ball"></i>
+                        골프
+                    </a>
+                    <a href="#kids" class="mobile-nav-link">
+                        <i class="fas fa-child"></i>
+                        키즈
+                    </a>
+                    <a href="#prenatal" class="mobile-nav-link">
+                        <i class="fas fa-baby"></i>
+                        프리내털
+                    </a>
+                    <a href="#senior" class="mobile-nav-link">
+                        <i class="fas fa-user-graduate"></i>
+                        시니어
+                    </a>
+                    <a href="#ai-guide" class="mobile-nav-link">
+                        <i class="fas fa-robot"></i>
+                        AI 가이드
+                    </a>
                 </div>
             </div>
             </div>
@@ -1189,9 +1351,13 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // 네비게이션 헤더의 높이를 고려하여 스크롤 위치 조정
+                    const headerHeight = document.querySelector('.nav-header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20; // 20px 여백 추가
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -1281,32 +1447,83 @@
         function initMobileMenu() {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
             const mobileMenuLinks = document.querySelectorAll('.mobile-nav-link');
             
-            if (!mobileMenuBtn || !mobileMenu) return;
+            if (!mobileMenuBtn || !mobileMenu || !mobileMenuOverlay) return;
             
             // Toggle mobile menu
             mobileMenuBtn.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
-                mobileMenuBtn.classList.toggle('active');
-                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+                mobileMenu.classList.add('active');
+                mobileMenuOverlay.classList.add('active');
+                mobileMenuBtn.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
+            
+            // Close mobile menu functions
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            // Close button
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', closeMobileMenu);
+            }
+            
+            // Overlay click to close
+            mobileMenuOverlay.addEventListener('click', closeMobileMenu);
             
             // Close mobile menu when clicking on links
             mobileMenuLinks.forEach(link => {
                 link.addEventListener('click', function() {
-                    mobileMenu.classList.remove('active');
-                    mobileMenuBtn.classList.remove('active');
-                    document.body.style.overflow = '';
+                    closeMobileMenu();
+                    
+                    // 모바일 메뉴 닫힌 후 스크롤 위치 조정
+                    setTimeout(() => {
+                        const href = this.getAttribute('href');
+                        if (href && href.startsWith('#')) {
+                            const target = document.querySelector(href);
+                            if (target) {
+                                const headerHeight = document.querySelector('.nav-header').offsetHeight;
+                                const targetPosition = target.offsetTop - headerHeight - 20;
+                                
+                                window.scrollTo({
+                                    top: targetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                    }, 300); // 메뉴가 닫힌 후 스크롤 실행
                 });
             });
             
-            // Close mobile menu when clicking outside
-            mobileMenu.addEventListener('click', function(e) {
-                if (e.target === mobileMenu) {
-                    mobileMenu.classList.remove('active');
-                    mobileMenuBtn.classList.remove('active');
-                    document.body.style.overflow = '';
+            // Close on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+            
+            // Close on swipe left (for mobile)
+            let startX = 0;
+            let currentX = 0;
+            
+            mobileMenu.addEventListener('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+            });
+            
+            mobileMenu.addEventListener('touchmove', function(e) {
+                currentX = e.touches[0].clientX;
+            });
+            
+            mobileMenu.addEventListener('touchend', function(e) {
+                const swipeDistance = startX - currentX;
+                if (swipeDistance > 50) { // 왼쪽으로 스와이프
+                    closeMobileMenu();
                 }
             });
         }
@@ -1341,11 +1558,91 @@
             toggleTopButton();
         }
         
+        // Audio player compatibility enhancement
+        function initAudioPlayer() {
+            const audioPlayer = document.getElementById('ai-guide-audio');
+            
+            if (!audioPlayer) return;
+            
+            // 안드로이드 및 모바일 디바이스에서 진행 바 강제 표시
+            function ensureControlsVisibility() {
+                // 진행 바가 보이지 않는 경우 강제로 표시
+                const timeline = audioPlayer.querySelector('::-webkit-media-controls-timeline');
+                if (timeline) {
+                    timeline.style.display = 'block';
+                    timeline.style.opacity = '1';
+                }
+                
+                // 오디오 컨트롤 전체가 보이도록 강제
+                const controls = audioPlayer.querySelector('::-webkit-media-controls');
+                if (controls) {
+                    controls.style.display = 'flex';
+                    controls.style.opacity = '1';
+                }
+            }
+            
+            // 오디오 로드 완료 후 컨트롤 표시 확인
+            audioPlayer.addEventListener('loadedmetadata', function() {
+                ensureControlsVisibility();
+                
+                // 안드로이드에서 진행 바가 보이지 않는 경우를 위한 추가 처리
+                setTimeout(ensureControlsVisibility, 100);
+                setTimeout(ensureControlsVisibility, 500);
+            });
+            
+            // 오디오 재생 시작 시 컨트롤 표시 확인
+            audioPlayer.addEventListener('play', function() {
+                ensureControlsVisibility();
+            });
+            
+            // 터치 이벤트로 진행 바 표시 강제
+            audioPlayer.addEventListener('touchstart', function() {
+                ensureControlsVisibility();
+            });
+            
+            // 클릭 이벤트로 진행 바 표시 강제
+            audioPlayer.addEventListener('click', function() {
+                ensureControlsVisibility();
+            });
+            
+            // 안드로이드 디바이스 감지 및 특별 처리
+            function isAndroid() {
+                return /Android/i.test(navigator.userAgent);
+            }
+            
+            if (isAndroid()) {
+                // 안드로이드에서 추가적인 컨트롤 표시 보장
+                audioPlayer.addEventListener('canplay', function() {
+                    ensureControlsVisibility();
+                });
+                
+                // 안드로이드에서 진행 바 스타일 강제 적용
+                const style = document.createElement('style');
+                style.textContent = `
+                    #ai-guide-audio::-webkit-media-controls-timeline {
+                        display: block !important;
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        height: 12px !important;
+                        background: #F5F1E8 !important;
+                        border-radius: 6px !important;
+                    }
+                    #ai-guide-audio::-webkit-media-controls {
+                        display: flex !important;
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        
         // Initialize all functionality when page loads
         document.addEventListener('DOMContentLoaded', function() {
             initEyeMovement();
             initMobileMenu();
             initFloatingTopBtn();
+            initAudioPlayer();
         });
     </script>
 </body>
