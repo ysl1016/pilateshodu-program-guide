@@ -990,6 +990,11 @@
     flex: 1;
     max-width: 120px;
     position: relative;
+    /* 볼륨 슬라이더 컨테이너 시각적 개선 */
+    padding: 0.25rem;
+    border-radius: 0.5rem;
+    background: rgba(153, 101, 21, 0.03);
+    border: 1px solid rgba(153, 101, 21, 0.08);
 }
 
 .volume-range {
@@ -1003,6 +1008,10 @@
     -webkit-appearance: none;
     appearance: none;
     transition: all 0.2s ease;
+    /* 모바일에서 더 명확하게 보이도록 개선 */
+    min-height: 20px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .volume-range:focus {
@@ -1020,6 +1029,9 @@
     border: 2px solid white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease;
+    /* 모바일에서 더 명확하게 보이도록 개선 */
+    min-height: 20px;
+    touch-action: manipulation;
 }
 
 .volume-range::-webkit-slider-thumb:hover {
@@ -1030,6 +1042,21 @@
     transform: scale(1.1);
 }
 
+/* 볼륨 슬라이더 트랙 스타일 개선 */
+.volume-range::-webkit-slider-track {
+    background: rgba(153, 101, 21, 0.1);
+    border-radius: 0.25rem;
+    height: 0.5rem;
+    border: 1px solid rgba(153, 101, 21, 0.2);
+}
+
+.volume-range::-moz-range-track {
+    background: rgba(153, 101, 21, 0.1);
+    border-radius: 0.25rem;
+    height: 0.5rem;
+    border: 1px solid rgba(153, 101, 21, 0.2);
+}
+
 .volume-range::-moz-range-thumb {
     width: 1.2rem;
     height: 1.2rem;
@@ -1038,6 +1065,8 @@
     cursor: pointer;
     border: 2px solid white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    /* 모바일에서 더 명확하게 보이도록 개선 */
+    min-height: 20px;
 }
 
 
@@ -1126,17 +1155,29 @@
     }
     
     .volume-slider {
-        max-width: 100px;
-        min-width: 80px;
+        max-width: 120px;
+        min-width: 100px;
+        /* 모바일에서 볼륨 슬라이더 영역을 더 명확하게 표시 */
+        background: rgba(153, 101, 21, 0.05);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid rgba(153, 101, 21, 0.1);
     }
     
     .volume-range {
-        height: 0.6rem;
+        height: 0.8rem;
+        /* 모바일에서 볼륨 바를 더 명확하게 표시 */
+        background: rgba(153, 101, 21, 0.2);
+        border: 2px solid rgba(153, 101, 21, 0.3);
+        border-radius: 0.4rem;
     }
     
     .volume-range::-webkit-slider-thumb {
-        width: 1.4rem;
-        height: 1.4rem;
+        width: 1.6rem;
+        height: 1.6rem;
+        /* 모바일에서 썸을 더 명확하게 표시 */
+        border: 3px solid white;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     }
     
     .volume-btn {
@@ -1167,6 +1208,27 @@
     
     .audio-subtitle {
         font-size: 1rem;
+    }
+    
+    /* 작은 모바일에서 볼륨 슬라이더 최적화 */
+    .volume-slider {
+        max-width: 100px;
+        min-width: 80px;
+        padding: 0.4rem;
+    }
+    
+    .volume-range {
+        height: 0.7rem;
+    }
+    
+    .volume-range::-webkit-slider-thumb {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    
+    .volume-btn {
+        width: 2.8rem;
+        height: 2.8rem;
     }
     
     .audio-controls {
