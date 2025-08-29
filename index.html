@@ -599,16 +599,30 @@
             visibility: visible;
         }
         
-        /* 커스텀 오디오 플레이어 스타일 */
-.custom-audio-player {
-    background: linear-gradient(135deg, var(--warm-beige) 0%, #f8f4f0 100%);
-    border-radius: 1.25rem;
-    padding: 2rem;
-    box-shadow: 0 12px 40px rgba(153, 101, 21, 0.12);
-    border: 1px solid rgba(153, 101, 21, 0.08);
-    margin: 2.5rem 0;
-    max-width: 100%;
-}
+        /* 기본 오디오 플레이어 중앙 정렬 */
+        .simple-audio-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+        }
+        
+        .simple-audio-player {
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        /* PC 대화면에서 오디오 플레이어 완전 중앙 정렬 */
+        @media (min-width: 1024px) {
+            .simple-audio-container {
+                margin: 3rem auto;
+                max-width: 800px;
+            }
+            
+            .simple-audio-player {
+                max-width: 700px;
+            }
+        }
 
 /* PC 버전 최적화 */
 .audio-header {
@@ -1443,69 +1457,15 @@
                 </p>
                 
                 <!-- 숨겨진 오디오 요소 -->
-                <audio id="ai-guide-audio" preload="auto" crossorigin="anonymous">
-                    <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/mp4">
-                    <source src="https://ysl1016.github.io/pilateshodu-program-guide/data/pilateshodu-program-guide.m4a" type="audio/m4a">
-                    브라우저가 오디오 재생을 지원하지 않습니다.
-                </audio>
-
-                <!-- 최적화된 커스텀 오디오 플레이어 -->
-                <div class="custom-audio-player">
-                    <div class="audio-header">
-                        <div class="audio-info">
-                            <h4 class="audio-title">필라테스, 통증부터 치매 예방까지!</h4>
-                            <p class="audio-subtitle">7가지 맞춤형 케어의 핵심 원리 파헤치기</p>
-                            <p class="audio-duration">전문 강사 상세 해설</p>
-                        </div>
-                        <div class="audio-controls">
-                            <button class="play-pause-btn" id="play-pause-btn">
-                                <i class="fas fa-play"></i>
-                            </button>
-                            <div class="playback-speed">
-                                <select id="speed-selector">
-                                    <option value="0.5">0.5x</option>
-                                    <option value="0.75">0.75x</option>
-                                    <option value="1" selected>1.0x</option>
-                                    <option value="1.25">1.25x</option>
-                                    <option value="1.5">1.5x</option>
-                                    <option value="2">2.0x</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="audio-progress">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="progress-fill"></div>
-                            <input type="range" class="progress-slider" id="progress-slider" min="0" max="100" value="0" step="0.1">
-                        </div>
-                        <div class="time-display">
-                            <span class="current-time" id="current-time">0:00</span>
-                            <span class="total-time" id="total-time">0:00</span>
-                        </div>
-                    </div>
-                    
-                    <div class="audio-controls-secondary">
-                        <div class="skip-controls">
-                            <button class="skip-btn" id="skip-backward" title="10초 뒤로">
-                                <i class="fas fa-backward"></i>
-                                <span class="skip-text">10초</span>
-                            </button>
-                            <button class="skip-btn" id="skip-forward" title="10초 앞으로">
-                                <span class="skip-text">10초</span>
-                                <i class="fas fa-forward"></i>
-                            </button>
-                        </div>
-                        <div class="audio-volume">
-                            <div class="volume-slider">
-                                <input type="range" class="volume-range" id="volume-range" min="0" max="100" value="70" step="5">
-                            </div>
-                            <button class="volume-btn" id="volume-btn" type="button">
-                                <i class="fas fa-volume-up"></i>
-                            </button>
-                        </div>
-                    </div>
+                <!-- 기본 오디오 플레이어 -->
+                <div class="simple-audio-container">
+                    <audio controls preload="auto" class="simple-audio-player">
+                        <source src="https://raw.githubusercontent.com/ysl1016/pilateshodu-program-guide/main/data/pilateshodu-program-guide.m4a" type="audio/mp4">
+                        브라우저가 오디오 재생을 지원하지 않습니다.
+                    </audio>
                 </div>
+
+
 
                 <!-- 사용자 경험 안내 문구 추가 -->
                 <div class="audio-usage-tip mt-6 text-center">
@@ -2335,7 +2295,6 @@
         
         // 오디오 플레이어 초기화 함수
         function initAudioPlayer() {
-            console.log('오디오 플레이어 초기화 시작...');
             const audio = document.getElementById('ai-guide-audio');
             
             if (!audio) {
@@ -2343,9 +2302,6 @@
                 return;
             }
             
-            console.log('오디오 요소 찾음:', audio);
-            console.log('오디오 소스:', audio.src);
-            console.log('오디오 readyState:', audio.readyState);
             const playPauseBtn = document.getElementById('play-pause-btn');
             const playPauseIcon = playPauseBtn.querySelector('i');
             const progressFill = document.getElementById('progress-fill');
@@ -2445,13 +2401,12 @@
             let volumeTouchStartValue = 0;
             
             volumeRange.addEventListener('mousedown', () => {
-                console.log('볼륨 슬라이더 마우스 다운');
+                // 볼륨 슬라이더 마우스 이벤트
             });
 
             volumeRange.addEventListener('touchstart', (e) => {
                 volumeTouchStart = e.touches[0].clientY;
                 volumeTouchStartValue = parseFloat(volumeRange.value);
-                console.log('볼륨 슬라이더 터치 시작');
             });
             
             volumeRange.addEventListener('touchmove', (e) => {
@@ -2483,8 +2438,6 @@
                     isMuted = false;
                     localStorage.setItem('audioMuted', 'false');
                 }
-                
-                console.log('볼륨 슬라이더 변경 완료:', e.target.value, '볼륨:', volume);
             });
 
             // 재생/일시정지 토글
@@ -2824,7 +2777,7 @@
             initEyeMovement();
             initMobileMenu();
             initFloatingTopBtn();
-            initAudioPlayer();
+            // initAudioPlayer(); // 커스텀 플레이어 제거됨
 
         });
     </script>
