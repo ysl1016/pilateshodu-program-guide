@@ -2364,6 +2364,7 @@
             // 볼륨 동기화 및 초기 설정
             let systemVolume = 0.7;
             let lastUserVolume = 0.7;
+            let isMuted = false;
             
             // 저장된 볼륨 설정 불러오기
             const savedVolume = localStorage.getItem('audioVolume');
@@ -2375,6 +2376,15 @@
                 audio.volume = 0.7;
                 volumeRange.value = 70;
             }
+            
+            // 저장된 음소거 상태 불러오기
+            const savedMuteState = localStorage.getItem('audioMuted');
+            if (savedMuteState === 'true') {
+                isMuted = true;
+                audio.volume = 0;
+                volumeRange.value = 0;
+            }
+            
             updateVolumeIcon(audio.volume);
             
             // MediaSession API 지원 확인 및 설정
@@ -2391,6 +2401,13 @@
                     const newVolume = Math.min(1, audio.volume + 0.1);
                     audio.volume = newVolume;
                     volumeRange.value = newVolume * 100;
+                    
+                    // 볼륨을 올리면 음소거 상태 해제
+                    if (isMuted && newVolume > 0) {
+                        isMuted = false;
+                        localStorage.setItem('audioMuted', 'false');
+                    }
+                    
                     updateVolumeIcon(newVolume);
                     localStorage.setItem('audioVolume', newVolume.toString());
                 });
@@ -2399,6 +2416,13 @@
                     const newVolume = Math.max(0, audio.volume - 0.1);
                     audio.volume = newVolume;
                     volumeRange.value = newVolume * 100;
+                    
+                    // 볼륨을 내리면 음소거 상태 해제
+                    if (isMuted && newVolume > 0) {
+                        isMuted = false;
+                        localStorage.setItem('audioMuted', 'false');
+                    }
+                    
                     updateVolumeIcon(newVolume);
                     localStorage.setItem('audioVolume', newVolume.toString());
                 });
@@ -2440,12 +2464,27 @@
                 const volume = newValue / 100;
                 audio.volume = volume;
                 lastUserVolume = volume;
+                
+                // 볼륨 슬라이더를 조작하면 음소거 상태 해제
+                if (isMuted && volume > 0) {
+                    isMuted = false;
+                    localStorage.setItem('audioMuted', 'false');
+                }
+                
                 updateVolumeIcon(volume);
                 localStorage.setItem('audioVolume', volume.toString());
             });
             
             volumeRange.addEventListener('change', (e) => {
-                console.log('볼륨 슬라이더 변경 완료:', e.target.value);
+                const volume = parseFloat(e.target.value) / 100;
+                
+                // 볼륨 슬라이더를 조작하면 음소거 상태 해제
+                if (isMuted && volume > 0) {
+                    isMuted = false;
+                    localStorage.setItem('audioMuted', 'false');
+                }
+                
+                console.log('볼륨 슬라이더 변경 완료:', e.target.value, '볼륨:', volume);
             });
 
             // 재생/일시정지 토글
@@ -2583,18 +2622,22 @@
                 e.preventDefault();
                 e.stopPropagation();
                 
-                if (audio.volume > 0) {
-                    // 현재 볼륨을 저장하고 음소거
+                if (!isMuted) {
+                    // 음소거: 현재 볼륨을 저장하고 음소거
                     lastUserVolume = audio.volume;
+                    isMuted = true;
                     audio.volume = 0;
                     volumeRange.value = 0;
                     updateVolumeIcon(0);
+                    localStorage.setItem('audioMuted', 'true');
                     console.log('음소거됨, 저장된 볼륨:', lastUserVolume);
                 } else {
-                    // 저장된 볼륨으로 복원
+                    // 음소거 해제: 저장된 볼륨으로 복원
+                    isMuted = false;
                     audio.volume = lastUserVolume;
-                    volumeRange.value = lastUserVolume * 100;
+                    volumeRange.value = lastUserVolume;
                     updateVolumeIcon(lastUserVolume);
+                    localStorage.setItem('audioMuted', 'false');
                     console.log('음소거 해제, 볼륨 복원:', lastUserVolume);
                 }
             });
@@ -2706,6 +2749,13 @@
                         const newVolumeUp = Math.min(1, audio.volume + 0.1);
                         audio.volume = newVolumeUp;
                         volumeRange.value = newVolumeUp * 100;
+                        
+                        // 볼륨을 올리면 음소거 상태 해제
+                        if (isMuted && newVolumeUp > 0) {
+                            isMuted = false;
+                            localStorage.setItem('audioMuted', 'false');
+                        }
+                        
                         updateVolumeIcon(newVolumeUp);
                         localStorage.setItem('audioVolume', newVolumeUp.toString());
                         break;
@@ -2714,6 +2764,13 @@
                         const newVolumeDown = Math.max(0, audio.volume - 0.1);
                         audio.volume = newVolumeDown;
                         volumeRange.value = newVolumeDown * 100;
+                        
+                        // 볼륨을 내리면 음소거 상태 해제
+                        if (isMuted && newVolumeDown > 0) {
+                            isMuted = false;
+                            localStorage.setItem('audioMuted', 'false');
+                        }
+                        
                         updateVolumeIcon(newVolumeDown);
                         localStorage.setItem('audioVolume', newVolumeDown.toString());
                         break;
